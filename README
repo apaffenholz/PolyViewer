@@ -1,0 +1,60 @@
+/***********************************************************************
+ * Created by Andreas Paffenholz on 04/18/12.
+ * Copyright 2012 by Andreas Paffenholz. 
+ 
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation; either version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl.txt.
+ 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * README
+ * PolyViewer
+ **************************************************************************/
+
+PolyViewer is a simple reader for files created by polymake (polymake.org) 
+released under the GPL.
+
+You can create a simple interface to a polymake session by saving the following lines
+
+#-------------------------------------------------------------
+
+sub polyviewer {
+
+  my $p = shift;
+  my $t = new Tempfile;
+  open (my $outfile, ">$t.poly")  or die "can't create temporary file $tempname.in: $!";
+  print $outfile $p->toXMLstring;
+  close($outfile);
+ 
+  system("open -a /Applications/PolyViewer.app file://$t.poly");
+
+  sleep 1;
+}
+
+#-------------------------------------------------------------
+
+into a file. If you load this into polymake with the command
+
+script("<path-to-the/file>");
+
+then the command 
+
+polyviewer($p);
+
+will open the polymake object $p (a polytope, fan, simplicial complex,...) in the viewer. 
+Note however that there is no continuing connection between the viewer and polymake, so the
+file will not be updated, you have to call polyviewer($p) again.
+
+If you add the line
+
+@lookup_scripts("<path-to-your-script>");
+
+specifying the path to the directory containing the script to "$HOME/.polymake/prefer.pl" 
+then you can omit the path in the script command. If the script should be loaded into every 
+polymake session you can put the above script command into the "package polymake::common" section 
+of "$HOME/.polymake/prefer.pl"
