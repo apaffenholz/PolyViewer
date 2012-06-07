@@ -18,16 +18,15 @@
 
 
 #import <Cocoa/Cocoa.h>
-
+#import "PolymakeTag.h"
 
 @interface PropertyXMLNode : NSObject {
 	NSXMLNode * _xmlNode;
 	NSString *  _name;
 	NSArray *   _children;
-	NSAttributedString * _value;
+	PolymakeTag * _value;
 	
 	BOOL hasValue;
-	BOOL isSimpleProperty;
 	BOOL isObject;
 	BOOL isLeaf;
 }
@@ -36,17 +35,18 @@
 - (id) initWithXMLNode:(NSXMLNode *)xmlNode;
 - (NSArray *)children;
 
-- (NSString *)formatMTagXMLElement:(NSXMLElement *)xmlElement;
-- (NSString *)formatVTagXMLElement:(NSXMLElement *)xmlElement withSeparator:(BOOL)separator;
-- (NSString *)formatTTagXMLElement:(NSXMLElement *)xmlElement;
-- (NSString *)formatETagXMLElement:(NSXMLElement *)xmlElement;
+
+- (PolymakeTag *)readMTagXMLElement:(NSXMLElement *)xmlElement;
+- (PolymakeTag *)readETagXMLElement:(NSXMLElement *)xmlElement;
+- (PolymakeTag *)readVTagXMLElement:(NSXMLElement *)xmlElement withSeparator:(BOOL)separator;
+- (PolymakeTag *)readTTagXMLElement:(NSXMLElement *)xmlElement;
+
 
 @property (readonly,copy) NSXMLNode * XMLNode;
-@property (readonly,copy) NSAttributedString * value;
+@property (readonly,copy) PolymakeTag * value;
 @property (readonly,copy) NSString * name;
 @property (readonly)      NSArray * children;
 @property (readonly)      BOOL hasValue;
-@property (readonly)      BOOL isSimpleProperty;
 @property (readonly)      BOOL isObject;
 @property (readonly)      BOOL isLeaf;
 

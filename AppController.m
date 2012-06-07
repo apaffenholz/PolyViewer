@@ -24,7 +24,6 @@
 -(id)init {
 	self = [super init];
 	return self;
-	
 }
 
 @synthesize preferencesController = _preferencesController;

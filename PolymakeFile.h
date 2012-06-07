@@ -16,19 +16,21 @@
  * PolyViewer
  **************************************************************************/
 
-
 #import <Cocoa/Cocoa.h>
 #import "PolymakeObject.h"
 #import "ValueLineNumberView.h"
 #import "PropertyView.h"
 
+extern NSString * const PVValueFormattingDidChangeNotification;
+
 @interface PolymakeFile : NSDocument <NSOutlineViewDataSource,NSTableViewDelegate> {
 	
 		// class variables
 	NSString           * _lastOpenDialogStartDirectory;
-	NSAttributedString * _currentPropertyText;
+	NSString * _currentPropertyText;
 	PolymakeObject     * _polyObj;
 	PropertyXMLNode    *_rootNode;
+	BOOL                _alignedColumns;
 	
 		// main window
 	IBOutlet NSScrollView        * _valueScrollView;
@@ -42,14 +44,23 @@
 	IBOutlet NSTextField         * _name;	
 	IBOutlet NSSlider            * _fontSizeSlider;
 	IBOutlet NSTextView          * _descriptionView;
+	IBOutlet NSButton            * _alignedColumnsBox;
 	
 }
 
 @property (readwrite,copy) NSString * lastOpenDialogStartDirectory;
 @property (readonly) PolymakeObject * polymakeObject;
+@property (readwrite,assign) BOOL alignedColumns;
 
 - (IBAction)closePoly:(id)sender;
+- (IBAction)fixAlignedColumns:(id)sender;
 
 - (void)redrawValueTextView;
+- (NSString *)formatPropertyNodeValue:(NSArray *)tvalue withAlignedCols:(BOOL)align;
+- (NSString *)formatTTag:(PolymakeTag *)tTag withColumnAlignment:(NSArray *)columnWidths;
+- (NSString *)formatTTag:(PolymakeTag *)tTag withAlignedCols:(BOOL)aligned;
+- (NSString *)formatMTag:(PolymakeTag *)mTag withAlignedCols:(BOOL)align  subTagStart:(NSString *)stStart subTagEnd:(NSString *)stEnd andEntrySeparator:(NSString *)separator;
+- (NSString *)formatVTag:(PolymakeTag *)vTag withColumnAlignment:(NSArray *)columnWidths;
+- (NSString *)formatETag:(PolymakeTag *)eTag;
 
 @end

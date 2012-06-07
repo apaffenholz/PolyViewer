@@ -19,11 +19,15 @@
 
 #import "PolymakeFile.h"
 #import "AppWindowController.h"
+#import "PropertyXMLNode.h"
+
+NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDidChange";
 
 @implementation PolymakeFile
 
 @synthesize lastOpenDialogStartDirectory = _lastOpenDialogStartDirectory;
 @synthesize polymakeObject = _polyObj;
+@synthesize alignedColumns = _alignedColumns;
 
 
 # pragma mark init
@@ -35,13 +39,18 @@
 			_rootNode = nil;
 			_polyObj = nil;
 			_currentPropertyText = nil;
+			_alignedColumns = NO;
 			
 			// the directory shown in the file open dialog
 			// initially this should point to the users $HOME
 			[self setLastOpenDialogStartDirectory:NSHomeDirectory()];
 
 		
-		[	[NSNotificationCenter defaultCenter] addObserver:self 
+			[	[NSNotificationCenter defaultCenter] addObserver:self 
+																								selector:@selector(redrawValueTextViewWrapper:) 
+																										name:PVValueFormattingDidChangeNotification 
+																									object:nil];
+			[	[NSNotificationCenter defaultCenter] addObserver:self 
 																								selector:@selector(redrawValueTextViewWrapper:) 
 																										name:NSOutlineViewSelectionDidChangeNotification 
 																									object:nil];
@@ -73,16 +82,6 @@
 	controller = [[AppWindowController alloc] initWithWindowNibName: @"PolyViewer" owner: self];
 	[self addWindowController: controller];
 }
-
-/*
-- (void)addWindowController:(NSWindowController *)aController {
-	
-}
-
-- (NSString *)windowNibName {
-    return @"PolyViewer";
-}
- */
 
 - (void)windowControllerDidLoadNib:(NSWindowController *) aController {
 	[super windowControllerDidLoadNib:aController];
@@ -147,16 +146,14 @@
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
 	}
 	return nil;
-}
+}  
 
-
+	// input
 - (BOOL)readFromURL:(NSURL *)input ofType:(NSString *)typeName error:(NSError **)outError {
 	_polyObj = [[PolymakeObject alloc] init];
 	[_polyObj	initObjectWithURL:input];
 	return YES;
 }
-
-
 
 
 	// the close button on the main window should just close the window
@@ -165,8 +162,17 @@
 }
 
 
-# pragma mark PropertyView
+	// aligned columns for matrices
+- (IBAction)fixAlignedColumns:(id)sender {
+  if ( [_alignedColumnsBox state] == 0 )
+		_alignedColumns = NO;
+	else 
+		_alignedColumns = YES;
+	[[NSNotificationCenter defaultCenter] postNotificationName:PVValueFormattingDidChangeNotification object:nil];	
+}
 
+
+# pragma mark PropertyView
 
 /*********************************************************************
  * methods for _propertyView
@@ -223,6 +229,245 @@
 
 #pragma mark _ValueTextView
 
+
+/*********************************************************************
+ * formatting properties 
+ **********************************************************************/
+
+	// format a tag of type <e>
+- (NSString *)formatETag:(PolymakeTag *)eTag {
+
+	if ( [eTag isEmpty] )
+		return [NSString stringWithString:@"<empty tuple>"];
+
+	NSMutableString * value = [[[NSMutableString alloc] init] autorelease];
+	
+	if ( [eTag hasAttributes] ) {
+			// this can only be an <i> attribute containing a coordinate
+			// we format this as (coord,value)
+		[value appendFormat:@"(%@,", [[eTag attributes] objectForKey:@"i"]];
+		for ( NSString * entry in [eTag data] )
+			[value appendFormat:@"%@", entry];			
+		[value appendString:@")"];
+	} else {
+			// the tag should just contain a single value
+			// stored in the data array
+		for ( NSString * entry in [eTag data] )
+			[value appendFormat:@"%@ ", entry];			
+	}
+	
+	return [NSString stringWithString:value];
+}
+
+
+	// format a tag of type <t> that has subtags
+	// each tag element will be enclosed in  (...)
+	// each subtag of <t> will be enclosed in {...}
+	// FIXME we should introduce indentation to separate subtags
+- (NSString *)formatTTag:(PolymakeTag *)tTag withAlignedCols:(BOOL)aligned {
+	
+	if ( [tTag isEmpty] )
+		return [NSString stringWithString:@"<empty tuple>"];
+	
+	NSMutableString * value = [[[NSMutableString alloc] init] autorelease];
+	
+	[value appendString:@"(\n"];
+	for ( PolymakeTag * entry in [tTag data] ) {
+		
+		switch ( [entry type] ) {
+
+			case PVVTag:
+				if ( aligned ) 
+					[value appendFormat:@"  <%@>\n", [self formatVTag:entry withColumnAlignment:[tTag columnWidths]]];
+				else 
+					[value appendFormat:@"  <%@>\n", [self formatVTag:entry withColumnAlignment:nil]];
+				break;
+
+			case PVETag:
+				[value appendFormat:@"  <%@>\n", [self formatETag:entry]];
+				break;
+
+			case PVTTag:
+				if ( aligned ) 
+					[value appendFormat:@"  <%@>\n", [self formatTTag:entry withColumnAlignment:[tTag columnWidths]]];
+				else 
+					[value appendFormat:@"  <%@>\n", [self formatTTag:entry withColumnAlignment:nil]];
+				break;
+
+			case PVMTag:
+				if ( aligned ) 
+					[value appendFormat:@"  <%@>\n", [self formatMTag:entry withAlignedCols:aligned subTagStart:@"{" subTagEnd:@"}" andEntrySeparator:@", "]];
+				else 
+					[value appendFormat:@"  <%@>\n", [self formatMTag:entry withAlignedCols:aligned subTagStart:@"{" subTagEnd:@"}" andEntrySeparator:@", "]];
+				break;
+
+			default:
+				break;
+		}
+		
+	}  // end of loop over tTag data
+	[value appendString:@")\n"];		
+	return [NSString stringWithString:value];
+}
+	
+
+	// format a <t> tag that has a string array as data
+- (NSString *)formatTTag:(PolymakeTag *)tTag withColumnAlignment:(NSArray *)columnWidths {
+	
+	if ( [tTag isEmpty] )
+		return [NSString stringWithString:@"<empty tuple>"];
+	
+	NSMutableString * value = [[[NSMutableString alloc] init] autorelease];
+	
+	
+	if ( columnWidths != nil )
+		for ( unsigned i = 0; i < [[tTag data] count]; ++i ) {
+			NSString * format = [NSString stringWithFormat:@"%%%ds", [[columnWidths objectAtIndex:i] intValue]+1];
+				[value appendFormat:format, [[[tTag data] objectAtIndex:i] UTF8String]];
+			}
+		else
+			for ( NSString * entry in [tTag data] )
+				[value appendFormat:@"%@ ", entry];
+		
+		return [NSString stringWithString:value];
+	}
+	
+
+	// format an <m> tag 
+	// according to its specification, an <m> tag can only have PolymakeTags as children, no strings
+	// the PolymakeTags are of type <v> (maybe sparse), <m>, or <t>
+- (NSString *)formatMTag:(PolymakeTag *)mTag withAlignedCols:(BOOL)aligned 
+						 subTagStart:(NSString *)stStart 
+							 subTagEnd:(NSString *)stEnd  
+			 andEntrySeparator:(NSString *)separator {
+	
+	if ( [mTag isEmpty] )
+		return [NSString stringWithString:@"<empty matrix>"];
+		
+	NSMutableString * value = [[[NSMutableString alloc] init] autorelease];
+	BOOL first = YES;
+	for ( PolymakeTag * entry in [mTag data] ) {
+		switch ( [entry type] ) {
+			case PVVTag:
+				if ( aligned ) {
+					if ( first ) {
+						first = NO;
+						[value appendFormat:@"%@%@%@", stStart, [self formatVTag:entry withColumnAlignment:[mTag columnWidths]], stEnd];
+					} else {
+						[value appendFormat:@"%@%@%@%@", separator, stStart, [self formatVTag:entry withColumnAlignment:[mTag columnWidths]], stEnd];					
+					}
+				} else {
+					if ( first )	{
+						first = NO;
+						[value appendFormat:@"%@%@%@", stStart, [self formatVTag:entry withColumnAlignment:nil], stEnd];
+					} else {
+						[value appendFormat:@"%@%@%@%@", separator, stStart, [self formatVTag:entry withColumnAlignment:nil], stEnd];
+					}
+				}
+				break;
+		
+			case PVMTag: 
+				if ( first ) {
+					first = NO;
+					[value appendFormat:@"%@%@%@", stStart, [self formatMTag:entry withAlignedCols:aligned subTagStart:@"" subTagEnd:@"" andEntrySeparator:@"\n"], stEnd];
+				} else {
+					[value appendFormat:@"%@%@%@%@", separator, stStart, [self formatMTag:entry withAlignedCols:aligned subTagStart:@"" subTagEnd:@"" andEntrySeparator:@"\n"], stEnd];
+				}
+				break;
+				
+			case PVTTag:
+				if ( [entry hasSubTags] ) {
+					if ( first ) {
+						first = NO;
+						[value appendFormat:@"%@%@%@", stStart, [self formatTTag:entry withAlignedCols:aligned],stEnd];				
+					} else {
+						[value appendFormat:@"%@%@%@%@", separator, stStart, [self formatTTag:entry withAlignedCols:aligned],stEnd];									
+					}
+				} else {
+					if ( aligned ) {
+						if ( first ) {
+							first = NO;
+							[value appendFormat:@"%@%@%@", stStart, [self formatTTag:entry withColumnAlignment:[mTag columnWidths]], stEnd];
+						} else {
+							[value appendFormat:@"%@%@%@%@", separator, stStart, [self formatTTag:entry withColumnAlignment:[mTag columnWidths]], stEnd];						
+						}
+					} else {
+						if ( first ) {
+							first = NO;					
+							[value appendFormat:@"%@%@%@", stStart, [self formatTTag:entry withColumnAlignment:nil], stEnd];
+						} else {
+							[value appendFormat:@"%@%@%@%@", separator, stStart, [self formatTTag:entry withColumnAlignment:nil], stEnd];						
+						}
+					}
+				}
+				break;
+	
+			default:
+				break;
+				
+		}
+	}
+	
+	return [NSString stringWithString:value];
+}
+
+	// format a <v> tag
+	// we need to distinguish whether the tag has subtags or not
+	// in the former case it is a sparse vector
+- (NSString *)formatVTag:(PolymakeTag *)vTag withColumnAlignment:(NSArray *)columnWidths {
+
+	if ( [vTag isEmpty] )
+		return [NSString stringWithString:@"<empty vector>"];
+	
+	NSMutableString * value = [[[NSMutableString alloc] init] autorelease];
+	if ( [vTag hasSubTags] ) {   // found a sparse vector
+		for ( PolymakeTag * eTag in [vTag data] )
+			[value appendFormat:@"%@ ", [self formatETag:eTag]];
+	} else {				
+		if ( columnWidths != nil )
+			for ( unsigned i = 0; i < [[vTag data] count]; ++i ) {
+				NSString * format = [NSString stringWithFormat:@"%%%ds", [[columnWidths objectAtIndex:i] intValue]+1];
+				[value appendFormat:format, [[[vTag data] objectAtIndex:i] UTF8String]];
+			}
+		else
+			for ( NSString * entry in [vTag data] )
+				[value appendFormat:@"%@ ", entry];
+	}
+
+	
+	return [NSString stringWithString:value];
+}
+
+
+	// the basic formmating function called by the textview 
+	// formats the whole property
+- (NSString *)formatPropertyNodeValue:(NSArray *)tvalue withAlignedCols:(BOOL)aligned {
+
+	NSMutableString * value = [[[NSMutableString alloc] init] autorelease];
+	
+	for ( PolymakeTag * ptag in tvalue ) {
+	  switch ( [ptag type] ) {
+				
+			case PVVTag:
+				[value appendString:[self formatVTag:ptag withColumnAlignment:nil]]; 
+				break;
+
+			case PVMTag:
+				[value appendString:[self formatMTag:ptag withAlignedCols:aligned  subTagStart:@"" subTagEnd:@"" andEntrySeparator:@"\n"]]; 
+				break;
+
+			case PVTTag:
+				[value appendString:[self formatTTag:ptag withColumnAlignment:nil]]; 
+				break;
+				
+			default:
+				break;
+		}
+	}
+	
+	return [NSString stringWithString:value];
+}
+
 /*********************************************************************
  * methods for _valueTextView 
  * methods overwritten from base class
@@ -238,11 +483,22 @@
 		// get the property
 	if ( selectedItem != nil ) {
 		PropertyXMLNode * propNode = (PropertyXMLNode *)selectedItem;
-		_currentPropertyText = [[NSMutableAttributedString alloc] initWithAttributedString:[propNode value]];
-		[_valueTextView setString:[NSString stringWithString:[[propNode value] string]]];
+		if ( [[propNode value] isEmpty] ) {
+		  _currentPropertyText = [[NSString alloc] initWithString:@"<empty property>"];	
+		} else {
+			if ( [propNode isLeaf] ) {
+				if ( [propNode hasValue] )
+					_currentPropertyText = [[NSString alloc] initWithString:[[propNode value] objectAtIndex:0]];
+				else
+					_currentPropertyText = [[NSString alloc] initWithString:[self formatPropertyNodeValue:[[propNode value] data] withAlignedCols:_alignedColumns]];
+			} else {
+				_currentPropertyText = [[NSString alloc] initWithString:@"<select a sub-property>"];
+			}
+		}
+		[_valueTextView setString:_currentPropertyText];
 	} else {  // okay, nothing is selected, so clear the view
 		NSString * attrString = [[NSString alloc] initWithString:@"<empty>"];
-		_currentPropertyText = [[NSMutableString alloc] initWithString:attrString];
+		_currentPropertyText = [[NSString alloc] initWithString:attrString];
 		[_valueTextView setString:attrString];
 		[attrString release];
 	}
@@ -273,7 +529,7 @@
  * methods overwritten from base class
  *********************************************************************/
 
-
+/****************/
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tv {
 	if ( _polyObj != nil ) 
 		return [[_polyObj credits] count];
@@ -282,17 +538,19 @@
 	return 0;
 }
 
+/****************/
 - (id)tableView:(NSTableView *)tv objectValueForTableColumn:(NSTableColumn *)column row:(NSInteger) row {
 	NSString * value = [NSString stringWithString:(NSString *)[[[_polyObj credits] allKeys] objectAtIndex:row]];
 	return value;
 }
 
 
+/****************/
 - (void)tableView:(NSTableView *)tv setObjectValue:(id)item forTableColumn:(NSTableColumn *)column row:(NSInteger)row {
 	item = [NSString stringWithString:(NSString *)[[[_polyObj credits] allKeys] objectAtIndex:row]];
 }
 
-
+/****************/
 - (void) tableViewSelectionDidChange: (NSNotification *) notification {
 	int row = [_creditTable selectedRow];
 	
