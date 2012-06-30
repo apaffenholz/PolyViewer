@@ -148,14 +148,21 @@
 
 	PolymakeTag * vTag = [[PolymakeTag alloc] initWithType:PVVTag];
 	
-	NSArray * children = [xmlElement nodesForXPath:@"./e" error:nil];	
-	if ( [children count] != 0 ) { // we have found a sparse vector
+	NSArray * eChildren = [xmlElement nodesForXPath:@"./e" error:nil];	
+	NSArray * tChildren = [xmlElement nodesForXPath:@"./t" error:nil];	// this happens for quadratic extensions
+	if ( [eChildren count] != 0 ) { // we have found a sparse vector
 		[vTag setHasSubTags:YES];	
-		for ( NSXMLElement * e in children ) 
+		for ( NSXMLElement * e in eChildren ) 
 			[vTag addSubTag:[self readETagXMLElement:e]];
 	} else {
-		[vTag setHasSubTags:NO];
-		[vTag setData:[NSMutableArray arrayWithArray:[[xmlElement stringValue] componentsSeparatedByString:@" "]]];
+		if ( [tChildren count] != 0 ) {
+			[vTag setHasSubTags:YES];	
+			for ( NSXMLElement * t in tChildren ) 
+				[vTag addSubTag:[self readTTagXMLElement:t]];			
+		} else {
+			[vTag setHasSubTags:NO];
+			[vTag setData:[NSMutableArray arrayWithArray:[[xmlElement stringValue] componentsSeparatedByString:@" "]]];
+		}
 	}
 	
 	return vTag;
@@ -184,19 +191,35 @@
 
 	// read a <t> tag
 	// remember that <t> tags can either contain text like <v> tags, or have subproperties of any type
+	// a <t> Tag cannot have attributes
 - (PolymakeTag *)readTTagXMLElement:(NSXMLElement *)xmlElement {
 	PolymakeTag * tTag = [[PolymakeTag alloc] initWithType:PVTTag];
 	
 	NSArray * children = [xmlElement nodesForXPath:@"./v | ./m | ./t | ./e" error:nil];	
 	
 	if ( [children count] == 0 ) { // we found a tuple with value (maybe empty)
-		
+			                           // it might still be a quad extension matrix
+
 		[tTag setHasSubTags:NO];
+
+		NSArray * iAttr = [xmlElement attributes];
+		if ( [iAttr count] != 0 ) { // we have found a sparse representation of a QuadraticExtension
+			
+			[tTag setHasAttributes:YES];
+			NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+			for ( NSXMLElement * a in iAttr )
+				[dict setObject:[a stringValue] forKey:[a name]];
+			[tTag setAttributes:dict];
+			
+		} else {
+
+			[tTag setHasAttributes:NO];
+		}
 		
 		if ( [[xmlElement stringValue] length] == 0 )
 			[tTag addSubTag:[NSString stringWithString:@""]]; 
 		else {
-			
+		
 			[tTag setData:[NSMutableArray arrayWithArray:[[xmlElement stringValue] componentsSeparatedByString:@" "]]];
 		}
 		return tTag;
@@ -227,6 +250,12 @@
 	// compute the values of a property
 	// remember that this is not done during initialization
 	// but only if the user requests that property for display
+
+	//FIXME we currently don't read:
+	// - attachments
+	//   an attachment can have attributes: name, type (required) and ext, value (not required)
+	// - markes for extensions
+	// we might want to read the time stamp
 - (PolymakeTag *)value {
 
 	if ( _value == nil ) {

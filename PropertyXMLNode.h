@@ -21,9 +21,9 @@
 #import "PolymakeTag.h"
 
 @interface PropertyXMLNode : NSObject {
-	NSXMLNode * _xmlNode;
-	NSString *  _name;
-	NSArray *   _children;
+	NSXMLNode   * _xmlNode;
+	NSString    * _name;
+	NSArray     * _children;
 	PolymakeTag * _value;
 	
 	BOOL hasValue;

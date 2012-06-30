@@ -57,7 +57,11 @@ extern NSString * const PVValueFormattingDidChangeNotification;
 
 - (void)redrawValueTextView;
 - (NSString *)formatPropertyNodeValue:(NSArray *)tvalue withAlignedCols:(BOOL)align;
-- (NSString *)formatTTag:(PolymakeTag *)tTag withColumnAlignment:(NSArray *)columnWidths;
+- (NSString *)formatTTag:(PolymakeTag *)tTag 
+		 withColumnAlignment:(NSArray *)columnWidths 
+						 subTagStart:(NSString *)subStart 
+							 subTagEnd:(NSString *)subEnd 
+			 andEntrySeparator:(NSString *)entrySep;
 - (NSString *)formatTTag:(PolymakeTag *)tTag withAlignedCols:(BOOL)aligned;
 - (NSString *)formatMTag:(PolymakeTag *)mTag withAlignedCols:(BOOL)align  subTagStart:(NSString *)stStart subTagEnd:(NSString *)stEnd andEntrySeparator:(NSString *)separator;
 - (NSString *)formatVTag:(PolymakeTag *)vTag withColumnAlignment:(NSArray *)columnWidths;

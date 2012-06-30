@@ -270,7 +270,7 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 		return [NSString stringWithString:@"<empty tuple>"];
 	
 	NSMutableString * value = [[[NSMutableString alloc] init] autorelease];
-	
+
 	[value appendString:@"(\n"];
 	for ( PolymakeTag * entry in [tTag data] ) {
 		
@@ -289,9 +289,13 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 
 			case PVTTag:
 				if ( aligned ) 
-					[value appendFormat:@"  <%@>\n", [self formatTTag:entry withColumnAlignment:[tTag columnWidths]]];
+					[value appendFormat:@"  %@\n", [self formatTTag:entry 
+																			withColumnAlignment:[tTag columnWidths] 
+																							subTagStart:@"<" subTagEnd:@">" andEntrySeparator:@" "]];
 				else 
-					[value appendFormat:@"  <%@>\n", [self formatTTag:entry withColumnAlignment:nil]];
+					[value appendFormat:@"  %@\n", [self formatTTag:entry 
+																			withColumnAlignment:nil
+																							subTagStart:@"<" subTagEnd:@">" andEntrySeparator:@" "]];
 				break;
 
 			case PVMTag:
@@ -312,7 +316,11 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 	
 
 	// format a <t> tag that has a string array as data
-- (NSString *)formatTTag:(PolymakeTag *)tTag withColumnAlignment:(NSArray *)columnWidths {
+- (NSString *)formatTTag:(PolymakeTag *)tTag 
+		 withColumnAlignment:(NSArray *)columnWidths 
+						 subTagStart:(NSString *)subStart 
+							 subTagEnd:(NSString *)subEnd 
+			 andEntrySeparator:(NSString *)entrySep {
 	
 	if ( [tTag isEmpty] )
 		return [NSString stringWithString:@"<empty tuple>"];
@@ -320,17 +328,38 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 	NSMutableString * value = [[[NSMutableString alloc] init] autorelease];
 	
 	
-	if ( columnWidths != nil )
+	if ( columnWidths != nil ) {
 		for ( unsigned i = 0; i < [[tTag data] count]; ++i ) {
 			NSString * format = [NSString stringWithFormat:@"%%%ds", [[columnWidths objectAtIndex:i] intValue]+1];
 				[value appendFormat:format, [[[tTag data] objectAtIndex:i] UTF8String]];
 			}
-		else
-			for ( NSString * entry in [tTag data] )
-				[value appendFormat:@"%@ ", entry];
-		
-		return [NSString stringWithString:value];
-	}
+ } else {
+	 if ( [tTag hasAttributes] ) { // we assume that we have found a sparse representation of a QuadraticExtension
+		 [value appendFormat:@"(%@,", [[tTag attributes] objectForKey:@"i"]];
+		 BOOL first = YES;
+		 for ( NSString * entry in [tTag data] ) {
+			 if ( first ) { 
+				 first = NO;
+	 			 [value appendFormat:@"%@%@", subStart, entry];			
+			 } else {
+			 [value appendFormat:@"%@%@", entrySep, entry];			
+			 }
+		 }
+		 [value appendFormat:@"%@)",subEnd];		 
+	 } else {
+		BOOL first = YES;
+		for ( NSString * entry in [tTag data] ) 
+			if ( first ) { 
+				first = NO;
+				[value appendFormat:@"%@%@", subStart, entry];			
+			} else {
+				[value appendFormat:@"%@%@", entrySep, entry];			
+			}
+		[value appendFormat:@"%@", subEnd];		 
+	 }
+ }
+	return [NSString stringWithString:value];
+}
 	
 
 	// format an <m> tag 
@@ -387,16 +416,32 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 					if ( aligned ) {
 						if ( first ) {
 							first = NO;
-							[value appendFormat:@"%@%@%@", stStart, [self formatTTag:entry withColumnAlignment:[mTag columnWidths]], stEnd];
+							[value appendFormat:@"%@%@%@", stStart, [self formatTTag:entry
+																									 withColumnAlignment:[mTag columnWidths]
+																													 subTagStart:@"" 
+																														 subTagEnd:@"" 
+																										 andEntrySeparator:@""], stEnd];
 						} else {
-							[value appendFormat:@"%@%@%@%@", separator, stStart, [self formatTTag:entry withColumnAlignment:[mTag columnWidths]], stEnd];						
+							[value appendFormat:@"%@%@%@%@", separator, stStart, [self formatTTag:entry
+																																withColumnAlignment:[mTag columnWidths]
+																																				subTagStart:@"" 
+																																					subTagEnd:@"" 
+																																	andEntrySeparator:@""], stEnd];
 						}
 					} else {
 						if ( first ) {
 							first = NO;					
-							[value appendFormat:@"%@%@%@", stStart, [self formatTTag:entry withColumnAlignment:nil], stEnd];
+							[value appendFormat:@"%@%@%@", stStart, [self formatTTag:entry 
+																									 withColumnAlignment:nil 
+																													 subTagStart:@"" 
+																														 subTagEnd:@"" 
+																										 andEntrySeparator:@""], stEnd];
 						} else {
-							[value appendFormat:@"%@%@%@%@", separator, stStart, [self formatTTag:entry withColumnAlignment:nil], stEnd];						
+							[value appendFormat:@"%@%@%@%@", separator, stStart, [self formatTTag:entry 
+																																withColumnAlignment:nil
+																																				subTagStart:@"" 
+																																					subTagEnd:@"" 
+																																	andEntrySeparator:@""], stEnd];
 						}
 					}
 				}
@@ -420,10 +465,29 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 		return [NSString stringWithString:@"<empty vector>"];
 	
 	NSMutableString * value = [[[NSMutableString alloc] init] autorelease];
+	
 	if ( [vTag hasSubTags] ) {   // found a sparse vector
-		for ( PolymakeTag * eTag in [vTag data] )
-			[value appendFormat:@"%@ ", [self formatETag:eTag]];
-	} else {				
+		                           // or a Quadraticextension (that might itself be a sparse vector)
+		
+		for ( PolymakeTag * tag in [vTag data] ) {
+			switch ( [tag type] ) {
+
+				case PVTTag:
+					[value appendFormat:@"%@ ", [self formatTTag:tag withColumnAlignment:nil 
+																					 subTagStart:@"(" 
+																						 subTagEnd:@")" 
+																		 andEntrySeparator:@","]];
+					break;
+				
+				case PVETag:
+					[value appendFormat:@"%@ ", [self formatETag:tag]];
+					break;
+					
+				default:
+					break;
+			}
+		}
+	} else {
 		if ( columnWidths != nil )
 			for ( unsigned i = 0; i < [[vTag data] count]; ++i ) {
 				NSString * format = [NSString stringWithFormat:@"%%%ds", [[columnWidths objectAtIndex:i] intValue]+1];
@@ -457,7 +521,10 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 				break;
 
 			case PVTTag:
-				[value appendString:[self formatTTag:ptag withColumnAlignment:nil]]; 
+				[value appendString:[self formatTTag:ptag withColumnAlignment:nil  
+																 subTagStart:@"" 
+																	 subTagEnd:@"" 
+													 andEntrySeparator:@""]];
 				break;
 				
 			default:
