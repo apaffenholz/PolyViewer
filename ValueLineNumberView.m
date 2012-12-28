@@ -156,7 +156,7 @@
 		// okay, lets cheat: we need the width of our number, 
 		// as in bibtex, we use 8 as a placeholder for the max width of a char
 		// maybe we should create a string of the proper length? are there spaces between chars?
-	NSSize numberSize = [[NSString stringWithString:@"8"] sizeWithAttributes:[self fontAttributes]];
+	NSSize numberSize = [@"8" sizeWithAttributes:[self fontAttributes]];
 		// the width should actually only jump if it is really necessary, so 
 		// by default we want to have a bar that can cope with at least ROW_NUMBER_MIN_DIGITS digits.
 	NSUInteger max = MAX(ROW_NUMBERS_DEFAULT_MIN_DIGITS,nDigits);

@@ -238,7 +238,7 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 - (NSString *)formatETag:(PolymakeTag *)eTag {
 
 	if ( [eTag isEmpty] )
-		return [NSString stringWithString:@"<empty tuple>"];
+		return @"<empty tuple>";
 
 	NSMutableString * value = [[[NSMutableString alloc] init] autorelease];
 	
@@ -267,7 +267,7 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 - (NSString *)formatTTag:(PolymakeTag *)tTag withAlignedCols:(BOOL)aligned {
 	
 	if ( [tTag isEmpty] )
-		return [NSString stringWithString:@"<empty tuple>"];
+		return @"<empty tuple>";
 	
 	NSMutableString * value = [[[NSMutableString alloc] init] autorelease];
 
@@ -323,7 +323,7 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 			 andEntrySeparator:(NSString *)entrySep {
 	
 	if ( [tTag isEmpty] )
-		return [NSString stringWithString:@"<empty tuple>"];
+		return @"<empty tuple>";
 	
 	NSMutableString * value = [[[NSMutableString alloc] init] autorelease];
 	
@@ -371,7 +371,7 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 			 andEntrySeparator:(NSString *)separator {
 	
 	if ( [mTag isEmpty] )
-		return [NSString stringWithString:@"<empty matrix>"];
+		return @"<empty matrix>";
 		
 	NSMutableString * value = [[[NSMutableString alloc] init] autorelease];
 	BOOL first = YES;
@@ -462,7 +462,7 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 - (NSString *)formatVTag:(PolymakeTag *)vTag withColumnAlignment:(NSArray *)columnWidths {
 
 	if ( [vTag isEmpty] )
-		return [NSString stringWithString:@"<empty vector>"];
+		return @"<empty vector>";
 	
 	NSMutableString * value = [[[NSMutableString alloc] init] autorelease];
 	

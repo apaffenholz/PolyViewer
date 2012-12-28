@@ -217,7 +217,7 @@
 		}
 		
 		if ( [[xmlElement stringValue] length] == 0 )
-			[tTag addSubTag:[NSString stringWithString:@""]]; 
+			[tTag addSubTag:@""]; 
 		else {
 		
 			[tTag setData:[NSMutableArray arrayWithArray:[[xmlElement stringValue] componentsSeparatedByString:@" "]]];

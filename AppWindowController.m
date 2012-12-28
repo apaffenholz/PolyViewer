@@ -24,7 +24,7 @@
 
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
-	NSString * title = [NSString stringWithString:@"<no name given>"];
+	NSString * title = @"<no name given>";
 	if ( [self document] != nil ) {
 		title = [[[self document] polymakeObject] name];
 	}

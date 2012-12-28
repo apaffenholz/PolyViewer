@@ -75,7 +75,7 @@
 	if ( [rootTypeAttr count] > 0 ) 
 		_objectType = [NSString stringWithString:[[rootTypeAttr objectAtIndex:0] stringValue]];
 	else 
-		_objectType = [NSString stringWithString:@""];
+		_objectType = @"";
 	
 
 		// check whether the polymake object has a name
@@ -84,7 +84,7 @@
 	if ( [rootAttr count] > 0 ) 
 		_name = [NSString stringWithString:[[rootAttr objectAtIndex:0] stringValue]];
 	else 
-		_name = [NSString stringWithString:@""];
+		_name = @"";
 	
 	
 		// check whether the polytope has a description
@@ -93,7 +93,7 @@
 	if ( [rootDescr count] > 0 ) 
 		_description = [NSString stringWithString:[[rootDescr objectAtIndex:0] stringValue]];
 	else 
-		_description = [NSString stringWithString:@"<no description given>"];
+		_description = @"<no description given>";
 
 		// read in the credits
 		// they are stored as properties below the root
