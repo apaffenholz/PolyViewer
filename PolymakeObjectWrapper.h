@@ -1,5 +1,5 @@
 /***********************************************************************
- * Created by Andreas Paffenholz on 18/01/14.
+ * Created by Andreas Paffenholz on 01/07/14.
  * Copyright 2012-2014 by Andreas Paffenholz.
  
  * This program is free software; you can redistribute it and/or modify it
@@ -12,23 +12,29 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * PolymakeTag.h
+ * PolymakeObjectWrapper.h
  * PolyViewer
  **************************************************************************/
 
-
 #import <Foundation/Foundation.h>
-
-@interface PolymakeTag : NSObject {
-    
-    NSString        * _data;
-    BOOL              _isEmpty;          // true if _data is empty
-	NSMutableArray  * _columnWidths;     // the widths of the columns for alignment. though always computed this is currently only useful for matrices
-}
+#import "PolymakeInstanceWrapper.h"
 
 
-@property (readwrite,retain) NSString * data;
-@property (readwrite,assign) BOOL isEmpty;
-@property (readonly,retain)  NSMutableArray * columnWidths;
+@interface PolymakeObjectWrapper : NSObject
+
+- (void)initWithPolymakeInstance:(PolymakeInstanceWrapper *)pinst
+                     andPolytope:(NSString *)filename;
+
+- (id)initWithPolymakeObject:(PolymakeObjectWrapper *)polyObj
+                     andProperty:(NSString *)prop;
+
+
+- (id)initWithPolymakeObject:(NSString *)filename;
+- (NSString *)getObjectType;
+- (NSString *)getObjectName;
+- (NSString *)getObjectDescription;
+- (NSString *)getProperty:(NSString *)name;
+- (PolymakeObjectWrapper *)getSubobject:(NSString *)name;
+- (NSArray *)getPropertyListAtRootLevel;
 
 @end

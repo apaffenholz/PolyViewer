@@ -1,6 +1,6 @@
 /***********************************************************************
  * Created by Andreas Paffenholz on 04/18/12.
- * Copyright 2012 by Andreas Paffenholz. 
+ * Copyright 2012-2014 by Andreas Paffenholz. 
  
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -20,18 +20,21 @@
 #import "PolymakeObject.h"
 #import "ValueLineNumberView.h"
 #import "PropertyView.h"
+#import "PolymakeObjectWrapper.h"
+#import "PropertyNode.h"
+#import "PolymakeObject.h"
 
 extern NSString * const PVValueFormattingDidChangeNotification;
 
 @interface PolymakeFile : NSDocument <NSOutlineViewDataSource,NSTableViewDelegate> {
 	
 		// class variables
-	NSString           * _lastOpenDialogStartDirectory;
+	NSString * _lastOpenDialogStartDirectory;
 	NSString * _currentPropertyText;
-	PolymakeObject     * _polyObj;
-	PropertyXMLNode    *_rootNode;
-	BOOL                _alignedColumns;
-	
+
+    PolymakeObject  * _polyObj;
+	BOOL              _alignedColumns;
+    	
 		// main window
 	IBOutlet NSScrollView        * _valueScrollView;
 	IBOutlet PropertyView        * _propertyView;
@@ -56,15 +59,5 @@ extern NSString * const PVValueFormattingDidChangeNotification;
 - (IBAction)fixAlignedColumns:(id)sender;
 
 - (void)redrawValueTextView;
-- (NSString *)formatPropertyNodeValue:(NSArray *)tvalue withAlignedCols:(BOOL)align;
-- (NSString *)formatTTag:(PolymakeTag *)tTag 
-		 withColumnAlignment:(NSArray *)columnWidths 
-						 subTagStart:(NSString *)subStart 
-							 subTagEnd:(NSString *)subEnd 
-			 andEntrySeparator:(NSString *)entrySep;
-- (NSString *)formatTTag:(PolymakeTag *)tTag withAlignedCols:(BOOL)aligned;
-- (NSString *)formatMTag:(PolymakeTag *)mTag withAlignedCols:(BOOL)align  subTagStart:(NSString *)stStart subTagEnd:(NSString *)stEnd andEntrySeparator:(NSString *)separator;
-- (NSString *)formatVTag:(PolymakeTag *)vTag withColumnAlignment:(NSArray *)columnWidths;
-- (NSString *)formatETag:(PolymakeTag *)eTag;
 
 @end

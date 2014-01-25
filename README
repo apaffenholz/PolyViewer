@@ -1,6 +1,6 @@
 /***********************************************************************
  * Created by Andreas Paffenholz on 04/18/12.
- * Copyright 2012 by Andreas Paffenholz. 
+ * Copyright 2012-2014 by Andreas Paffenholz.
  
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -19,42 +19,33 @@
 PolyViewer is a simple reader for files created by polymake (polymake.org) 
 released under the GPL.
 
-You can create a simple interface to a polymake session by saving the following lines
+Building PolyViewer requires that polymake-config can be found in your path (son in particular, polymake must be installed). 
+So either place this in /usr/bin, or add 
 
-#-------------------------------------------------------------
+export PATH=$PATH:/path/to/your/polymake-convig
 
-sub polyviewer {
+to the file 
 
-  my $p = shift;
-  my $t = new Tempfile;
-  open (my $outfile, ">$t.poly")  or die "can't create temporary file $tempname.in: $!";
-  print $outfile $p->toXMLstring;
-  close($outfile);
- 
-  system("open -a /Applications/PolyViewer.app file://$t.poly");
+.bash_profile
 
-  sleep 1;
-}
+in your $HOME folder
 
-#-------------------------------------------------------------
+For this reason there is currently no precompiled version of PolyViewer: 
+  Pathes are hardcoded into the project after compilation, so if your polymake is in a different location than mine it won't work.
 
-into a file. If you load this into polymake with the command
+--- 
 
-script("<path-to-the/file>");
+internal notes
 
-then the command 
-
-polyviewer($p);
-
-will open the polymake object $p (a polytope, fan, simplicial complex,...) in the viewer. 
-Note however that there is no continuing connection between the viewer and polymake, so the
-file will not be updated, you have to call polyviewer($p) again.
-
-If you add the line
-
-@lookup_scripts("<path-to-your-script>");
-
-specifying the path to the directory containing the script to "$HOME/.polymake/prefer.pl" 
-then you can omit the path in the script command. If the script should be loaded into every 
-polymake session you can put the above script command into the "package polymake::common" section 
-of "$HOME/.polymake/prefer.pl"
+- including libpolymake requires
+  - appropriate compiler/linker flags
+  - the preprocessor macro: __ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0 to avoid conflicts with functions starting with two underscores:
+     full quote from AsserMacros.h
+     *	A future release of Mac OS X will no longer do this, and will require that clients move to the
+     *  new macros as defined above.  However, in the interim both the new and old macros will work, unless
+     *  clients define a macro __ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES before this file is included
+     *  in their compilations.  Clients who do not want the older macros defined can accomplish this by adding
+     *    #define __ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES 0
+     *  at the top of their sources, or my adding -D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0 to the
+     *  gcc compilation options.
+     

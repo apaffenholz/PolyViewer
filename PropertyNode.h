@@ -1,6 +1,6 @@
 /***********************************************************************
- * Created by Andreas Paffenholz on 04/18/12.
- * Copyright 2012 by Andreas Paffenholz. 
+ * Created by Andreas Paffenholz on 01/08/14.
+ * Copyright 2012-2014 by Andreas Paffenholz.
  
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,42 +12,41 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * PropertyXMLNode.h
+ * PropertyNode.h
  * PolyViewer
  **************************************************************************/
 
-
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import "PolymakeTag.h"
+#import "PolymakeObjectWrapper.h"
 
-@interface PropertyXMLNode : NSObject {
-	NSXMLNode   * _xmlNode;
-	NSString    * _name;
-	NSArray     * _children;
-	PolymakeTag * _value;
-	
-	BOOL hasValue;
-	BOOL isObject;
-	BOOL isLeaf;
+@interface PropertyNode : NSObject {
+
+    PolymakeObjectWrapper * _polyObj;
+    NSString              * _name;
+    NSArray               * _children;
+    PolymakeTag           * _value;
+
+    BOOL                  hasValue;
+    BOOL                  isObject;
+    BOOL                  isLeaf;
+    BOOL                  isMultiple;
 }
 
-- (id) initRootWithXMLNode:(NSXMLNode *)xmlNode;
-- (id) initWithXMLNode:(NSXMLNode *)xmlNode;
+
 - (NSArray *)children;
 
-
-- (PolymakeTag *)readMTagXMLElement:(NSXMLElement *)xmlElement;
-- (PolymakeTag *)readETagXMLElement:(NSXMLElement *)xmlElement;
-- (PolymakeTag *)readVTagXMLElement:(NSXMLElement *)xmlElement withSeparator:(BOOL)separator;
-- (PolymakeTag *)readTTagXMLElement:(NSXMLElement *)xmlElement;
+- (id)initWithName:(NSString *)name andObj:(id) polyObj asObject:(BOOL) isObj asMultiple:(BOOL) isMult asLeaf:(BOOL) isLeaf;
+- (id)initWithObject:(PolymakeObjectWrapper *)polyObj;
 
 
-@property (readonly,copy) NSXMLNode * XMLNode;
+@property (readonly)      PolymakeObjectWrapper * polyObj;
 @property (readonly,copy) PolymakeTag * value;
 @property (readonly,copy) NSString * name;
 @property (readonly)      NSArray * children;
-@property (readonly)      BOOL hasValue;
+@property (readonly)      BOOL hasValue;        
 @property (readonly)      BOOL isObject;
 @property (readonly)      BOOL isLeaf;
+@property (readonly)      BOOL isMultiple;
 
 @end

@@ -1,6 +1,6 @@
 /***********************************************************************
  * Created by Andreas Paffenholz on 04/18/12.
- * Copyright 2012 by Andreas Paffenholz. 
+ * Copyright 2012-2014 by Andreas Paffenholz. 
  
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -17,17 +17,19 @@
  **************************************************************************/
  
 #import <Cocoa/Cocoa.h>
-#import "PropertyXMLNode.h"
+#import "PolymakeInstanceWrapper.h"
+#import "PolymakeObjectWrapper.h"
+#import "PropertyNode.h"
+
 
 @interface PolymakeObject : NSObject {
-	NSURL           * _filename;   		// currently this is not so useful
-																		// but we might want to extend to a viewer that keeps multiple files
+	NSURL           * _filename;   	  // currently this is not so useful
+                                      // but we might want to extend to a viewer that keeps multiple files
 	NSString        * _name;          // name of the object
 	NSString        * _objectType;    // the polymake big object type
 	NSString        * _description;   // description 
 	NSDictionary    * _creditsDict;   // dictionary of credits for external software
-	NSXMLDocument   * _doc;           // the actual xml
-	PropertyXMLNode *_rootNode;       // and my xml node of it
+    PropertyNode    * _rootPerlNode;
 }
 
 @property (readonly, retain) NSString * objectType;
@@ -35,10 +37,9 @@
 @property (readonly, copy)   NSString * name;
 @property (readonly, copy)   NSString * description;
 @property (readonly, retain) NSDictionary* credits;
-@property (readonly, retain) NSXMLDocument* document;
-@property (readonly, retain) PropertyXMLNode* root;
+@property (readonly, retain) PropertyNode* rootPerl;
 
 - (id)init;
-- (void)initObjectWithURL:(NSURL *)input;
+- (id)initObjectWithURL:(NSURL *)input;
 
 @end

@@ -1,6 +1,6 @@
 /***********************************************************************
  * Created by Andreas Paffenholz on 04/21/12.
- * Copyright 2012 by Andreas Paffenholz. 
+ * Copyright 2012-2014 by Andreas Paffenholz. 
  
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
