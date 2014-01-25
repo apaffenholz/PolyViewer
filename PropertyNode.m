@@ -101,7 +101,6 @@
 		if ( isObject ) {            // okay, here we really have to do something
             NSLog(@"[PropertyNode children] called for object");
 
-            [_polyObj getPropertyListAtRootLevel];
             newChildren = [[_polyObj getPropertyListAtRootLevel] copy];
 		}
         
@@ -127,7 +126,9 @@
             NSLog(@"[PropertyNode value] at a leaf");
             
             [_value setData:[_polyObj getProperty:_name]];
-
+            if ( [[_value data] length] == 0 )
+                [_value setIsEmpty:YES];
+                
             NSLog(@"[PropertyNode value] value set: %@", _value);
             [_value retain];
 		}	else {
