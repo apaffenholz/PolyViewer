@@ -12,14 +12,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * PolymakeTag.h
+ * PolymakeNodeValue.h
  * PolyViewer
  **************************************************************************/
 
 
 #import <Foundation/Foundation.h>
 
-@interface PolymakeTag : NSObject {
+@interface PropertyNodeValue : NSObject {
     
     NSString        * _data;
     BOOL              _isEmpty;          // true if _data is empty

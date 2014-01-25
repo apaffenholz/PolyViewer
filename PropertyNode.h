@@ -17,7 +17,7 @@
  **************************************************************************/
 
 #import <Foundation/Foundation.h>
-#import "PolymakeTag.h"
+#import "PropertyNodeValue.h"
 #import "PolymakeObjectWrapper.h"
 
 @interface PropertyNode : NSObject {
@@ -25,7 +25,7 @@
     PolymakeObjectWrapper * _polyObj;
     NSString              * _name;
     NSArray               * _children;
-    PolymakeTag           * _value;
+    PropertyNodeValue           * _value;
 
     BOOL                  hasValue;
     BOOL                  isObject;
@@ -41,7 +41,7 @@
 
 
 @property (readonly)      PolymakeObjectWrapper * polyObj;
-@property (readonly,copy) PolymakeTag * value;
+@property (readonly,copy) PropertyNodeValue * value;
 @property (readonly,copy) NSString * name;
 @property (readonly)      NSArray * children;
 @property (readonly)      BOOL hasValue;        

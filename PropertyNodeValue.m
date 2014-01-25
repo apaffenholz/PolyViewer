@@ -12,14 +12,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * PolymakeTag.m
+ * PolymakeNodeValue.m
  * PolyViewer
  **************************************************************************/
 
 
-#import "PolymakeTag.h"
+#import "PropertyNodeValue.h"
 
-@implementation PolymakeTag
+@implementation PropertyNodeValue
 
 
 @synthesize data          = _data;

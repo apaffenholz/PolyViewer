@@ -18,7 +18,7 @@
 
 
 #import "PropertyNode.h"
-#import "PolymakeTag.h"
+#import "PropertyNodeValue.h"
 
 @implementation PropertyNode
 
@@ -115,13 +115,13 @@
 // compute the values of a property
 // remember that this is not done during initialization
 // but only if the user requests that property for display
-- (PolymakeTag *)value {
+- (PropertyNodeValue *)value {
     NSLog(@"[PropertyNode value] entering");
     
 	if ( _value == nil ) {
         NSLog(@"[PropertyNode value] value not yet set");
         
-		_value = [[PolymakeTag alloc] init];
+		_value = [[PropertyNodeValue alloc] init];
 		if ( isLeaf ) {
             NSLog(@"[PropertyNode value] at a leaf");
             

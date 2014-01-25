@@ -29,7 +29,7 @@
 		8D15AC310486D014006FF6A4 /* PolymakeFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* PolymakeFile.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
-		E13DCBD1188AA84E00DF3519 /* PolymakeTag.m in Sources */ = {isa = PBXBuildFile; fileRef = E13DCBD0188AA84E00DF3519 /* PolymakeTag.m */; };
+		E13DCBD1188AA84E00DF3519 /* PropertyNodeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = E13DCBD0188AA84E00DF3519 /* PropertyNodeValue.m */; };
 		E13DCBD3188ADD6000DF3519 /* get_name.pl in Resources */ = {isa = PBXBuildFile; fileRef = E13DCBD2188ADD6000DF3519 /* get_name.pl */; };
 		E1D968641893D55B0060FEEA /* polymake.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E1D968631893D55B0060FEEA /* polymake.xcconfig */; };
 /* End PBXBuildFile section */
@@ -76,8 +76,8 @@
 		72EBDFBA187E07B400F86EDE /* PropertyNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PropertyNode.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8D15AC360486D014006FF6A4 /* PolyViewer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PolyViewer-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* PolyViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PolyViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E13DCBCF188AA84E00DF3519 /* PolymakeTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolymakeTag.h; sourceTree = "<group>"; };
-		E13DCBD0188AA84E00DF3519 /* PolymakeTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PolymakeTag.m; sourceTree = "<group>"; };
+		E13DCBCF188AA84E00DF3519 /* PropertyNodeValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyNodeValue.h; sourceTree = "<group>"; };
+		E13DCBD0188AA84E00DF3519 /* PropertyNodeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertyNodeValue.m; sourceTree = "<group>"; };
 		E13DCBD2188ADD6000DF3519 /* get_name.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_name.pl; sourceTree = "<group>"; };
 		E1D968631893D55B0060FEEA /* polymake.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = polymake.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,14 +155,14 @@
 				7251383818786971004C9858 /* PolymakeInstanceWrapper.mm */,
 				72EBDFB3187BF97200F86EDE /* PolymakeObjectWrapper.h */,
 				72EBDFB4187BF97200F86EDE /* PolymakeObjectWrapper.mm */,
+				2A37F4AEFDCFA73011CA2CEA /* PolymakeFile.h */,
+				2A37F4ACFDCFA73011CA2CEA /* PolymakeFile.m */,
 				724211BD1564583E0077214A /* PolymakeObject.h */,
 				724211BE1564583E0077214A /* PolymakeObject.m */,
 				72EBDFB9187E07B400F86EDE /* PropertyNode.h */,
 				72EBDFBA187E07B400F86EDE /* PropertyNode.m */,
-				2A37F4AEFDCFA73011CA2CEA /* PolymakeFile.h */,
-				2A37F4ACFDCFA73011CA2CEA /* PolymakeFile.m */,
-				E13DCBCF188AA84E00DF3519 /* PolymakeTag.h */,
-				E13DCBD0188AA84E00DF3519 /* PolymakeTag.m */,
+				E13DCBCF188AA84E00DF3519 /* PropertyNodeValue.h */,
+				E13DCBD0188AA84E00DF3519 /* PropertyNodeValue.m */,
 				72965A071567164F0076B037 /* PropertyView.h */,
 				72965A081567164F0076B037 /* PropertyView.m */,
 			);
@@ -308,7 +308,7 @@
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				724211C31564583E0077214A /* FloatIntTransformer.m in Sources */,
 				724211C41564583E0077214A /* PolymakeObject.m in Sources */,
-				E13DCBD1188AA84E00DF3519 /* PolymakeTag.m in Sources */,
+				E13DCBD1188AA84E00DF3519 /* PropertyNodeValue.m in Sources */,
 				72EBDFB5187BF97300F86EDE /* PolymakeObjectWrapper.mm in Sources */,
 				724211C61564583E0077214A /* ValueLineNumberView.m in Sources */,
 				729658381565A60D0076B037 /* AppController.m in Sources */,
