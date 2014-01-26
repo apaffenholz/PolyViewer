@@ -19,26 +19,12 @@
 use application "common";
 
 my $p = shift;
-my @props = ();
+my $prop = shift;
 
-foreach ( @{$p->contents} ) {
-    
-	next if !defined($_) || $_->property->flags & $Core::Property::is_non_storable;
+my @names = ();
 
-	my $prop = new Pair<String,Array<Bool>>;
-    
-	$prop->first=$_->property->qual_name;
-	$prop->second = new Array<Bool>(2);
-
-	if ( instanceof Core::Object($_->value) ) {
-	    $prop->second->[0] = 1;
-	}
-    
-	if ($_->property->flags & $Core::Property::is_multiple ) {
-	    $prop->second->[1] = 1;
-	}
-    
-    push @props, $prop;
+foreach (@{$p->give($prop)}) {
+    push @names, $_->name;
 }
 
-return @props;
+return @names;

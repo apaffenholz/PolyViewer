@@ -22,27 +22,41 @@
 
 @interface PropertyNode : NSObject {
 
-    PolymakeObjectWrapper * _polyObj;
-    NSString              * _name;
-    NSArray               * _children;
-    PropertyNodeValue           * _value;
+    NSString              * _propertyName;  // the property name
 
-    BOOL                  hasValue;
-    BOOL                  isObject;
-    BOOL                  isLeaf;
-    BOOL                  isMultiple;
+    // relevant variables if the property defines a perl::Object (with declare object in s rule file)
+    PolymakeObjectWrapper * _polyObj;       // a pointer to the perl::Object associated with the property
+    NSArray               * _children;      // the properties defined for the perl::Object
+
+    // relevant variables if the property is multiple
+    int                     _index;         // for multiple properties: index in the list
+    NSString              * _name;          // for multiple properties: the name (may be nil if the corresponding object has no name associated to it)
+
+    // relevant variable for properties containing a value (PTL types or perl types)
+    PropertyNodeValue     * _value;         // the value of a property
+
+
+    BOOL                  isObject;         // the property corresponds to a perl::Object
+    BOOL                  isMultiple;       // the property is multiple
+
+    // FIXME 
+    BOOL                  hasValue;         // FIXME do we need this?
+    BOOL                  isLeaf;           // FIXME the property has a value and is not a perl::Object. Do we still need this?
 }
 
 
 - (NSArray *)children;
 
-- (id)initWithName:(NSString *)name andObj:(id) polyObj asObject:(BOOL) isObj asMultiple:(BOOL) isMult asLeaf:(BOOL) isLeaf;
+- (id)initWithName:(NSString *)propertyName andObj:(id) polyObj asObject:(BOOL) isObj asMultiple:(BOOL) isMult asLeaf:(BOOL) isLeaf;
+- (id)initWithName:(NSString *)propertyName andObj:(id) polyObj withIndex:(int) index withName:(NSString *)name asObject:(BOOL) isObj asMultiple:(BOOL) isMult asLeaf:(BOOL) isLeaf;
 - (id)initWithObject:(PolymakeObjectWrapper *)polyObj;
 
 
 @property (readonly)      PolymakeObjectWrapper * polyObj;
 @property (readonly,copy) PropertyNodeValue * value;
+@property (readonly,copy) NSString * propertyName;
 @property (readonly,copy) NSString * name;
+@property (readonly)      int index;
 @property (readonly)      NSArray * children;
 @property (readonly)      BOOL hasValue;        
 @property (readonly)      BOOL isObject;

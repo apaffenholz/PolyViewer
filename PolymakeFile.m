@@ -218,7 +218,7 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 	
 	PropertyNode * propNode = (PropertyNode *)item;
 
-    NSLog(@"[PolymakeFile outlineView is Expandable] leaving, item is %@", [propNode name]);
+    NSLog(@"[PolymakeFile outlineView is Expandable] leaving, item is %@", [propNode propertyName]);
 	return ![propNode isLeaf];
 }
 
@@ -245,9 +245,19 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
     NSLog(@"[PolymakeFile outlineView child objectValueForTableColumn] entering");
 
 	PropertyNode *node = (PropertyNode *)item;
-
+    NSString *name = [NSString stringWithString:[node propertyName]];
+    
+    if ( [node isMultiple] ) {
+        
+        NSString *propname = [NSString stringWithString:[node name]];
+        if ( [propname length] > 0 )
+            name = [name stringByAppendingString:[NSString stringWithFormat:@" (%@)",propname]];
+        else
+            name = [name stringByAppendingString:[NSString stringWithFormat:@" (%d)",[node index]]];
+    }
+        
     NSLog(@"[PolymakeFile outlineView child objectValueForTableColumn] leaving for item %@", item);
-	return [node name];
+	return name;
 }
 
 

@@ -28,6 +28,9 @@
 - (id)initWithPolymakeObject:(PolymakeObjectWrapper *)polyObj
                      andProperty:(NSString *)prop;
 
+- (id)initWithPolymakeObject:(PolymakeObjectWrapper *)polyObj
+                 andProperty:(NSString *)prop
+                     ofIndex:(int)index;
 
 - (id)initWithPolymakeObject:(NSString *)filename;
 - (NSString *)getObjectType;
@@ -35,6 +38,7 @@
 - (NSString *)getObjectDescription;
 - (NSString *)getProperty:(NSString *)name;
 - (PolymakeObjectWrapper *)getSubobject:(NSString *)name;
+- (PolymakeObjectWrapper *)getSubobjectWithIndex:(int)index andName:(NSString *)propertyName;
 - (NSArray *)getPropertyListAtRootLevel;
 
 @end
