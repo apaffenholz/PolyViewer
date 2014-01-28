@@ -19,10 +19,10 @@
 PolyViewer is a simple reader for files created by polymake (polymake.org) 
 released under the GPL.
 
-Building PolyViewer requires that polymake-config can be found in your path (son in particular, polymake must be installed). 
+Building PolyViewer requires that polymake-config can be found in your path (so in particular, polymake must be installed).
 So either place this in /usr/bin, or add 
 
-export PATH=$PATH:/path/to/your/polymake-convig
+export PATH=$PATH:/path/to/your/polymake-config
 
 to the file 
 
@@ -31,7 +31,7 @@ to the file
 in your $HOME folder
 
 For this reason there is currently no precompiled version of PolyViewer: 
-  Pathes are hardcoded into the project after compilation, so if your polymake is in a different location than mine it won't work.
+  Paths are hardcoded into the project after compilation, so if your polymake is in a different location than mine it won't work.
 
 --- 
 
@@ -40,7 +40,7 @@ internal notes
 - including libpolymake requires
   - appropriate compiler/linker flags
   - the preprocessor macro: __ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0 to avoid conflicts with functions starting with two underscores:
-     full quote from AsserMacros.h
+     full quote from AssertMacros.h
      *	A future release of Mac OS X will no longer do this, and will require that clients move to the
      *  new macros as defined above.  However, in the interim both the new and old macros will work, unless
      *  clients define a macro __ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES before this file is included
