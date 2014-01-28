@@ -60,6 +60,7 @@
         // libpolymake initialize polymake object
         _rootPerlNode = [[[PropertyNode alloc] initWithObject:[[PolymakeObjectWrapper alloc ] initWithPolymakeObject:[input path]]] retain];
         
+         
         // determine the object type of the given object
         // this is stored as an attribute of the root node
         _objectType = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectType]];
@@ -86,6 +87,47 @@
     
     return self;
 }
+
+
+- (id)retrieveFromDatabase:(NSString *)database andCollection:(NSString *)collection withID:(NSString *)ID {
+    NSLog(@"[PolymakeObject retrieveFromDatabase andCollection withProperties] called");
+
+    if ( self = [super init] ) {
+        
+        // libpolymake initialize polymake object
+        _rootPerlNode = [[[PropertyNode alloc]
+                          initWithObject:[[PolymakeObjectWrapper alloc]
+                                          initWithPolymakeObjectFromDatabase:database andCollection:collection withID:ID]] retain];
+                
+        // determine the object type of the given object
+        // this is stored as an attribute of the root node
+        _objectType = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectType]];
+        
+        // check whether the polymake object has a name
+        // as the type this would be an attribute of the root
+        _name = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectName]];
+        
+        // check whether the polytope has a description
+        // this is stored in a property directly below the root
+        _description = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectDescription]];
+        
+        NSMutableArray * creditLabels = [NSMutableArray array];
+        NSMutableArray * creditStrings = [NSMutableArray array];
+        
+        _creditsDict = [NSDictionary dictionaryWithObjects:creditStrings forKeys:creditLabels];
+        
+		// apparently we have to retain this
+        [_creditsDict retain];
+        
+        _filename = nil;
+    }
+    
+    return self;
+    
+    NSLog(@"[PolymakeObject retrieveFromDatabase andCollection withProperties] returning");
+    return YES;
+}
+
 
 
 	/***************************************************************************

@@ -42,4 +42,6 @@
 - (id)init;
 - (id)initObjectWithURL:(NSURL *)input;
 
+- (id)retrieveFromDatabase:(NSString *)database andCollection:(NSString *)collection withID:(NSString *)ID;
+
 @end

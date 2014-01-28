@@ -39,6 +39,13 @@
   [self.preferencesController showWindow:self];
 }
 
+-(IBAction)showRetrieveFromDB:(id)sender {
+    if(!self.retrieveController)
+		self.retrieveController = [[RetrieveFromDBController alloc] initWithWindowNibName:@"DatabaseAccess"];
+	
+    [self.retrieveController showWindow:self];
+}
+
 - (void)dealloc {
     [_preferencesController release];
     [pinst release];

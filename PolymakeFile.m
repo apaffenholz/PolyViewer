@@ -161,9 +161,16 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
   
     _polyObj = [[PolymakeObject alloc] initObjectWithURL:input];
     
+    NSString * db = @"LatticePolytopes";
+    NSString * coll = @"SmoothReflexive";
+    NSString * ID = @"F.4D.0123";
+    
+    _polyObj = [[PolymakeObject alloc] retrieveFromDatabase:db andCollection:coll withID:ID];
+    
     NSLog(@"[PolymakeFile readFromURL] returning");
     return YES;
 }
+
 
 
 // the close button on the main window should just close the window

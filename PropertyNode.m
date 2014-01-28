@@ -101,7 +101,7 @@
 
     self = [super init];
     if (self) {
-        _polyObj = polyObj;
+        _polyObj = [polyObj retain];
         _propertyName = [polyObj getObjectName];
         [_propertyName retain];
         isObject = TRUE;

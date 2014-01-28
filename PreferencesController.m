@@ -28,6 +28,7 @@
 
 
 -(id)init {
+    NSLog(@"[PreferencesController init] called");
 	self = [super init];
 	if (self) 
 		_propertyWindowFontString = nil;

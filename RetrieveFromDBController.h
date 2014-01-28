@@ -1,6 +1,6 @@
 /***********************************************************************
  * Created by Andreas Paffenholz on 04/18/12.
- * Copyright 2012-2014 by Andreas Paffenholz. 
+ * Copyright 2012-2014 by Andreas Paffenholz.
  
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,33 +12,25 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * AppController.h
+ * RetrieveFromDB.h
  * PolyViewer
  **************************************************************************/
 
-#import <Cocoa/Cocoa.h>
-#import "PreferencesController.h"
-#import "RetrieveFromDBController.h"
-#import "PolymakeInstanceWrapper.h"
+#import <Foundation/Foundation.h>
 
-@interface AppController : NSDocumentController {
+@interface RetrieveFromDBController : NSWindowController {
 
-	PreferencesController * _preferencesController;
-    RetrieveFromDBController * _retrieveController;
-    
-    PolymakeInstanceWrapper *pinst;
-	
+IBOutlet NSButton    * retrieveObject;
+NSString             * _database;
+NSString             * _collection;
+NSString             * _ID;
+
 }
 
+@property (readwrite,copy) NSString * database;
+@property (readwrite,copy) NSString * collection;
+@property (readwrite,copy) NSString * ID;
 
-
-@property (retain) PreferencesController *preferencesController;
-@property (retain) RetrieveFromDBController *retrieveController;
-
--(IBAction)showPreferences:(id)sender;
--(IBAction)showRetrieveFromDB:(id)sender;
-
--(BOOL)applicationShouldOpenUntitledFile:(NSApplication*)app;
-
+- (IBAction)retrieveFromDB:(id)sender;
 
 @end
