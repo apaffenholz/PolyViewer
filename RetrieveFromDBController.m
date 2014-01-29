@@ -51,11 +51,11 @@
 
 
 - (void)windowDidLoad {
-	
-    NSLog(@"[RetrieveFromDBController windowDidLoadNib] called");
+	NSLog(@"[RetrieveFromDBController windowDidLoadNib] called");
+    
     // start with some example values to prevent the obvious crash
     // as we currently don't do any value checking
-    self.database = @"LatticePolytopes";
+    _database = @"LatticePolytopes";
     _collection = @"SmoothReflexive";
     _ID = @"F.4D.0123";
     [databaseTextfield setStringValue:_database];
@@ -64,9 +64,7 @@
 }
 
 - (IBAction)retrieveFromDB:(id)sender {
-    
     NSLog(@"[RetrieveFromDBController retrieveFromDB] called");
-    NSLog(@"[RetrieveFromDBController retrieveFromDB] current values:\ndatabase: %@\ncollection: %@\nID: %@",_database,_collection,_ID);
     
     PolymakeFile * pf = [[PolymakeFile alloc] init];
     [pf readFromDatabase:_database andCollection:_collection withID:_ID];

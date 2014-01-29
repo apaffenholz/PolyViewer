@@ -36,7 +36,6 @@
 -(IBAction)showPreferences:(id)sender{
   NSLog(@"[AppController showPreferences] called");
     if(!self.preferencesController) {
-        NSLog(@"[AppController showPreferences] no such window");
 		self.preferencesController = [[PreferencesController alloc] initWithWindowNibName:@"Preferences"];
     }
 	
@@ -47,7 +46,6 @@
 -(IBAction)showRetrieveFromDB:(id)sender {
     NSLog(@"[AppController showRetrieveFromDB] called");
     if(!self.retrieveController) {
-        NSLog(@"[AppController showRetrieveFromDB] no such window");
 		self.retrieveController = [[RetrieveFromDBController alloc] initWithWindowNibName:@"DatabaseAccess"];
     }
     
