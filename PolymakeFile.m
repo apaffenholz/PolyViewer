@@ -145,13 +145,20 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 } // end of windowControllerDidLoadNib
 
 
-// this app is currently read-only...
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
-    if ( outError != NULL ) {
-		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-	}
-	return nil;
-}  
+- (BOOL)readFromDatabase:(NSString *)database
+           andCollection:(NSString *)collection
+                  withID:(NSString *)ID {
+
+    NSLog(@"[PolymakeFile readFromDatabase andCollection withID] called");
+    
+    _polyObj = [[PolymakeObject alloc] retrieveFromDatabase:database
+                                              andCollection:collection
+                                                     withID:ID];
+    
+    NSLog(@"[PolymakeFile readFromDatabase andCollection withID] leaving");
+    return YES;
+}
+
 
 
 // method overriden from NSDocument
@@ -160,12 +167,6 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
     NSLog(@"[PolymakeFile readFromURL] called");
   
     _polyObj = [[PolymakeObject alloc] initObjectWithURL:input];
-    
-    NSString * db = @"LatticePolytopes";
-    NSString * coll = @"SmoothReflexive";
-    NSString * ID = @"F.4D.0123";
-    
-    _polyObj = [[PolymakeObject alloc] retrieveFromDatabase:db andCollection:coll withID:ID];
     
     NSLog(@"[PolymakeFile readFromURL] returning");
     return YES;

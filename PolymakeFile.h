@@ -51,6 +51,8 @@ extern NSString * const PVValueFormattingDidChangeNotification;
 	
 }
 
+
+
 @property (readwrite,copy) NSString * lastOpenDialogStartDirectory;
 @property (readonly) PolymakeObject * polymakeObject;
 @property (readwrite,assign) BOOL alignedColumns;
@@ -59,5 +61,9 @@ extern NSString * const PVValueFormattingDidChangeNotification;
 - (IBAction)fixAlignedColumns:(id)sender;
 
 - (void)redrawValueTextView;
+
+- (BOOL)readFromDatabase:(NSString *)database
+           andCollection:(NSString *)collection
+                  withID:(NSString *)ID;
 
 @end

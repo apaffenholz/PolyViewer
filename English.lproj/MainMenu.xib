@@ -78,7 +78,7 @@
                             <menuItem title="Retrieve from DB" id="hNa-mJ-FkJ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="showRetrieveFromDB:" target="-1" id="UFJ-A2-9no"/>
+                                    <action selector="showRetrieveFromDB:" target="530" id="4Qx-Q6-9Z2"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Open Recent" id="124">

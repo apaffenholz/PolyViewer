@@ -28,10 +28,25 @@ to the file
 
 .bash_profile
 
-in your $HOME folder
+in your $HOME folder.
 
 For this reason there is currently no precompiled version of PolyViewer: 
   Pathes are hardcoded into the project after compilation, so if your polymake is in a different location than mine it won't work.
+  
+  
+This branch of the PolViewer project requires that the extension "poly_db" of polymake written by Silke Horn (see github) is installed and configured.
+
+For similar reasons as above you will have to tweak some files: Most likely the path to the perl modules for MongoDB running the database and some others won't be found. Please add
+
+use lib "/path/to/MongoDB-<version>/lib";
+use lib "/path/to/boolean-<version>/lib";
+use lib "/path/to/Tie-IxHash-<version>/lib";
+use lib "/path/to/lib/perl5/site_perl/<perl-version>/darwin-thread-multi-2level";
+
+with the obvious replacements (i.e. replace /path/to and <*version>) to the file apps/common/rules/main.rules in the folder of the "poly_db"-extension.
+
+
+
 
 --- 
 

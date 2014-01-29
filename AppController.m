@@ -31,23 +31,33 @@
 }
 
 @synthesize preferencesController = _preferencesController;
+@synthesize retrieveController    = _retrieveController;
 
 -(IBAction)showPreferences:(id)sender{
-  if(!self.preferencesController)
+  NSLog(@"[AppController showPreferences] called");
+    if(!self.preferencesController) {
+        NSLog(@"[AppController showPreferences] no such window");
 		self.preferencesController = [[PreferencesController alloc] initWithWindowNibName:@"Preferences"];
+    }
 	
   [self.preferencesController showWindow:self];
+  NSLog(@"[AppController showPreferences] leaving");
 }
 
 -(IBAction)showRetrieveFromDB:(id)sender {
-    if(!self.retrieveController)
+    NSLog(@"[AppController showRetrieveFromDB] called");
+    if(!self.retrieveController) {
+        NSLog(@"[AppController showRetrieveFromDB] no such window");
 		self.retrieveController = [[RetrieveFromDBController alloc] initWithWindowNibName:@"DatabaseAccess"];
-	
+    }
+    
     [self.retrieveController showWindow:self];
+    NSLog(@"[AppController showRetrieveFromDB] leaving");
 }
 
 - (void)dealloc {
     [_preferencesController release];
+    [_retrieveController release];
     [pinst release];
     [super dealloc];
 }

@@ -70,7 +70,7 @@
 #pragma mark Preferences
 
 	// preferences menu
-	// FIXME there asome more things that a user should be allowed to change
+	// FIXME there are some more things that a user should be allowed to change
 
 - (IBAction)showFontMenu:(id)sender {
 	NSFontManager *fontManager = [NSFontManager sharedFontManager];

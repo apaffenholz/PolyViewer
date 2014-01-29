@@ -12,11 +12,13 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * RetrieveFromDB.m
+ * RetrieveFromDBController.m
  * PolyViewer
  **************************************************************************/
 
 #import "RetrieveFromDBController.h"
+#import "PolymakeFile.h"
+#import "AppController.h"
 
 @implementation RetrieveFromDBController
 
@@ -51,17 +53,29 @@
 - (void)windowDidLoad {
 	
     NSLog(@"[RetrieveFromDBController windowDidLoadNib] called");
-    
-    _database = @"LatticePolytopes";
-    _collection = @"Smoothreflexive";
+    // start with some example values to prevent the obvious crash
+    // as we currently don't do any value checking
+    self.database = @"LatticePolytopes";
+    _collection = @"SmoothReflexive";
     _ID = @"F.4D.0123";
+    [databaseTextfield setStringValue:_database];
+    [collectionTextfield setStringValue:_collection];
+    [IDTextfield setStringValue:_ID];
 }
 
 - (IBAction)retrieveFromDB:(id)sender {
     
     NSLog(@"[RetrieveFromDBController retrieveFromDB] called");
     NSLog(@"[RetrieveFromDBController retrieveFromDB] current values:\ndatabase: %@\ncollection: %@\nID: %@",_database,_collection,_ID);
-
+    
+    PolymakeFile * pf = [[PolymakeFile alloc] init];
+    [pf readFromDatabase:_database andCollection:_collection withID:_ID];
+    
+    [pf makeWindowControllers];
+    [pf showWindows];
+    [[NSDocumentController sharedDocumentController] addDocument:pf];
+    [pf release];
+    [[self window] orderOut:nil];
 }
 
 @end

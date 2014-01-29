@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * RetrieveFromDB.h
+ * RetrieveFromDBController.h
  * PolyViewer
  **************************************************************************/
 
@@ -20,10 +20,14 @@
 
 @interface RetrieveFromDBController : NSWindowController {
 
-IBOutlet NSButton    * retrieveObject;
-NSString             * _database;
-NSString             * _collection;
-NSString             * _ID;
+    IBOutlet NSButton    * retrieveObject;
+    IBOutlet NSTextField * databaseTextfield;
+    IBOutlet NSTextField * collectionTextfield;
+    IBOutlet NSTextField * IDTextfield;
+    
+    NSString             * _database;
+    NSString             * _collection;
+    NSString             * _ID;
 
 }
 
