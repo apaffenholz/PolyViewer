@@ -10,6 +10,7 @@
                 <outlet property="_alignedColumnsBox" destination="100449" id="100455"/>
                 <outlet property="_creditTable" destination="100372" id="100380"/>
                 <outlet property="_creditView" destination="100367" id="100368"/>
+                <outlet property="_currentPropertyName" destination="w6I-In-Ovq" id="0tg-GW-W5c"/>
                 <outlet property="_descriptionView" destination="100446" id="100448"/>
                 <outlet property="_fontSizeSlider" destination="100136" id="100429"/>
                 <outlet property="_name" destination="100246" id="100248"/>
@@ -25,11 +26,11 @@
         <window title="PolyViewer" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" wantsToBeColor="NO" visibleAtLaunch="NO" animationBehavior="default" id="5" userLabel="Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES" unifiedTitleAndToolbar="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="87" y="112" width="541" height="611"/>
+            <rect key="contentRect" x="87" y="112" width="541" height="641"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <value key="minSize" type="size" width="94" height="86"/>
             <view key="contentView" id="6">
-                <rect key="frame" x="0.0" y="0.0" width="541" height="611"/>
+                <rect key="frame" x="0.0" y="0.0" width="541" height="641"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <slider verticalHuggingPriority="750" id="100136">
@@ -120,8 +121,8 @@
                                                     <size key="minSize" width="362" height="408"/>
                                                     <size key="maxSize" width="463" height="10000000"/>
                                                     <connections>
-                                                        <binding destination="100386" name="fontName" keyPath="values.textFontName" id="100426"/>
                                                         <binding destination="100386" name="fontSize" keyPath="values.propertyWindowFontSize" previousBinding="100426" id="100427"/>
+                                                        <binding destination="100386" name="fontName" keyPath="values.textFontName" id="100426"/>
                                                         <outlet property="delegate" destination="-2" id="100422"/>
                                                     </connections>
                                                 </textView>
@@ -146,7 +147,7 @@
                         </holdingPriorities>
                     </splitView>
                     <textField verticalHuggingPriority="750" id="100244">
-                        <rect key="frame" x="17" y="574" width="46" height="17"/>
+                        <rect key="frame" x="17" y="604" width="46" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Name:" id="100245">
                             <font key="font" metaFont="system"/>
@@ -155,7 +156,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="100246">
-                        <rect key="frame" x="113" y="574" width="393" height="17"/>
+                        <rect key="frame" x="113" y="604" width="393" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="&lt;none>" id="100247">
                             <font key="font" metaFont="system"/>
@@ -164,7 +165,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="100249">
-                        <rect key="frame" x="17" y="549" width="94" height="17"/>
+                        <rect key="frame" x="17" y="579" width="94" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Object Type:" id="100250">
                             <font key="font" metaFont="system"/>
@@ -173,7 +174,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="100251">
-                        <rect key="frame" x="113" y="549" width="411" height="17"/>
+                        <rect key="frame" x="113" y="579" width="411" height="17"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="&lt;none>" id="100252">
                             <font key="font" metaFont="system"/>
@@ -298,7 +299,7 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <textView focusRingType="none" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="100367">
-                                                                        <rect key="frame" x="0.0" y="5" width="246" height="84"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="246" height="84"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <size key="minSize" width="246" height="84"/>
@@ -395,6 +396,24 @@
                             <action selector="fixAlignedColumns:" target="-2" id="100456"/>
                         </connections>
                     </button>
+                    <textField verticalHuggingPriority="750" id="w6I-In-Ovq">
+                        <rect key="frame" x="115" y="549" width="407" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="WTn-Tb-Cho">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Vez-Vf-sfA">
+                        <rect key="frame" x="17" y="549" width="94" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Property" id="Ug8-r5-Swg">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <connections>

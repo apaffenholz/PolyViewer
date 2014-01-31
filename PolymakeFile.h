@@ -30,7 +30,7 @@ extern NSString * const PVValueFormattingDidChangeNotification;
 	
 		// class variables
 	NSString * _lastOpenDialogStartDirectory;
-	NSString * _currentPropertyText;
+	NSString * _currentPropertyValue;
 
     PolymakeObject  * _polyObj;
 	BOOL              _alignedColumns;
@@ -44,7 +44,8 @@ extern NSString * const PVValueFormattingDidChangeNotification;
 	IBOutlet NSTableView         * _creditTable;
 	IBOutlet NSTextView          * _creditView;
 	IBOutlet NSTextField         * _type;
-	IBOutlet NSTextField         * _name;	
+	IBOutlet NSTextField         * _name;
+	IBOutlet NSTextField         * _currentPropertyName;
 	IBOutlet NSSlider            * _fontSizeSlider;
 	IBOutlet NSTextView          * _descriptionView;
 	IBOutlet NSButton            * _alignedColumnsBox;
@@ -54,6 +55,7 @@ extern NSString * const PVValueFormattingDidChangeNotification;
 @property (readwrite,copy) NSString * lastOpenDialogStartDirectory;
 @property (readonly) PolymakeObject * polymakeObject;
 @property (readwrite,assign) BOOL alignedColumns;
+
 
 - (IBAction)closePoly:(id)sender;
 - (IBAction)fixAlignedColumns:(id)sender;

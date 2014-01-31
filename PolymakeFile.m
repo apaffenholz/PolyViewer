@@ -40,7 +40,7 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 			
 			//_rootPerlNode = nil;
 			_polyObj = nil;
-			_currentPropertyText = nil;
+			_currentPropertyValue = nil;
 			_alignedColumns = NO;
 			
 			// the directory shown in the file open dialog
@@ -72,7 +72,7 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	//[_rootPerlNode             release];
-	[_currentPropertyText      release];
+	[_currentPropertyValue      release];
 	[_polyObj                  release];
 	[_valueLineNumberView      release];
 	[super dealloc];
@@ -96,6 +96,9 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
     
 	[_name setStringValue:[_polyObj name]];                  	// set object name
 	[_name setFont:font];
+
+    [_currentPropertyName setStringValue:@"<root>"];          	// set object name
+	[_currentPropertyName setFont:font];
     
 	[_descriptionView setString:[_polyObj description]];  		// object description
 	[_descriptionView setFont:font];
@@ -286,25 +289,26 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 		// get the property
 	if ( selectedItem != nil ) {
 		PropertyNode * propNode = (PropertyNode *)selectedItem;
+        [_currentPropertyName setStringValue:[propNode propertyName]];
 		if ( [[propNode value] isEmpty] ) {
-		  _currentPropertyText = [[NSString alloc] initWithString:@"<empty property>"];	
+		  _currentPropertyValue = [[NSString alloc] initWithString:@"<empty property>"];
 		} else {
 			if ( [propNode isLeaf] ) {
                 NSString * proptemp = [[NSString alloc] initWithString:[[propNode value] data]];
                 NSLog(@"[PolymakeFile redrawValueTextView] setting prop:%@", proptemp);
 				if ( [propNode hasValue] )
-                    _currentPropertyText = [[NSString alloc] initWithString:proptemp];
+                    _currentPropertyValue = [[NSString alloc] initWithString:proptemp];
 				else
-                    _currentPropertyText = [[NSString alloc] initWithString:proptemp];
+                    _currentPropertyValue = [[NSString alloc] initWithString:proptemp];
                 [proptemp release];
 			} else {
-				_currentPropertyText = [[NSString alloc] initWithString:@"<select a sub-property>"];
+				_currentPropertyValue = [[NSString alloc] initWithString:@"<select a sub-property>"];
 			}
 		}
-		[_valueTextView setString:_currentPropertyText];
+		[_valueTextView setString:_currentPropertyValue];
 	} else {  // okay, nothing is selected, so clear the view
 		NSString * attrString = [[NSString alloc] initWithString:@"<empty>"];
-		_currentPropertyText = [[NSString alloc] initWithString:attrString];
+		_currentPropertyValue = [[NSString alloc] initWithString:attrString];
 		[_valueTextView setString:attrString];
 		[attrString release];
 	}
