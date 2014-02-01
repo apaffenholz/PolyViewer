@@ -24,6 +24,7 @@
 #import "PolymakeObject.h"
 
 NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDidChange";
+NSString * const ChildrenOfRootHaveChangedNotification = @"ChildrenOfRootHaveChanged";
 
 @implementation PolymakeFile
 
@@ -48,22 +49,26 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 			[self setLastOpenDialogStartDirectory:NSHomeDirectory()];
 
 		
-			[	[NSNotificationCenter defaultCenter] addObserver:self 
-																								selector:@selector(redrawValueTextViewWrapper:) 
-																										name:PVValueFormattingDidChangeNotification 
-																									object:nil];
-			[	[NSNotificationCenter defaultCenter] addObserver:self 
-																								selector:@selector(redrawValueTextViewWrapper:) 
-																										name:NSOutlineViewSelectionDidChangeNotification 
-																									object:nil];
+			[[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(redrawValueTextViewWrapper:)
+                                                         name:PVValueFormattingDidChangeNotification
+                                                       object:nil];
+			[[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(redrawValueTextViewWrapper:)
+                                                         name:NSOutlineViewSelectionDidChangeNotification
+                                                       object:nil];
 			[[NSNotificationCenter defaultCenter] addObserver:self 
-																							 selector:@selector(outlineViewSelectionWillChange:) 
-																									 name:NSOutlineViewSelectionIsChangingNotification 
-																								 object:nil];
+                                                     selector:@selector(outlineViewSelectionWillChange:)
+                                                         name:NSOutlineViewSelectionIsChangingNotification
+                                                       object:nil];
 			[[NSNotificationCenter defaultCenter] addObserver:self 
-																							 selector:@selector(tableViewSelectionDidChange:) 
-																									 name:NSTableViewSelectionDidChangeNotification
-																								 object:nil];
+                                                     selector:@selector(tableViewSelectionDidChange:)
+                                                         name:NSTableViewSelectionDidChangeNotification
+                                                       object:nil];
+			[[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(childrenOfRootHaveChanged:)
+                                                         name:ChildrenOfRootHaveChangedNotification
+                                                       object:nil];
 			
 	}
 	return self;
@@ -204,7 +209,8 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 	}
 	
 	PropertyNode * propNode = (PropertyNode *)item;
-
+    
+    NSLog(@"[PolymakeFile outlineView:NumberOfChildrenOfItem:] returning number of children of node %@", [propNode propertyName]);
     NSLog(@"[PolymakeFile outlineView:NumberOfChildrenOfItem:] returning %lu children",(unsigned long)[[propNode children] count]);
 	return [[propNode children] count];
 }
@@ -212,40 +218,40 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 
 /****************/
 - (BOOL) outlineView:(NSOutlineView *)ov isItemExpandable:(id)item {
-    NSLog(@"[PolymakeFile outlineView is Expandable] entering");
+    //NSLog(@"[PolymakeFile outlineView is Expandable] entering");
 
 	if ( item == nil ) {
-        NSLog(@"[PolymakeFile outlineView is Expandable] leaving (item is nil)");
+        //NSLog(@"[PolymakeFile outlineView is Expandable] leaving (item is nil)");
 		return YES;
 	}
 	
 	PropertyNode * propNode = (PropertyNode *)item;
 
-    NSLog(@"[PolymakeFile outlineView is Expandable] leaving, item is %@", [propNode propertyName]);
+    //NSLog(@"[PolymakeFile outlineView is Expandable] leaving, item is %@", [propNode propertyName]);
 	return ![propNode isLeaf];
 }
 
 
 /****************/
 - (id)outlineView:(NSOutlineView *)ov child:(NSInteger)index ofItem:(id)item {
-    NSLog(@"[PolymakeFile outlineView child ofItem] entering]");
+    //NSLog(@"[PolymakeFile outlineView child ofItem] entering]");
 
 	if ( item == nil ) {
 
-        NSLog(@"[PolymakeFile outlineView child ofItem] leaving]");
+        //NSLog(@"[PolymakeFile outlineView child ofItem] leaving]");
 		return [[[_polyObj rootPerl] children] objectAtIndex:index];
 	}
     
 	PropertyNode *node = (PropertyNode *)item;
     
-    NSLog(@"[PolymakeFile outlineView child ofItem] leaving]");
+    //NSLog(@"[PolymakeFile outlineView child ofItem] leaving]");
 	return [[node children] objectAtIndex:index];
 }
 
 
 /****************/
 - (id)outlineView:(NSOutlineView *)ov objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
-    NSLog(@"[PolymakeFile outlineView child objectValueForTableColumn] entering");
+    //NSLog(@"[PolymakeFile outlineView child objectValueForTableColumn] entering");
 
 	PropertyNode *node = (PropertyNode *)item;
     NSString *name = [NSString stringWithString:[node propertyName]];
@@ -259,7 +265,7 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
             name = [name stringByAppendingString:[NSString stringWithFormat:@" (%d)",[node index]]];
     }
         
-    NSLog(@"[PolymakeFile outlineView child objectValueForTableColumn] leaving for item %@", item);
+    //NSLog(@"[PolymakeFile outlineView child objectValueForTableColumn] leaving for item %@", item);
 	return name;
 }
 
@@ -268,6 +274,10 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 - (void)outlineViewSelectionWillChange:(NSNotification *)aNotification {
 }
 
+- (void)childrenOfRootHaveChanged:(NSNotification *)aNotification {
+    [[_polyObj rootPerl] resetChildren];
+    [_propertyView reloadItem:nil reloadChildren:YES];
+}
 
 
 #pragma mark _ValueTextView

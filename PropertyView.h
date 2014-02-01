@@ -19,9 +19,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @interface PropertyView : NSOutlineView {
-
+    
 }
 
 @end

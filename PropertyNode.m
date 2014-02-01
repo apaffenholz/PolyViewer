@@ -140,6 +140,13 @@
 	return _children;
 }
 
+- (void)resetChildren {
+    
+    [_children release];
+    _children = nil;
+    
+}
+
 
 // compute the values of a property
 // remember that this is not done during initialization

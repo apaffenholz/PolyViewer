@@ -25,6 +25,7 @@
 #import "PolymakeObject.h"
 
 extern NSString * const PVValueFormattingDidChangeNotification;
+extern NSString * const ChildrenOfRootHaveChangedNotification;
 
 @interface PolymakeFile : NSDocument <NSOutlineViewDataSource,NSTableViewDelegate> {
 	
@@ -61,5 +62,7 @@ extern NSString * const PVValueFormattingDidChangeNotification;
 - (IBAction)fixAlignedColumns:(id)sender;
 
 - (void)redrawValueTextView;
+
+- (void)childrenOfRootHaveChanged:(NSNotification *)aNotification;
 
 @end

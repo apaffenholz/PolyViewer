@@ -33,6 +33,13 @@ in your $HOME folder
 For this reason there is currently no precompiled version of PolyViewer: 
   Paths are hardcoded into the project after compilation, so if your polymake is in a different location than mine it won't work.
 
+
+PolyViewer now partially supports computation of new properties: right click on any property at the same level 
+as the one you want to compute and choose "Compute property". Enter the property you want to have. This currently only
+works for non-object properties. As a workaround to add e.g. a Hasse diagram enter "HASSE_DIAGRAM.ADJACENCY" (or any other property of the 
+Hasse diagram you are interested in). Any string the polymake command "give" accepts that does not return a perl::Object should work.
+
+
 --- 
 
 internal notes

@@ -50,6 +50,7 @@
 - (id)initWithName:(NSString *)propertyName andObj:(id) polyObj asObject:(BOOL) isObj asMultiple:(BOOL) isMult asLeaf:(BOOL) isLeaf;
 - (id)initWithName:(NSString *)propertyName andObj:(id) polyObj withIndex:(int) index withName:(NSString *)name asObject:(BOOL) isObj asMultiple:(BOOL) isMult asLeaf:(BOOL) isLeaf;
 - (id)initWithObject:(PolymakeObjectWrapper *)polyObj;
+- (void)resetChildren;
 
 
 @property (readonly)      PolymakeObjectWrapper * polyObj;
