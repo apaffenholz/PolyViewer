@@ -71,5 +71,12 @@
 	return YES;
 }	
 
+-(NSArray *)databaseNames {
+    return [pinst databaseNames];
+}
+
+-(NSArray *)collectionNamesOfDatabase:(NSString *)db {
+    return [pinst collectionNamesofDatabase:db];
+}
 
 @end

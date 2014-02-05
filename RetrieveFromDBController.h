@@ -18,23 +18,32 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RetrieveFromDBController : NSWindowController {
+@interface RetrieveFromDBController : NSWindowController <NSComboBoxDelegate> {
 
     IBOutlet NSButton    * retrieveObject;
     IBOutlet NSTextField * databaseTextfield;
     IBOutlet NSTextField * collectionTextfield;
     IBOutlet NSTextField * IDTextfield;
     
+    
+    IBOutlet NSComboBox * databaseSelection;
+    IBOutlet NSComboBox * collectionSelection;
+    
     NSString             * _database;
     NSString             * _collection;
     NSString             * _ID;
 
+    NSArray              * _databases;
+    NSArray              * _collections;
 }
 
+@property (readwrite,copy) NSArray * databases;
+@property (readwrite,copy) NSArray * collections;
 @property (readwrite,copy) NSString * database;
 @property (readwrite,copy) NSString * collection;
 @property (readwrite,copy) NSString * ID;
 
 - (IBAction)retrieveFromDB:(id)sender;
+- (IBAction)updateCollection:(id)sender;
 
 @end

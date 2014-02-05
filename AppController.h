@@ -40,5 +40,7 @@
 
 -(BOOL)applicationShouldOpenUntitledFile:(NSApplication*)app;
 
+-(NSArray *)databaseNames;
+-(NSArray *)collectionNamesOfDatabase:(NSString *)db;
 
 @end

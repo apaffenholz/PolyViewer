@@ -8,8 +8,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="RetrieveFromDBController">
             <connections>
                 <outlet property="IDTextfield" destination="6hT-xw-wGq" id="HsM-3n-E09"/>
-                <outlet property="collectionTextfield" destination="QgA-Op-Hxp" id="sdj-JO-e6j"/>
-                <outlet property="databaseTextfield" destination="svx-aR-psF" id="507-fM-OPA"/>
+                <outlet property="collectionSelection" destination="bFG-9w-3d9" id="qBZ-e8-vNK"/>
+                <outlet property="databaseSelection" destination="C33-fh-q8z" id="xXf-h6-P6J"/>
                 <outlet property="retrieveObject" destination="fgQ-Cm-wGn" id="Shz-R9-wKN"/>
                 <outlet property="window" destination="1" id="w04-hw-0Lb"/>
             </connections>
@@ -25,19 +25,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="417" height="167"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="svx-aR-psF">
-                        <rect key="frame" x="99" y="125" width="298" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="Database" placeholderString="&lt;database>" drawsBackground="YES" id="GtO-qe-dqA">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                        <connections>
-                            <binding destination="-2" name="value" keyPath="database" id="pso-AS-bee"/>
-                            <outlet property="nextKeyView" destination="QgA-Op-Hxp" id="NZK-bD-kIF"/>
-                        </connections>
-                    </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cDY-Qj-2ei">
                         <rect key="frame" x="18" y="125" width="75" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -46,19 +33,6 @@
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QgA-Op-Hxp">
-                        <rect key="frame" x="99" y="93" width="298" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="collection" placeholderString="&lt;collection>" drawsBackground="YES" id="OIz-Am-Tdb">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                        <connections>
-                            <binding destination="-2" name="value" keyPath="collection" id="FDi-pI-r5q"/>
-                            <outlet property="nextKeyView" destination="6hT-xw-wGq" id="sCo-xB-1cC"/>
-                        </connections>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WWA-ej-DDI">
                         <rect key="frame" x="18" y="93" width="75" height="17"/>
@@ -91,9 +65,6 @@ DQ
                                 <action selector="retrieveFromDB:" target="-2" id="XFW-nT-39y"/>
                             </connections>
                         </buttonCell>
-                        <connections>
-                            <outlet property="nextKeyView" destination="svx-aR-psF" id="kOk-zq-c0O"/>
-                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f5v-DF-er0">
                         <rect key="frame" x="137" y="11" width="126" height="25"/>
@@ -119,6 +90,30 @@ DQ
                             <outlet property="nextKeyView" destination="fgQ-Cm-wGn" id="smc-M7-1KC"/>
                         </connections>
                     </textField>
+                    <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C33-fh-q8z">
+                        <rect key="frame" x="99" y="123" width="301" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="kZq-bI-VIo">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </comboBoxCell>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="TAr-D6-GD6"/>
+                        </connections>
+                    </comboBox>
+                    <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bFG-9w-3d9">
+                        <rect key="frame" x="100" y="90" width="300" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="1O9-Gn-TZK">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </comboBoxCell>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="3Ca-wi-yEG"/>
+                        </connections>
+                    </comboBox>
                 </subviews>
             </view>
             <connections>

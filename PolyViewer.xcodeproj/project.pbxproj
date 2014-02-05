@@ -36,6 +36,8 @@
 		E12E289E1897202F00051EBD /* RetrieveFromDBController.m in Sources */ = {isa = PBXBuildFile; fileRef = E12E289D1897202F00051EBD /* RetrieveFromDBController.m */; };
 		E13DCBD1188AA84E00DF3519 /* PropertyNodeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = E13DCBD0188AA84E00DF3519 /* PropertyNodeValue.m */; };
 		E13DCBD3188ADD6000DF3519 /* get_name.pl in Resources */ = {isa = PBXBuildFile; fileRef = E13DCBD2188ADD6000DF3519 /* get_name.pl */; };
+		E1C9455218A1B17900E30E4E /* get_db_list.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1C9455018A1B07D00E30E4E /* get_db_list.pl */; };
+		E1C9455518A2C4EB00E30E4E /* get_db_collection_list.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1C9455318A29FA000E30E4E /* get_db_collection_list.pl */; };
 		E1D968641893D55B0060FEEA /* polymake.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E1D968631893D55B0060FEEA /* polymake.xcconfig */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +95,8 @@
 		E13DCBCF188AA84E00DF3519 /* PropertyNodeValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyNodeValue.h; sourceTree = "<group>"; };
 		E13DCBD0188AA84E00DF3519 /* PropertyNodeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertyNodeValue.m; sourceTree = "<group>"; };
 		E13DCBD2188ADD6000DF3519 /* get_name.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_name.pl; sourceTree = "<group>"; };
+		E1C9455018A1B07D00E30E4E /* get_db_list.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_db_list.pl; sourceTree = "<group>"; };
+		E1C9455318A29FA000E30E4E /* get_db_collection_list.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_db_collection_list.pl; sourceTree = "<group>"; };
 		E1D968631893D55B0060FEEA /* polymake.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = polymake.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -207,6 +211,8 @@
 				E12E289118952F4000051EBD /* get_names_for_multiple.pl */,
 				E12E28941895344800051EBD /* get_multiple_object_by_index.pl */,
 				E12E28991895B1DE00051EBD /* retrieve_database_object.pl */,
+				E1C9455018A1B07D00E30E4E /* get_db_list.pl */,
+				E1C9455318A29FA000E30E4E /* get_db_collection_list.pl */,
 			);
 			name = polymakePerlScripts;
 			path = scripts;
@@ -313,10 +319,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1C9455518A2C4EB00E30E4E /* get_db_collection_list.pl in Resources */,
+				E1C9455218A1B17900E30E4E /* get_db_list.pl in Resources */,
+				72BD024818849CC300837D78 /* get_type.pl in Resources */,
 				E12E289A1895B1DE00051EBD /* retrieve_database_object.pl in Resources */,
 				E12E28951895344800051EBD /* get_multiple_object_by_index.pl in Resources */,
 				E12E289218952F4000051EBD /* get_names_for_multiple.pl in Resources */,
-				72BD024818849CC300837D78 /* get_type.pl in Resources */,
 				E13DCBD3188ADD6000DF3519 /* get_name.pl in Resources */,
 				E12E28981895779400051EBD /* DatabaseAccess.xib in Resources */,
 				72BD024D18849CF600837D78 /* list_props.pl in Resources */,
@@ -500,11 +508,7 @@
 					/Volumes/polymake2/programs/gmp5/include,
 					/Volumes/polymake/programs/mpfr3/include,
 				);
-				LIBRARY_SEARCH_PATHS = (
-					/Volumes/polymake2/programs/polymake_install/lib,
-					/Volumes/polymake2/programs/gmp5/lib,
-					/Volumes/polymake/programs/mpfr3/lib,
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				New_Setting = "";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -520,18 +524,7 @@
 					"-I/Volumes/polymake2/programs/gmp5/include",
 					"-I/Volumes/polymake/programs/mpfr3/include",
 				);
-				OTHER_LDFLAGS = (
-					"-L/Volumes/polymake2/programs/polymake_install/lib",
-					"-L/Volumes/polymake2/programs/gmp5/lib",
-					"-Wl,-rpath,/Volumes/polymake2/programs/gmp5/lib",
-					"-L/Volumes/polymake/programs/mpfr3/lib",
-					"-Wl,-rpath,/Volumes/polymake/programs/mpfr3/lib",
-					"-flat_namespace",
-					"-lpolymake",
-					"-lpolymake-apps",
-					"-lgmp",
-					"-lxml2",
-				);
+				OTHER_LDFLAGS = "";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -550,11 +543,7 @@
 					/Volumes/polymake2/programs/gmp5/include,
 					/Volumes/polymake/programs/mpfr3/include,
 				);
-				LIBRARY_SEARCH_PATHS = (
-					/Volumes/polymake2/programs/polymake_install/lib,
-					/Volumes/polymake2/programs/gmp5/lib,
-					/Volumes/polymake/programs/mpfr3/lib,
-				);
+				LIBRARY_SEARCH_PATHS = "";
 				New_Setting = "";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -569,18 +558,7 @@
 					"-I/Volumes/polymake2/programs/gmp5/include",
 					"-I/Volumes/polymake/programs/mpfr3/include",
 				);
-				OTHER_LDFLAGS = (
-					"-L/Volumes/polymake2/programs/polymake_install/lib",
-					"-L/Volumes/polymake2/programs/gmp5/lib",
-					"-Wl,-rpath,/Volumes/polymake2/programs/gmp5/lib",
-					"-L/Volumes/polymake/programs/mpfr3/lib",
-					"-Wl,-rpath,/Volumes/polymake/programs/mpfr3/lib",
-					"-flat_namespace",
-					"-lpolymake",
-					"-lpolymake-apps",
-					"-lgmp",
-					"-lxml2",
-				);
+				OTHER_LDFLAGS = "";
 				SDKROOT = macosx;
 			};
 			name = Release;

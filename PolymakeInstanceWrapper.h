@@ -23,4 +23,7 @@
 - (id)init;
 - (void)createScope;
 
+-(NSArray *)databaseNames;
+-(NSArray *)collectionNamesofDatabase:(NSString *)db;
+
 @end
