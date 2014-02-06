@@ -58,31 +58,40 @@
     if ( self = [super init] ) {
         
         // libpolymake initialize polymake object
-        _rootPerlNode = [[[PropertyNode alloc] initWithObject:[[PolymakeObjectWrapper alloc ] initWithPolymakeObject:[input path]]] retain];
+        PolymakeObjectWrapper * temp = [[PolymakeObjectWrapper alloc ] initWithPolymakeObject:[input path]];
         
-        // determine the object type of the given object
-        // this is stored as an attribute of the root node
-        _objectType = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectType]];
-        
-        // check whether the polymake object has a name
-        // as the type this would be an attribute of the root
-        _name = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectName]];
-        
-        // check whether the polytope has a description
-        // this is stored in a property directly below the root
-        _description = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectDescription]];
-        
-        NSMutableArray * creditLabels = [NSMutableArray array];
-        NSMutableArray * creditStrings = [NSMutableArray array];
+        if ( temp != nil ) {
+            _rootPerlNode = [[PropertyNode alloc] initWithObject:[temp retain]];
 
-        _creditsDict = [NSDictionary dictionaryWithObjects:creditStrings forKeys:creditLabels];
-        
-		// apparently we have to retain this
-        [_creditsDict retain];
-        
-		// keep the input filename
-        _filename = [input retain];
+            // determine the object type of the given object
+            // this is stored as an attribute of the root node
+            _objectType = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectType]];
+            
+            // check whether the polymake object has a name
+            // as the type this would be an attribute of the root
+            _name = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectName]];
+            
+            // check whether the polytope has a description
+            // this is stored in a property directly below the root
+            _description = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectDescription]];
+            
+            NSMutableArray * creditLabels = [NSMutableArray array];
+            NSMutableArray * creditStrings = [NSMutableArray array];
+            
+            _creditsDict = [NSDictionary dictionaryWithObjects:creditStrings forKeys:creditLabels];
+            
+            // apparently we have to retain this
+            [_creditsDict retain];
+            
+            // keep the input filename
+            _filename = [input retain];
+        } else {
+            self = nil;
+        }
+
+        [temp release];
     }
+    
     
     return self;
 }

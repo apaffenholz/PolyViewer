@@ -39,7 +39,6 @@ NSString * const ChildrenOfRootHaveChangedNotification = @"ChildrenOfRootHaveCha
 		self = [super init];
 		if (self) {
 			
-			//_rootPerlNode = nil;
 			_polyObj = nil;
 			_currentPropertyValue = nil;
 			_alignedColumns = NO;
@@ -76,7 +75,6 @@ NSString * const ChildrenOfRootHaveChangedNotification = @"ChildrenOfRootHaveCha
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	//[_rootPerlNode             release];
 	[_currentPropertyValue      release];
 	[_polyObj                  release];
 	[_valueLineNumberView      release];
@@ -170,7 +168,10 @@ NSString * const ChildrenOfRootHaveChangedNotification = @"ChildrenOfRootHaveCha
     _polyObj = [[PolymakeObject alloc] initObjectWithURL:input];
     
     NSLog(@"[PolymakeFile readFromURL] returning");
-    return YES;
+    if ( _polyObj == nil )
+        return NO;
+    else
+        return YES;
 }
 
 

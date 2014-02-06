@@ -98,8 +98,13 @@
 - (NSString *)getObjectName {
     NSLog(@"[PolymakeObjectWrapper getObjectName] entering");
     
+    NSString *objectName = nil;
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_name" ofType:@"pl"];
-    NSString *objectName = [[NSString alloc] initWithCString:CallPolymakeFunction("script",[filePath UTF8String],p) encoding:NSUTF8StringEncoding];
+    std::string name = CallPolymakeFunction("script",[filePath UTF8String],p);
+    if ( name.length() != 0 )
+        objectName = [[NSString alloc] initWithCString:name.c_str() encoding:NSUTF8StringEncoding];
+    else
+        objectName = [[NSString alloc] initWithString:@"<unnamed>"];
 
     NSLog(@"[PolymakeObjectWrapper getObjectName] returning name: %@", objectName);
     return objectName;
@@ -189,7 +194,8 @@
                 if ( prop.second[0] ) {
                     _prop = [[PolymakeObjectWrapper alloc] init];
                     _prop = [self getSubobjectWithIndex:j
-                                                andName:[NSString stringWithCString:prop.first.c_str() encoding:NSUTF8StringEncoding]];
+                                                andName:[NSString stringWithCString:prop.first.c_str()
+                                                                           encoding:NSUTF8StringEncoding]];
                 } else {
                     _prop = self;
                 }
@@ -199,7 +205,8 @@
                     propname = [NSString stringWithCString:namesOfMultiples[j] encoding:NSUTF8StringEncoding];
                 else
                     propname = @"";
-                PropertyNode *propNode = [[PropertyNode alloc] initWithName: [NSString stringWithCString:prop.first.c_str() encoding:NSUTF8StringEncoding]
+                PropertyNode *propNode = [[PropertyNode alloc] initWithName:[NSString stringWithCString:prop.first.c_str()
+                                                                                               encoding:NSUTF8StringEncoding]
                                                                      andObj:_prop
                                                                   withIndex:j
                                                                    withName:propname
