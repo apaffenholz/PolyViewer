@@ -28,6 +28,7 @@
     
     IBOutlet NSComboBox * databaseSelection;
     IBOutlet NSComboBox * collectionSelection;
+    IBOutlet NSComboBox * idSelection;
     
     NSString             * _database;
     NSString             * _collection;
@@ -35,6 +36,7 @@
 
     NSArray              * _databases;
     NSArray              * _collections;
+    NSArray              * _IDs;
 }
 
 @property (readwrite,copy) NSArray * databases;

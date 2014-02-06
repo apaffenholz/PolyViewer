@@ -38,6 +38,7 @@
 		E13DCBD3188ADD6000DF3519 /* get_name.pl in Resources */ = {isa = PBXBuildFile; fileRef = E13DCBD2188ADD6000DF3519 /* get_name.pl */; };
 		E1C9455218A1B17900E30E4E /* get_db_list.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1C9455018A1B07D00E30E4E /* get_db_list.pl */; };
 		E1C9455518A2C4EB00E30E4E /* get_db_collection_list.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1C9455318A29FA000E30E4E /* get_db_collection_list.pl */; };
+		E1C9455818A41A8C00E30E4E /* get_db_ListOfIDs.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1C9455618A4195C00E30E4E /* get_db_ListOfIDs.pl */; };
 		E1D968641893D55B0060FEEA /* polymake.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E1D968631893D55B0060FEEA /* polymake.xcconfig */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +98,7 @@
 		E13DCBD2188ADD6000DF3519 /* get_name.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_name.pl; sourceTree = "<group>"; };
 		E1C9455018A1B07D00E30E4E /* get_db_list.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_db_list.pl; sourceTree = "<group>"; };
 		E1C9455318A29FA000E30E4E /* get_db_collection_list.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_db_collection_list.pl; sourceTree = "<group>"; };
+		E1C9455618A4195C00E30E4E /* get_db_ListOfIDs.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_db_ListOfIDs.pl; sourceTree = "<group>"; };
 		E1D968631893D55B0060FEEA /* polymake.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = polymake.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -213,6 +215,7 @@
 				E12E28991895B1DE00051EBD /* retrieve_database_object.pl */,
 				E1C9455018A1B07D00E30E4E /* get_db_list.pl */,
 				E1C9455318A29FA000E30E4E /* get_db_collection_list.pl */,
+				E1C9455618A4195C00E30E4E /* get_db_ListOfIDs.pl */,
 			);
 			name = polymakePerlScripts;
 			path = scripts;
@@ -319,6 +322,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1C9455818A41A8C00E30E4E /* get_db_ListOfIDs.pl in Resources */,
 				E1C9455518A2C4EB00E30E4E /* get_db_collection_list.pl in Resources */,
 				E1C9455218A1B17900E30E4E /* get_db_list.pl in Resources */,
 				72BD024818849CC300837D78 /* get_type.pl in Resources */,
@@ -353,7 +357,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "source ~/.bash_profile\nPOLYMAKE_CONFIG=\"polymake.xcconfig\"\nPOLYMAKE_CFLAGS=`polymake-config --cflags`\nPOLYMAKE_INCULDES=`polymake-config --includes`\nPOLYMAKE_LDFLAGS=`polymake-config --ldflags`\nPOLYMAKE_LIBS=`polymake-config --libs`\necho \"// Configuration read from polymake-config during build phase.\" > $POLYMAKE_CONFIG\necho \"POLYMAKE_CFLAGS = $POLYMAKE_CFLAGS\" >> $POLYMAKE_CONFIG\necho \"POLYMAKE_LDFLAGS = $POLYMAKE_LDFLAGS\" >> $POLYMAKE_CONFIG\necho \"POLYMAKE_LIBS = $POLYMAKE_LIBS\" >> $POLYMAKE_CONFIG\necho \"POLYMAKE_INCLUDES = $POLYMAKE_INCULDES\" >> $POLYMAKE_CONFIG";
+			shellScript = "source ~/.bash_profile\nPOLYMAKE_CONFIG=\"polymake.xcconfig\"\nPOLYMAKE_CFLAGS=`polymake-config --cflags`\nPOLYMAKE_INCULDES=`polymake-config --includes`\nPOLYMAKE_LDFLAGS=`polymake-config --ldflags`\nPOLYMAKE_LIBS=`polymake-config --libs`\necho \"// Configuration read from polymake-config during build phase.\" > $POLYMAKE_CONFIG\necho \"POLYMAKE_CFLAGS = $POLYMAKE_CFLAGS\" >> $POLYMAKE_CONFIG\necho \"POLYMAKE_LDFLAGS = $POLYMAKE_LDFLAGS\" >> $POLYMAKE_CONFIG\necho \"POLYMAKE_LIBS = $POLYMAKE_LIBS\" >> $POLYMAKE_CONFIG\necho \"POLYMAKE_INCLUDES = $POLYMAKE_INCULDES\" >> $POLYMAKE_CONFIG\n\necho \"PERL5LIB = $PERL5LIB:/Users/andreas/polymake/src/perl-modules/lib/perl5/site_perl/5.16.2/darwin-thread-multi-2level\" >> $POLYMAKE_CONFIG";
 		};
 /* End PBXShellScriptBuildPhase section */
 

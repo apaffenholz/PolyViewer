@@ -7,9 +7,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="RetrieveFromDBController">
             <connections>
-                <outlet property="IDTextfield" destination="6hT-xw-wGq" id="HsM-3n-E09"/>
                 <outlet property="collectionSelection" destination="bFG-9w-3d9" id="qBZ-e8-vNK"/>
                 <outlet property="databaseSelection" destination="C33-fh-q8z" id="xXf-h6-P6J"/>
+                <outlet property="idSelection" destination="lYX-Da-Xtx" id="aG3-T6-HEY"/>
                 <outlet property="retrieveObject" destination="fgQ-Cm-wGn" id="Shz-R9-wKN"/>
                 <outlet property="window" destination="1" id="w04-hw-0Lb"/>
             </connections>
@@ -20,7 +20,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="417" height="167"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="417" height="167"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -77,19 +77,6 @@ DQ
                             <action selector="orderOut:" target="1" id="9LV-8q-qtj"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6hT-xw-wGq">
-                        <rect key="frame" x="99" y="61" width="298" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="ID" drawsBackground="YES" id="wQ3-yo-fzG">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                        <connections>
-                            <binding destination="-2" name="value" keyPath="ID" id="8jN-ta-vBD"/>
-                            <outlet property="nextKeyView" destination="fgQ-Cm-wGn" id="smc-M7-1KC"/>
-                        </connections>
-                    </textField>
                     <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C33-fh-q8z">
                         <rect key="frame" x="99" y="123" width="301" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -112,6 +99,18 @@ DQ
                         </comboBoxCell>
                         <connections>
                             <outlet property="delegate" destination="-2" id="3Ca-wi-yEG"/>
+                        </connections>
+                    </comboBox>
+                    <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lYX-Da-Xtx">
+                        <rect key="frame" x="100" y="58" width="300" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="WcG-Pl-vze">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </comboBoxCell>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="aCi-Qx-8hw"/>
                         </connections>
                     </comboBox>
                 </subviews>

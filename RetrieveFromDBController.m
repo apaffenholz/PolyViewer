@@ -73,12 +73,15 @@
     
     NSString * selectedDatabase = [_databases objectAtIndex:[databaseSelection selectedTag]];
 	NSLog(@"[RetrieveFromDBController windowDidLoad] got db: %@", selectedDatabase);
+
+    /*
     _collections = [[[NSApp delegate] collectionNamesOfDatabase:selectedDatabase] retain];
     NSLog(@"[RetrieveFromDBController windowDidLoad] got collections: %@", _collections);
     [collectionSelection removeAllItems];
     [collectionSelection addItemsWithObjectValues:_collections];
     [collectionSelection selectItemAtIndex:0];
     [collectionSelection setObjectValue:[collectionSelection objectValueOfSelectedItem]];
+    */
     
     NSLog(@"[RetrieveFromDBController windowDidLoad] database names are %@",_databases);
 }
@@ -89,6 +92,9 @@
     NSLog(@"[RetrieveFromDBController retrieveFromDB] index of selected item: %ld",(long)[databaseSelection indexOfSelectedItem]);
     
     _database = (NSString *)[_databases objectAtIndex:[databaseSelection indexOfSelectedItem]];
+    _collection = (NSString *)[_collections objectAtIndex:[collectionSelection indexOfSelectedItem]];
+    _ID = (NSString *)[_IDs objectAtIndex:[idSelection indexOfSelectedItem]];
+  
     NSLog(@"[RetrieveFromDBController retrieveFromDB] selected item: %@",_database);
     PolymakeFile * pf = [[PolymakeFile alloc] init];
     [pf readFromDatabase:_database andCollection:_collection withID:_ID];
@@ -102,10 +108,10 @@
 
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification {
 
-    id myObject = [notification object];
-    if ( myObject == databaseSelection ) {
+    NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] entered");
     
-        NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] entered");
+    id myObject = [notification object];
+    if ( myObject == databaseSelection ) {    // the selected databas has changed, so we retrieve the list of collections
         
         NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
         
@@ -119,6 +125,31 @@
         [collectionSelection addItemsWithObjectValues:_collections];
         [collectionSelection selectItemAtIndex:0];
         [collectionSelection setObjectValue:[collectionSelection objectValueOfSelectedItem]];
+    } else {
+        if ( myObject == collectionSelection ) {
+            // the selected collection has changed, so we retrieve ids
+            // current decision: we only get the first 1000
+            // FIXME enhancement: add text field to narrow search by fixing properties,
+            // and provide fields for max number of retrieved and number of results to skip from start of result list
+
+            NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
+            NSString * selectedCollection = [collectionSelection objectValueOfSelectedItem];
+            NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] selected database: %@", selectedDatabase);
+            NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] selected collection: %@", selectedCollection);
+            
+            if ( [selectedCollection length] != 0 && selectedCollection != NULL && selectedCollection != nil ) {
+           
+                if ( _IDs != nil )
+                    [_IDs release];
+                _IDs = [[[NSApp delegate] idsForDatabase:selectedDatabase andCollection:selectedCollection restrictToAmount:1000 startingAt:0] retain];
+                [idSelection removeAllItems];
+                [idSelection addItemsWithObjectValues:_IDs];
+                [idSelection selectItemAtIndex:0];
+                [idSelection setObjectValue:[idSelection objectValueOfSelectedItem]];
+            } else {
+                [idSelection removeAllItems];
+            }
+        }
     }
 }
 
