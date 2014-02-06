@@ -61,9 +61,11 @@
     NSMutableArray * databases = [NSMutableArray array];
     for (int i=0, end=results.size(); i<end; ++i) {
         NSLog(@"[PolymakeInstanceWrapper databaseNames] in loop");
-        std::string dbstring = results[i];
-        NSString * db = [[NSString alloc] initWithCString:dbstring.c_str() encoding:NSUTF8StringEncoding];
-        [databases addObject:db];
+        const char* dbstring = results[i];
+        if (strlen(dbstring) > 0) {
+            NSString * db = [[NSString alloc] initWithCString:dbstring encoding:NSUTF8StringEncoding];
+            [databases addObject:db];
+        }
     }
 
     NSLog(@"[PolymakeInstanceWrapper databaseNames] leaving");
@@ -79,10 +81,12 @@
     NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] found %d results", results.size());
     NSMutableArray * collections = [NSMutableArray array];
     for (int i=0, end=results.size(); i<end; ++i) {
-        std::string collstring = results[i];
-        NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] in loop, adding %s", collstring.c_str());
-        NSString *  coll = [[NSString alloc] initWithCString:collstring.c_str() encoding:NSUTF8StringEncoding];
-        [collections addObject:coll];
+        const char* collstring = results[i];
+        if (strlen(collstring) > 0) {
+            NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] in loop, adding %s", collstring);
+            NSString *  coll = [[NSString alloc] initWithCString:collstring encoding:NSUTF8StringEncoding];
+            [collections addObject:coll];
+        }
     }
     
     NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] leaving");

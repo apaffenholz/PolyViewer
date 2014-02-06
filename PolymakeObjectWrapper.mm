@@ -110,9 +110,9 @@
     NSLog(@"[PolymakeObjectWrapper getObjectName] entering");
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_name" ofType:@"pl"];
-    std::string st = CallPolymakeFunction("script",[filePath UTF8String],p);
-    if ( st == "" ) st = "<unnamed>";
-    NSString *objectName = [[NSString alloc] initWithCString:st.c_str() encoding:NSUTF8StringEncoding];
+    const char* st = CallPolymakeFunction("script",[filePath UTF8String],p);
+    if ( strlen(st) == 0 ) st = "<unnamed>";
+    NSString *objectName = [[NSString alloc] initWithCString:st encoding:NSUTF8StringEncoding];
 
     NSLog(@"[PolymakeObjectWrapper getObjectName] returning name: %@", objectName);
     return objectName;
