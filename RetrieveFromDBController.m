@@ -44,6 +44,8 @@
         amount = nil;
         skip = nil;
 
+        //[self addObserver:_reportNumberOfResults forKeyPath:@"reportNumberOfresults" options:NSKeyValueChangeSetting context:nil];
+        //[_noOfRes addObserver:self forKeyPath:@"reportNumberOfResults" options:NSKeyValueChangeNewKey context:nil];
     }
     
 	return self;
@@ -68,8 +70,9 @@
     _collection = @"SmoothReflexive";
     _ID = @"F.4D.0123";
     [self setReportNumberOfResults:@"no results"];
+    [_reportNumberOfResultsLabel setStringValue:_reportNumberOfResults];
     
-    _additionalProperties = @"<none specified>";
+    _additionalProperties = @"";
     amount = [NSNumber numberWithInt:1000];
     skip = [NSNumber numberWithInt:0];
     [_amountTextfield setStringValue:[amount stringValue]];
@@ -131,33 +134,75 @@
             // FIXME enhancement: add text field to narrow search by fixing properties,
             // and provide fields for max number of retrieved and number of results to skip from start of result list
 
-            NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
-            NSString * selectedCollection = [collectionSelection objectValueOfSelectedItem];
-            NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] selected database: %@", selectedDatabase);
-            NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] selected collection: %@", selectedCollection);
-            
-            if ( [selectedCollection length] != 0 && selectedCollection != NULL && selectedCollection != nil ) {
-           
-                if ( _IDs != nil )
-                    [_IDs release];
-                NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
-                [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-                amount = [formatter numberFromString:[_amountTextfield stringValue]];
-                skip = [formatter numberFromString:[_skipTextfield stringValue]];
-                [formatter release];
-                _IDs = [[[NSApp delegate] idsForDatabase:selectedDatabase andCollection:selectedCollection restrictToAmount:[amount intValue] startingAt:[skip intValue]] retain];
-                [idSelection removeAllItems];
-                [idSelection addItemsWithObjectValues:_IDs];
-                [idSelection selectItemAtIndex:0];
-                [idSelection setObjectValue:[idSelection objectValueOfSelectedItem]];
-            } else {
-                [idSelection removeAllItems];
-            }
+            [self updateCollection];
+
         }
     }
 }
+    
+- (void)controlTextDidEndEditing:(NSNotification *)notification {
+    NSTextField *textField = [notification object];
+    NSLog(@"[RetrieveDromDBController controlTextDidChange] %@", [textField stringValue]);
+    [self updateCollection];
+    
+}
 
-- (IBAction)updateCollection:(id)sender {
+- (void)updateCollection {
+
+    NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
+    NSString * selectedCollection = [collectionSelection objectValueOfSelectedItem];
+
+    NSLog(@"[RetrieveFromDBController updateCollection] selected database: %@", selectedDatabase);
+    NSLog(@"[RetrieveFromDBController updateCollection] selected collection: %@", selectedCollection);
+    
+    if ( [selectedCollection length] != 0 && selectedCollection != NULL && selectedCollection != nil ) {
+        
+        if ( _IDs != nil )
+        [_IDs release];
+        NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        amount = [formatter numberFromString:[_amountTextfield stringValue]];
+        skip = [formatter numberFromString:[_skipTextfield stringValue]];
+        _additionalProperties = [_additionalPropertiesTextfield stringValue];
+        [formatter release];
+
+    
+        NSLog(@"[RetrieveFromDBController updateCollection] additional properties: %@", _additionalProperties);
+        
+        NSMutableDictionary *propDict = [[NSMutableDictionary alloc] init];
+        if ( [_additionalProperties length] > 0 ) {
+            NSArray *objects = [_additionalProperties componentsSeparatedByCharactersInSet:
+                                                    [NSCharacterSet characterSetWithCharactersInString:@"=,"]];
+        
+            NSLog(@"[RetrieveFromDBController updateCollection] additional properties as array: %@", objects);
+        
+            for (int i=0; i<[objects count]; i=i+2) {
+                [propDict setObject:objects[i+1] forKey:objects[i]];
+            }
+            NSLog(@"[RetrieveFromDBController updateCollection] additional properties as dict: %@", propDict);
+        }
+        
+        _IDs = [[[NSApp delegate] idsForDatabase:selectedDatabase
+                                   andCollection:selectedCollection
+                         withAddtionalProperties:propDict
+                                restrictToAmount:[amount intValue]
+                                      startingAt:[skip intValue]] retain];
+        
+        [self setReportNumberOfResults:[NSString stringWithFormat:@"number of results in query: %lu",(unsigned long)[_IDs count]]];
+        [_reportNumberOfResultsLabel setStringValue:_reportNumberOfResults];
+        
+        
+        [idSelection deselectItemAtIndex:[idSelection indexOfSelectedItem]];
+        [idSelection removeAllItems];
+        [idSelection addItemsWithObjectValues:_IDs];
+        if ( [idSelection numberOfItems] > 0 ) {
+            [idSelection selectItemAtIndex:0];
+            [idSelection setObjectValue:[idSelection objectValueOfSelectedItem]];
+        }
+    } else {
+        [idSelection removeAllItems];
+    }
+    
 }
 
 @end

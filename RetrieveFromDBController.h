@@ -24,7 +24,9 @@
     IBOutlet NSTextField * _skipTextfield;
     IBOutlet NSTextField * _amountTextfield;
     IBOutlet NSTextField * _additionalPropertiesTextfield;
-    
+
+    IBOutlet NSTextField * _reportNumberOfResultsLabel;
+
     
     
     
@@ -54,6 +56,6 @@
 @property (readwrite,copy) NSString * reportNumberOfResults;
 
 - (IBAction)retrieveFromDB:(id)sender;
-- (IBAction)updateCollection:(id)sender;
+- (void)updateCollection;
 
 @end

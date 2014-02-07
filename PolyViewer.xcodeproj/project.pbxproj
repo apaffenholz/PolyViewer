@@ -369,7 +369,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "source ~/.bash_profile\nPOLYMAKE_CONFIG=\"polymake.xcconfig\"\nPOLYMAKE_CFLAGS=`polymake-config --cflags`\nPOLYMAKE_INCULDES=`polymake-config --includes`\nPOLYMAKE_LDFLAGS=`polymake-config --ldflags`\nPOLYMAKE_LIBS=`polymake-config --libs`\necho \"// Configuration read from polymake-config during build phase.\" > $POLYMAKE_CONFIG\necho \"POLYMAKE_CFLAGS = $POLYMAKE_CFLAGS\" >> $POLYMAKE_CONFIG\necho \"POLYMAKE_LDFLAGS = $POLYMAKE_LDFLAGS\" >> $POLYMAKE_CONFIG\necho \"POLYMAKE_LIBS = $POLYMAKE_LIBS\" >> $POLYMAKE_CONFIG\necho \"POLYMAKE_INCLUDES = $POLYMAKE_INCULDES\" >> $POLYMAKE_CONFIG\n\necho \"PERL5LIB = $PERL5LIB:/Users/andreas/polymake/src/perl-modules/lib/perl5/site_perl/5.16.2/darwin-thread-multi-2level\" >> $POLYMAKE_CONFIG";
+			shellScript = "source ~/.bash_profile\nPOLYMAKE_CONFIG=\"polymake.xcconfig\"\nPOLYMAKE_CFLAGS=`polymake-config --cflags`\nPOLYMAKE_INCULDES=`polymake-config --includes`\nPOLYMAKE_LDFLAGS=`polymake-config --ldflags`\nPOLYMAKE_LIBS=`polymake-config --libs`\necho \"// Configuration read from polymake-config during build phase.\" > $POLYMAKE_CONFIG\necho \"POLYMAKE_CFLAGS = $POLYMAKE_CFLAGS\" >> $POLYMAKE_CONFIG\necho \"POLYMAKE_LDFLAGS = $POLYMAKE_LDFLAGS\" >> $POLYMAKE_CONFIG\necho \"POLYMAKE_LIBS = $POLYMAKE_LIBS\" >> $POLYMAKE_CONFIG\necho \"POLYMAKE_INCLUDES = $POLYMAKE_INCULDES\" >> $POLYMAKE_CONFIG\n\n#echo \"PERL5LIB = $PERL5LIB:/Users/andreas/polymake/src/perl-modules/lib/perl5/site_perl/5.16.2/darwin-thread-multi-2level\" >> $POLYMAKE_CONFIG";
 		};
 /* End PBXShellScriptBuildPhase section */
 

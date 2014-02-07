@@ -79,8 +79,16 @@
     return [pinst collectionNamesofDatabase:db];
 }
 
-- (NSArray *) idsForDatabase:selectedDatabase andCollection:selectedCollection restrictToAmount:amount startingAt:start {
-  return [pinst idsForDatabase:selectedDatabase andCollection:selectedCollection restrictToAmount:amount startingAt:start];
+- (NSArray *) idsForDatabase:(NSString *)selectedDatabase
+               andCollection:(NSString *)selectedCollection
+     withAddtionalProperties:(NSDictionary *)propDict
+            restrictToAmount:(NSNumber *)amount
+                  startingAt:(NSNumber *)start {
+  return [pinst idsForDatabase:selectedDatabase
+                 andCollection:selectedCollection
+       withAddtionalProperties:propDict
+              restrictToAmount:amount
+                    startingAt:start];
 }
 
 @end

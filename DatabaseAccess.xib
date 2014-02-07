@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="_additionalPropertiesTextfield" destination="Udp-7o-yLJ" id="59U-WF-5uS"/>
                 <outlet property="_amountTextfield" destination="XWg-VA-yjx" id="rdb-2n-0hF"/>
+                <outlet property="_reportNumberOfResultsLabel" destination="bUD-Bc-qbe" id="heP-81-U0a"/>
                 <outlet property="_skipTextfield" destination="Le4-zn-L9Y" id="D2i-ZH-Id0"/>
                 <outlet property="collectionSelection" destination="bFG-9w-3d9" id="qBZ-e8-vNK"/>
                 <outlet property="databaseSelection" destination="C33-fh-q8z" id="xXf-h6-P6J"/>
@@ -78,6 +79,9 @@ DQ
                         <buttonCell key="cell" type="roundTextured" title="Cancel" bezelStyle="texturedRounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fg8-l1-zRz">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
                         </buttonCell>
                         <connections>
                             <action selector="orderOut:" target="1" id="9LV-8q-qtj"/>

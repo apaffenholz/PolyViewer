@@ -24,6 +24,23 @@ my $coll_name = shift;
 my $amount = shift;
 my $start = shift;
 
-my $ids = poly_db_ids({}, db=>$db_name, collection=>$coll_name, limit=>$amount, skip=>$start);
+my $additional_props=shift;
+
+my %add;
+
+my @add_helper = split /,/, $additional_props;
+foreach my $item(@add_helper) {
+    my ($i,$j)= split(/:/, $item);
+    $add{$i} = $j;
+}
+
+print "keys: ", keys(%add), "\nvalues: ", values(%add), "\n";
+
+my $ids;
+if ( !$additional_props ) {
+  $ids = poly_db_ids({}, db=>$db_name, collection=>$coll_name, limit=>$amount, skip=>$start);
+} else {
+    $ids = poly_db_ids({%add}, db=>$db_name, collection=>$coll_name, limit=>$amount, skip=>$start);
+}
 
 return @{$ids};
