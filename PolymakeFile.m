@@ -71,7 +71,6 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	//[_rootPerlNode             release];
 	[_currentPropertyText      release];
 	[_polyObj                  release];
 	[_valueLineNumberView      release];

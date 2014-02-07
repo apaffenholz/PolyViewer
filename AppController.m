@@ -66,9 +66,9 @@
 }
 
 
-	// closing a window should close the app
+	// closing a window should NOT close the app
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed: (NSApplication *)theApplication {
-	return YES;
+	return NO;
 }	
 
 -(NSArray *)databaseNames {
@@ -77,6 +77,10 @@
 
 -(NSArray *)collectionNamesOfDatabase:(NSString *)db {
     return [pinst collectionNamesofDatabase:db];
+}
+
+- (NSArray *) idsForDatabase:selectedDatabase andCollection:selectedCollection restrictToAmount:amount startingAt:start {
+  return [pinst idsForDatabase:selectedDatabase andCollection:selectedCollection restrictToAmount:amount startingAt:start];
 }
 
 @end

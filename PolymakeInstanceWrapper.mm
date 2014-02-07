@@ -93,5 +93,19 @@
     return collections;
 }
 
+-(NSArray *)idsForDatabase:db andCollection:coll restrictToAmount:amount startingAt:start {
+
+    NSMutableArray * ids = [NSMutableArray array];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_db_ListOfIDs" ofType:@"pl"];
+    polymake::perl::ListResult results = ListCallPolymakeFunction("script",[filePath UTF8String],[db cStringUsingEncoding:NSUTF8StringEncoding], [coll cStringUsingEncoding:NSUTF8StringEncoding],(long)amount,(long)start);
+    NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] retrieved: %d", results.size());
+    for (int i=0, end=results.size(); i<end; ++i) {
+        std::string idstring = results[i];
+        NSString *  id = [[NSString alloc] initWithCString:idstring.c_str() encoding:NSUTF8StringEncoding];
+        [ids addObject:id];
+    }
+    
+    return ids;
+}
 
 @end

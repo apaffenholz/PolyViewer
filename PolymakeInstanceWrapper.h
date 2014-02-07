@@ -25,5 +25,6 @@
 
 -(NSArray *)databaseNames;
 -(NSArray *)collectionNamesofDatabase:(NSString *)db;
+-(NSArray *)idsForDatabase:db andCollection:coll restrictToAmount:amount startingAt:start;
 
 @end

@@ -28,6 +28,7 @@
 @synthesize ID = _ID;
 @synthesize databases = _databases;
 @synthesize collections = _collections;
+@synthesize reportNumberOfResults = _reportNumberOfResults;
 
 
 -(id)init {
@@ -38,7 +39,10 @@
         _ID = nil;
         _databases = nil;
         _collections = nil;
-
+        _reportNumberOfResults = nil;
+        _additionalProperties = nil;
+        amount = nil;
+        skip = nil;
 
     }
     
@@ -63,9 +67,14 @@
     _database = @"Tropical";
     _collection = @"SmoothReflexive";
     _ID = @"F.4D.0123";
-    [databaseTextfield setStringValue:_database];
-    [collectionTextfield setStringValue:_collection];
-    [IDTextfield setStringValue:_ID];
+    [self setReportNumberOfResults:@"no results"];
+    
+    _additionalProperties = @"<none specified>";
+    amount = [NSNumber numberWithInt:1000];
+    skip = [NSNumber numberWithInt:0];
+    [_amountTextfield setStringValue:[amount stringValue]];
+    [_skipTextfield setStringValue:[skip stringValue]];
+    [_additionalPropertiesTextfield setStringValue:_additionalProperties];
     
     _databases = [[[NSApp delegate] databaseNames] retain];
     [databaseSelection addItemsWithObjectValues:_databases];
@@ -73,13 +82,6 @@
     
     NSString * selectedDatabase = [_databases objectAtIndex:[databaseSelection selectedTag]];
 	NSLog(@"[RetrieveFromDBController windowDidLoad] got db: %@", selectedDatabase);
-    _collections = [[[NSApp delegate] collectionNamesOfDatabase:selectedDatabase] retain];
-    NSLog(@"[RetrieveFromDBController windowDidLoad] got collections: %@", _collections);
-    [collectionSelection removeAllItems];
-    [collectionSelection addItemsWithObjectValues:_collections];
-    [collectionSelection selectItemAtIndex:0];
-    [collectionSelection setObjectValue:[collectionSelection objectValueOfSelectedItem]];
-    
     NSLog(@"[RetrieveFromDBController windowDidLoad] database names are %@",_databases);
 }
 
@@ -89,6 +91,9 @@
     NSLog(@"[RetrieveFromDBController retrieveFromDB] index of selected item: %ld",(long)[databaseSelection indexOfSelectedItem]);
     
     _database = (NSString *)[_databases objectAtIndex:[databaseSelection indexOfSelectedItem]];
+    _collection = (NSString *)[_collections objectAtIndex:[collectionSelection indexOfSelectedItem]];
+    _ID = (NSString *)[_IDs objectAtIndex:[idSelection indexOfSelectedItem]];
+  
     NSLog(@"[RetrieveFromDBController retrieveFromDB] selected item: %@",_database);
     PolymakeFile * pf = [[PolymakeFile alloc] init];
     [pf readFromDatabase:_database andCollection:_collection withID:_ID];
@@ -102,10 +107,10 @@
 
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification {
 
-    id myObject = [notification object];
-    if ( myObject == databaseSelection ) {
+    NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] entered");
     
-        NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] entered");
+    id myObject = [notification object];
+    if ( myObject == databaseSelection ) {    // the selected databas has changed, so we retrieve the list of collections
         
         NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
         
@@ -119,6 +124,36 @@
         [collectionSelection addItemsWithObjectValues:_collections];
         [collectionSelection selectItemAtIndex:0];
         [collectionSelection setObjectValue:[collectionSelection objectValueOfSelectedItem]];
+    } else {
+        if ( myObject == collectionSelection ) {
+            // the selected collection has changed, so we retrieve ids
+            // current decision: we only get the first 1000
+            // FIXME enhancement: add text field to narrow search by fixing properties,
+            // and provide fields for max number of retrieved and number of results to skip from start of result list
+
+            NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
+            NSString * selectedCollection = [collectionSelection objectValueOfSelectedItem];
+            NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] selected database: %@", selectedDatabase);
+            NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] selected collection: %@", selectedCollection);
+            
+            if ( [selectedCollection length] != 0 && selectedCollection != NULL && selectedCollection != nil ) {
+           
+                if ( _IDs != nil )
+                    [_IDs release];
+                NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
+                [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+                amount = [formatter numberFromString:[_amountTextfield stringValue]];
+                skip = [formatter numberFromString:[_skipTextfield stringValue]];
+                [formatter release];
+                _IDs = [[[NSApp delegate] idsForDatabase:selectedDatabase andCollection:selectedCollection restrictToAmount:[amount intValue] startingAt:[skip intValue]] retain];
+                [idSelection removeAllItems];
+                [idSelection addItemsWithObjectValues:_IDs];
+                [idSelection selectItemAtIndex:0];
+                [idSelection setObjectValue:[idSelection objectValueOfSelectedItem]];
+            } else {
+                [idSelection removeAllItems];
+            }
+        }
     }
 }
 

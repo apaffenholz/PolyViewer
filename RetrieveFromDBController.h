@@ -21,20 +21,29 @@
 @interface RetrieveFromDBController : NSWindowController <NSComboBoxDelegate> {
 
     IBOutlet NSButton    * retrieveObject;
-    IBOutlet NSTextField * databaseTextfield;
-    IBOutlet NSTextField * collectionTextfield;
-    IBOutlet NSTextField * IDTextfield;
+    IBOutlet NSTextField * _skipTextfield;
+    IBOutlet NSTextField * _amountTextfield;
+    IBOutlet NSTextField * _additionalPropertiesTextfield;
+    
+    
     
     
     IBOutlet NSComboBox * databaseSelection;
     IBOutlet NSComboBox * collectionSelection;
+    IBOutlet NSComboBox * idSelection;
     
     NSString             * _database;
     NSString             * _collection;
     NSString             * _ID;
+    
+    NSString             * _reportNumberOfResults;
+    NSString             * _additionalProperties;
+    NSNumber             * amount;
+    NSNumber             * skip;
 
     NSArray              * _databases;
     NSArray              * _collections;
+    NSArray              * _IDs;
 }
 
 @property (readwrite,copy) NSArray * databases;
@@ -42,6 +51,7 @@
 @property (readwrite,copy) NSString * database;
 @property (readwrite,copy) NSString * collection;
 @property (readwrite,copy) NSString * ID;
+@property (readwrite,copy) NSString * reportNumberOfResults;
 
 - (IBAction)retrieveFromDB:(id)sender;
 - (IBAction)updateCollection:(id)sender;
