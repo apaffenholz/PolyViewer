@@ -100,8 +100,8 @@
     polymake::perl::ListResult results = ListCallPolymakeFunction("script",[filePath UTF8String],[db cStringUsingEncoding:NSUTF8StringEncoding], [coll cStringUsingEncoding:NSUTF8StringEncoding],(long)amount,(long)start);
     NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] retrieved: %d", results.size());
     for (int i=0, end=results.size(); i<end; ++i) {
-        std::string idstring = results[i];
-        NSString *  id = [[NSString alloc] initWithCString:idstring.c_str() encoding:NSUTF8StringEncoding];
+        const char* idstring = results[i];
+        NSString *  id = [[NSString alloc] initWithCString:idstring encoding:NSUTF8StringEncoding];
         [ids addObject:id];
     }
     
