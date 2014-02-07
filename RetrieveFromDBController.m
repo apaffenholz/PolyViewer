@@ -44,6 +44,8 @@
         amount = nil;
         skip = nil;
 
+        //[self addObserver:_reportNumberOfResults forKeyPath:@"reportNumberOfresults" options:NSKeyValueChangeSetting context:nil];
+        //[_noOfRes addObserver:self forKeyPath:@"reportNumberOfResults" options:NSKeyValueChangeNewKey context:nil];
     }
     
 	return self;
@@ -68,8 +70,9 @@
     _collection = @"SmoothReflexive";
     _ID = @"F.4D.0123";
     [self setReportNumberOfResults:@"no results"];
+    [_reportNumberOfResultsLabel setStringValue:_reportNumberOfResults];
     
-    _additionalProperties = @"<none specified>";
+    _additionalProperties = @"";
     amount = [NSNumber numberWithInt:1000];
     skip = [NSNumber numberWithInt:0];
     [_amountTextfield setStringValue:[amount stringValue]];
@@ -146,6 +149,10 @@
                 skip = [formatter numberFromString:[_skipTextfield stringValue]];
                 [formatter release];
                 _IDs = [[[NSApp delegate] idsForDatabase:selectedDatabase andCollection:selectedCollection restrictToAmount:[amount intValue] startingAt:[skip intValue]] retain];
+                
+                [self setReportNumberOfResults:[NSString stringWithFormat:@"number of results in query: %lu",(unsigned long)[_IDs count]]];
+                [_reportNumberOfResultsLabel setStringValue:_reportNumberOfResults];
+                
                 [idSelection removeAllItems];
                 [idSelection addItemsWithObjectValues:_IDs];
                 [idSelection selectItemAtIndex:0];

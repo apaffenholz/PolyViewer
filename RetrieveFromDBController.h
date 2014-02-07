@@ -24,7 +24,9 @@
     IBOutlet NSTextField * _skipTextfield;
     IBOutlet NSTextField * _amountTextfield;
     IBOutlet NSTextField * _additionalPropertiesTextfield;
-    
+
+    IBOutlet NSTextField * _reportNumberOfResultsLabel;
+
     
     
     

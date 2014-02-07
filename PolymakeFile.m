@@ -48,22 +48,22 @@ NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDid
 			[self setLastOpenDialogStartDirectory:NSHomeDirectory()];
 
 		
-			[	[NSNotificationCenter defaultCenter] addObserver:self 
-																								selector:@selector(redrawValueTextViewWrapper:) 
-																										name:PVValueFormattingDidChangeNotification 
-																									object:nil];
-			[	[NSNotificationCenter defaultCenter] addObserver:self 
-																								selector:@selector(redrawValueTextViewWrapper:) 
-																										name:NSOutlineViewSelectionDidChangeNotification 
-																									object:nil];
+			[[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(redrawValueTextViewWrapper:)
+                                                         name:PVValueFormattingDidChangeNotification
+                                                       object:nil];
+			[[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(redrawValueTextViewWrapper:)
+                                                         name:NSOutlineViewSelectionDidChangeNotification
+                                                       object:nil];
 			[[NSNotificationCenter defaultCenter] addObserver:self 
-																							 selector:@selector(outlineViewSelectionWillChange:) 
-																									 name:NSOutlineViewSelectionIsChangingNotification 
-																								 object:nil];
+                                                     selector:@selector(outlineViewSelectionWillChange:)
+                                                         name:NSOutlineViewSelectionIsChangingNotification
+                                                       object:nil];
 			[[NSNotificationCenter defaultCenter] addObserver:self 
-																							 selector:@selector(tableViewSelectionDidChange:) 
-																									 name:NSTableViewSelectionDidChangeNotification
-																								 object:nil];
+                                                     selector:@selector(tableViewSelectionDidChange:)
+                                                         name:NSTableViewSelectionDidChangeNotification
+                                                       object:nil];
 			
 	}
 	return self;
