@@ -42,6 +42,6 @@
 
 -(NSArray *)databaseNames;
 -(NSArray *)collectionNamesOfDatabase:(NSString *)db;
-- (NSArray *) idsForDatabase:selectedDatabase andCollection:selectedCollection restrictToAmount:amount startingAt:start;
+- (NSArray *) idsForDatabase:selectedDatabase andCollection:selectedCollection  withAddtionalProperties:additionalProperties restrictToAmount:amount startingAt:start;
 
 @end

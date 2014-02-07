@@ -56,6 +56,6 @@
 @property (readwrite,copy) NSString * reportNumberOfResults;
 
 - (IBAction)retrieveFromDB:(id)sender;
-- (IBAction)updateCollection:(id)sender;
+- (void)updateCollection;
 
 @end

@@ -21,9 +21,19 @@ use application "common";
 
 my $db_name = shift;
 my $coll_name = shift;
+my $additional_props = shift;
 my $amount = shift;
 my $start = shift;
 
-my $ids = poly_db_ids({}, db=>$db_name, collection=>$coll_name, limit=>$amount, skip=>$start);
+print $additional_props;
+
+my $ids;
+if ( !$additional_props ) {
+  $ids = poly_db_ids({}, db=>$db_name, collection=>$coll_name, limit=>$amount, skip=>$start);
+} else {
+    print " and retrieving\n";
+    #$ids = poly_db_ids({$additional_props}, db=>$db_name, collection=>$coll_name, limit=>$amount, skip=>$start);
+    $ids = poly_db_ids({"CONE_DIM"=>5}, db=>$db_name, collection=>$coll_name, limit=>$amount, skip=>$start);
+}
 
 return @{$ids};

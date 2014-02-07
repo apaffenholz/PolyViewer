@@ -134,37 +134,57 @@
             // FIXME enhancement: add text field to narrow search by fixing properties,
             // and provide fields for max number of retrieved and number of results to skip from start of result list
 
-            NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
-            NSString * selectedCollection = [collectionSelection objectValueOfSelectedItem];
-            NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] selected database: %@", selectedDatabase);
-            NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] selected collection: %@", selectedCollection);
-            
-            if ( [selectedCollection length] != 0 && selectedCollection != NULL && selectedCollection != nil ) {
-           
-                if ( _IDs != nil )
-                    [_IDs release];
-                NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
-                [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-                amount = [formatter numberFromString:[_amountTextfield stringValue]];
-                skip = [formatter numberFromString:[_skipTextfield stringValue]];
-                [formatter release];
-                _IDs = [[[NSApp delegate] idsForDatabase:selectedDatabase andCollection:selectedCollection restrictToAmount:[amount intValue] startingAt:[skip intValue]] retain];
-                
-                [self setReportNumberOfResults:[NSString stringWithFormat:@"number of results in query: %lu",(unsigned long)[_IDs count]]];
-                [_reportNumberOfResultsLabel setStringValue:_reportNumberOfResults];
-                
-                [idSelection removeAllItems];
-                [idSelection addItemsWithObjectValues:_IDs];
-                [idSelection selectItemAtIndex:0];
-                [idSelection setObjectValue:[idSelection objectValueOfSelectedItem]];
-            } else {
-                [idSelection removeAllItems];
-            }
+            [self updateCollection];
+
         }
     }
 }
+    
+- (void)controlTextDidEndEditing:(NSNotification *)notification {
+    NSTextField *textField = [notification object];
+    NSLog(@"[RetrieveDromDBController controlTextDidChange] %@", [textField stringValue]);
+    [self updateCollection];
+    
+}
 
-- (IBAction)updateCollection:(id)sender {
+- (void)updateCollection {
+
+    NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
+    NSString * selectedCollection = [collectionSelection objectValueOfSelectedItem];
+
+    NSLog(@"[RetrieveFromDBController updateCollection] selected database: %@", selectedDatabase);
+    NSLog(@"[RetrieveFromDBController updateCollection] selected collection: %@", selectedCollection);
+    
+    if ( [selectedCollection length] != 0 && selectedCollection != NULL && selectedCollection != nil ) {
+        
+        if ( _IDs != nil )
+        [_IDs release];
+        NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
+        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        amount = [formatter numberFromString:[_amountTextfield stringValue]];
+        skip = [formatter numberFromString:[_skipTextfield stringValue]];
+        _additionalProperties = [_additionalPropertiesTextfield stringValue];
+        
+        NSLog(@"[RetrieveFromDBController updateCollection] additional properties: %@", _additionalProperties);
+        
+        [formatter release];
+        _IDs = [[[NSApp delegate] idsForDatabase:selectedDatabase
+                                   andCollection:selectedCollection
+                         withAddtionalProperties:_additionalProperties
+                                restrictToAmount:[amount intValue]
+                                      startingAt:[skip intValue]] retain];
+        
+        [self setReportNumberOfResults:[NSString stringWithFormat:@"number of results in query: %lu",(unsigned long)[_IDs count]]];
+        [_reportNumberOfResultsLabel setStringValue:_reportNumberOfResults];
+        
+        [idSelection removeAllItems];
+        [idSelection addItemsWithObjectValues:_IDs];
+        [idSelection selectItemAtIndex:0];
+        [idSelection setObjectValue:[idSelection objectValueOfSelectedItem]];
+    } else {
+        [idSelection removeAllItems];
+    }
+    
 }
 
 @end
