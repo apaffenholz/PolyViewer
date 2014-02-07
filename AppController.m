@@ -66,9 +66,9 @@
 }
 
 
-	// closing a window should close the app
+	// closing a window should NOT close the app
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed: (NSApplication *)theApplication {
-	return YES;
+	return NO;
 }	
 
 -(NSArray *)databaseNames {
