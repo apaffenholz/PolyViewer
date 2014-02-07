@@ -164,23 +164,41 @@
         amount = [formatter numberFromString:[_amountTextfield stringValue]];
         skip = [formatter numberFromString:[_skipTextfield stringValue]];
         _additionalProperties = [_additionalPropertiesTextfield stringValue];
-        
+        [formatter release];
+
+    
         NSLog(@"[RetrieveFromDBController updateCollection] additional properties: %@", _additionalProperties);
         
-        [formatter release];
+        NSMutableDictionary *propDict = [[NSMutableDictionary alloc] init];
+        if ( [_additionalProperties length] > 0 ) {
+            NSArray *objects = [_additionalProperties componentsSeparatedByCharactersInSet:
+                                                    [NSCharacterSet characterSetWithCharactersInString:@"=,"]];
+        
+            NSLog(@"[RetrieveFromDBController updateCollection] additional properties as array: %@", objects);
+        
+            for (int i=0; i<[objects count]; i=i+2) {
+                [propDict setObject:objects[i+1] forKey:objects[i]];
+            }
+            NSLog(@"[RetrieveFromDBController updateCollection] additional properties as dict: %@", propDict);
+        }
+        
         _IDs = [[[NSApp delegate] idsForDatabase:selectedDatabase
                                    andCollection:selectedCollection
-                         withAddtionalProperties:_additionalProperties
+                         withAddtionalProperties:propDict
                                 restrictToAmount:[amount intValue]
                                       startingAt:[skip intValue]] retain];
         
         [self setReportNumberOfResults:[NSString stringWithFormat:@"number of results in query: %lu",(unsigned long)[_IDs count]]];
         [_reportNumberOfResultsLabel setStringValue:_reportNumberOfResults];
         
+        
+        [idSelection deselectItemAtIndex:[idSelection indexOfSelectedItem]];
         [idSelection removeAllItems];
         [idSelection addItemsWithObjectValues:_IDs];
-        [idSelection selectItemAtIndex:0];
-        [idSelection setObjectValue:[idSelection objectValueOfSelectedItem]];
+        if ( [idSelection numberOfItems] > 0 ) {
+            [idSelection selectItemAtIndex:0];
+            [idSelection setObjectValue:[idSelection objectValueOfSelectedItem]];
+        }
     } else {
         [idSelection removeAllItems];
     }

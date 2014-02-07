@@ -93,19 +93,24 @@
     return collections;
 }
 
--(NSArray *)idsForDatabase:db andCollection:coll withAddtionalProperties:additionalProps restrictToAmount:amount startingAt:start {
+-(NSArray *)idsForDatabase:(NSString *)db andCollection:(NSString *)coll withAddtionalProperties:(NSDictionary *)additionalProps restrictToAmount:(NSNumber *)amount startingAt:(NSNumber *)start {
 
     NSMutableArray * ids = [NSMutableArray array];
     
     NSLog(@"[RetrieveFromDBController updateCollection] additional properties: %@", additionalProps);
     
+    NSMutableString * add = [[NSMutableString alloc] init];
+    [additionalProps enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        [add appendFormat:@"%@ : %@ ,", key, obj];
+    }];
+    
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_db_ListOfIDs" ofType:@"pl"];
     polymake::perl::ListResult results =
         ListCallPolymakeFunction("script",[filePath UTF8String],[db cStringUsingEncoding:NSUTF8StringEncoding],
                                                                 [coll cStringUsingEncoding:NSUTF8StringEncoding],
-                                                                [additionalProps cStringUsingEncoding:NSUTF8StringEncoding],
                                                                 (long)amount,
-                                                                (long)start);
+                                                                (long)start,
+                                                                [add cStringUsingEncoding:NSUTF8StringEncoding]);
     NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] retrieved: %d", results.size());
     for (int i=0, end=results.size(); i<end; ++i) {
         const char* idstring = results[i];
