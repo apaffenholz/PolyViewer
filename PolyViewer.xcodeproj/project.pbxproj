@@ -24,6 +24,9 @@
 		72BD024D18849CF600837D78 /* list_props.pl in Resources */ = {isa = PBXBuildFile; fileRef = 72BD024B18849CF600837D78 /* list_props.pl */; };
 		72EBDFB5187BF97300F86EDE /* PolymakeObjectWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 72EBDFB4187BF97200F86EDE /* PolymakeObjectWrapper.mm */; };
 		72EBDFBB187E07B400F86EDE /* PropertyNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EBDFBA187E07B400F86EDE /* PropertyNode.m */; };
+		7AC8A16C18A45B1A00B53BFC /* poly.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8A16B18A45B1A00B53BFC /* poly.icns */; };
+		7AC8A16E18A463BD00B53BFC /* trop.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8A16D18A463BD00B53BFC /* trop.icns */; };
+		7AC8A17018A51A6500B53BFC /* graph.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8A16F18A51A6500B53BFC /* graph.icns */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC310486D014006FF6A4 /* PolymakeFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* PolymakeFile.m */; settings = {ATTRIBUTES = (); }; };
@@ -82,6 +85,9 @@
 		72EBDFB8187CC3B700F86EDE /* list_props.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; name = list_props.pl; path = scripts/list_props.pl; sourceTree = "<group>"; };
 		72EBDFB9187E07B400F86EDE /* PropertyNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PropertyNode.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		72EBDFBA187E07B400F86EDE /* PropertyNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PropertyNode.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7AC8A16B18A45B1A00B53BFC /* poly.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = poly.icns; path = icons/poly.icns; sourceTree = "<group>"; };
+		7AC8A16D18A463BD00B53BFC /* trop.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = trop.icns; path = icons/trop.icns; sourceTree = "<group>"; };
+		7AC8A16F18A51A6500B53BFC /* graph.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = graph.icns; path = icons/graph.icns; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* PolyViewer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PolyViewer-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* PolyViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PolyViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E12E289118952F4000051EBD /* get_names_for_multiple.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_names_for_multiple.pl; sourceTree = "<group>"; };
@@ -183,6 +189,9 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7AC8A16F18A51A6500B53BFC /* graph.icns */,
+				7AC8A16D18A463BD00B53BFC /* trop.icns */,
+				7AC8A16B18A45B1A00B53BFC /* poly.icns */,
 				72965DFD156919040076B037 /* Preferences.xib */,
 				72965D031568E2BA0076B037 /* polyviewer.icns */,
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
@@ -326,6 +335,7 @@
 				E1C9455518A2C4EB00E30E4E /* get_db_collection_list.pl in Resources */,
 				E1C9455218A1B17900E30E4E /* get_db_list.pl in Resources */,
 				72BD024818849CC300837D78 /* get_type.pl in Resources */,
+				7AC8A16E18A463BD00B53BFC /* trop.icns in Resources */,
 				E12E289A1895B1DE00051EBD /* retrieve_database_object.pl in Resources */,
 				E12E28951895344800051EBD /* get_multiple_object_by_index.pl in Resources */,
 				E12E289218952F4000051EBD /* get_names_for_multiple.pl in Resources */,
@@ -336,6 +346,8 @@
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				1DDD582C0DA1D0D100B32029 /* PolyViewer.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
+				7AC8A16C18A45B1A00B53BFC /* poly.icns in Resources */,
+				7AC8A17018A51A6500B53BFC /* graph.icns in Resources */,
 				72965D041568E2BA0076B037 /* polyviewer.icns in Resources */,
 				E1D968641893D55B0060FEEA /* polymake.xcconfig in Resources */,
 				72965DFF156919040076B037 /* Preferences.xib in Resources */,
