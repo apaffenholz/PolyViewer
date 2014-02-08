@@ -65,6 +65,8 @@ extern NSString * const ChildrenOfRootHaveChangedNotification;
 
 - (void)redrawValueTextView;
 
-- (void)childrenOfRootHaveChanged:(NSNotification *)aNotification;
+- (BOOL)readFromDatabase:(NSString *)database
+           andCollection:(NSString *)collection
+                  withID:(NSString *)ID;
 
 @end
