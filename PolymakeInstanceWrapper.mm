@@ -116,4 +116,13 @@
     return ids;
 }
 
+-(NSInteger)countForDatabase:(NSString *)db andCollection:(NSString *)coll withAddtionalProperties:(NSString *)additionalProps {
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_db_CountOfIDs" ofType:@"pl"];
+    int count = CallPolymakeFunction("script",[filePath UTF8String],[db cStringUsingEncoding:NSUTF8StringEncoding],
+                                       [coll cStringUsingEncoding:NSUTF8StringEncoding],
+                                       [additionalProps cStringUsingEncoding:NSUTF8StringEncoding]);
+    return count;
+}
+    
 @end

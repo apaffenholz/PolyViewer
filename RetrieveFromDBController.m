@@ -182,13 +182,26 @@
 //            NSLog(@"[RetrieveFromDBController updateCollection] additional properties as dict: %@", propDict);
 //        }
         
+        NSInteger count = [[NSApp delegate] countForDatabase:selectedDatabase
+                                                andCollection:selectedCollection
+                                      withAddtionalProperties:_additionalProperties];
+        
         _IDs = [[[NSApp delegate] idsForDatabase:selectedDatabase
                                    andCollection:selectedCollection
                          withAddtionalProperties:_additionalProperties
                                 restrictToAmount:[amount intValue]
                                       startingAt:[skip intValue]] retain];
         
-        [self setReportNumberOfResults:[NSString stringWithFormat:@"number of results in query: %lu",(unsigned long)[_IDs count]]];
+        NSString * numberReportTotal = [NSString stringWithFormat:@"database elements satisfying given properties: %ld", count];
+        NSString * numberReport = [NSString stringWithFormat:@"number of results in query: %lu",(unsigned long)[_IDs count]];
+        
+        [self setReportNumberOfResults:(NSString *)numberReport];
+        [_reportTotalNumberOfResultsLabel setStringValue:numberReportTotal];
+        [_reportTotalNumberOfResultsLabel setTextColor:[NSColor colorWithCalibratedWhite:0 alpha:1.0]];
+        if ( count > [amount intValue] )
+            [_reportTotalNumberOfResultsLabel setTextColor:[NSColor colorWithCalibratedRed:0.914 green:0.686 blue:0.227 alpha:1]];
+
+        
         [_reportNumberOfResultsLabel setStringValue:_reportNumberOfResults];
         
         

@@ -26,7 +26,7 @@
     IBOutlet NSTextField * _additionalPropertiesTextfield;
 
     IBOutlet NSTextField * _reportNumberOfResultsLabel;
-
+    IBOutlet NSTextField * _reportTotalNumberOfResultsLabel;
     
     
     
