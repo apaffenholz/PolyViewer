@@ -169,22 +169,22 @@
     
         NSLog(@"[RetrieveFromDBController updateCollection] additional properties: %@", _additionalProperties);
         
-        NSMutableDictionary *propDict = [[NSMutableDictionary alloc] init];
-        if ( [_additionalProperties length] > 0 ) {
-            NSArray *objects = [_additionalProperties componentsSeparatedByCharactersInSet:
-                                                    [NSCharacterSet characterSetWithCharactersInString:@"=,"]];
+//        NSMutableDictionary *propDict = [[NSMutableDictionary alloc] init];
+//        if ( [_additionalProperties length] > 0 ) {
+//            NSArray *objects = [_additionalProperties componentsSeparatedByCharactersInSet:
+//                                                    [NSCharacterSet characterSetWithCharactersInString:@"=,"]];
         
-            NSLog(@"[RetrieveFromDBController updateCollection] additional properties as array: %@", objects);
+//            NSLog(@"[RetrieveFromDBController updateCollection] additional properties as array: %@", objects);
         
-            for (int i=0; i<[objects count]; i=i+2) {
-                [propDict setObject:objects[i+1] forKey:objects[i]];
-            }
-            NSLog(@"[RetrieveFromDBController updateCollection] additional properties as dict: %@", propDict);
-        }
+//            for (int i=0; i<[objects count]; i=i+2) {
+//                [propDict setObject:objects[i+1] forKey:objects[i]];
+//            }
+//            NSLog(@"[RetrieveFromDBController updateCollection] additional properties as dict: %@", propDict);
+//        }
         
         _IDs = [[[NSApp delegate] idsForDatabase:selectedDatabase
                                    andCollection:selectedCollection
-                         withAddtionalProperties:propDict
+                         withAddtionalProperties:_additionalProperties
                                 restrictToAmount:[amount intValue]
                                       startingAt:[skip intValue]] retain];
         

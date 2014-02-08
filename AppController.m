@@ -81,12 +81,12 @@
 
 - (NSArray *) idsForDatabase:(NSString *)selectedDatabase
                andCollection:(NSString *)selectedCollection
-     withAddtionalProperties:(NSDictionary *)propDict
+     withAddtionalProperties:(NSString *)additionalProps
             restrictToAmount:(NSNumber *)amount
                   startingAt:(NSNumber *)start {
   return [pinst idsForDatabase:selectedDatabase
                  andCollection:selectedCollection
-       withAddtionalProperties:propDict
+       withAddtionalProperties:additionalProps
               restrictToAmount:amount
                     startingAt:start];
 }
