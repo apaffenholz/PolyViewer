@@ -99,7 +99,7 @@
     NSLog(@"[PolymakeObjectWrapper getObjectType] entering");
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_type" ofType:@"pl"];
-    NSString *objectType = [[NSString alloc] initWithCString:CallPolymakeFunction("script",[filePath UTF8String],p) encoding:NSUTF8StringEncoding];
+    NSString *objectType = [[NSString alloc] initWithUTF8String:CallPolymakeFunction("script",[filePath UTF8String],p)];
 
     NSLog(@"[PolymakeObjectWrapper getObjectType] returning");
     return objectType;
@@ -120,7 +120,7 @@
 - (NSString *)getObjectDescription {
     NSLog(@"[PolymakeObjectWrapper getObjectDescription] entering");
 
-    NSString *objectDescr = [[NSString alloc] initWithCString:p.CallPolymakeMethod("description") encoding:NSUTF8StringEncoding];
+    NSString *objectDescr = [[NSString alloc] initWithUTF8String:p.CallPolymakeMethod("description")];
 
     NSLog(@"[PolymakeObjectWrapper getObjectDescription] returning");
     return objectDescr;
@@ -130,8 +130,8 @@
 - (NSString *)getProperty:(NSString *)propertyName {
     NSLog(@"[PolymakeObjectWrapper getProperty] called for propertyName %@",propertyName);
     
-    NSString * property = [[NSString alloc] initWithCString:p.give([propertyName cStringUsingEncoding:NSUTF8StringEncoding])
-                                                   encoding:NSUTF8StringEncoding];
+    NSString * property = [[NSString alloc] initWithUTF8String:p.give([propertyName cStringUsingEncoding:NSUTF8StringEncoding])
+                                                   ];
     
     NSLog(@"[PolymakeObjectWrapper getProperty] returning");
     return property;

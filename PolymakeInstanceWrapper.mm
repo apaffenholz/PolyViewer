@@ -63,7 +63,7 @@
         NSLog(@"[PolymakeInstanceWrapper databaseNames] in loop");
         const char* dbstring = results[i];
         if (strlen(dbstring) > 0) {
-            NSString * db = [[NSString alloc] initWithCString:dbstring encoding:NSUTF8StringEncoding];
+            NSString * db = [[NSString alloc] initWithUTF8String:dbstring];
             [databases addObject:db];
         }
     }
@@ -84,7 +84,7 @@
         const char* collstring = results[i];
         if (strlen(collstring) > 0) {
             NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] in loop, adding %s", collstring);
-            NSString *  coll = [[NSString alloc] initWithCString:results[i] encoding:NSUTF8StringEncoding];
+            NSString *  coll = [[NSString alloc] initWithUTF8String:results[i]];
             [collections addObject:coll];
         }
     }
@@ -109,7 +109,7 @@
     NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] retrieved: %d", results.size());
     for (int i=0, end=results.size(); i<end; ++i) {
 //        const char* idstring = results[i];
-        NSString *  id = [[NSString alloc] initWithCString:results[i] encoding:NSUTF8StringEncoding];
+        NSString *  id = [[NSString alloc] initWithUTF8String:results[i]];
         [ids addObject:id];
     }
     
