@@ -84,7 +84,7 @@
         const char* collstring = results[i];
         if (strlen(collstring) > 0) {
             NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] in loop, adding %s", collstring);
-            NSString *  coll = [[NSString alloc] initWithCString:collstring encoding:NSUTF8StringEncoding];
+            NSString *  coll = [[NSString alloc] initWithCString:results[i] encoding:NSUTF8StringEncoding];
             [collections addObject:coll];
         }
     }
@@ -93,16 +93,11 @@
     return collections;
 }
 
--(NSArray *)idsForDatabase:(NSString *)db andCollection:(NSString *)coll withAddtionalProperties:(NSDictionary *)additionalProps restrictToAmount:(NSNumber *)amount startingAt:(NSNumber *)start {
+-(NSArray *)idsForDatabase:(NSString *)db andCollection:(NSString *)coll withAddtionalProperties:(NSString *)additionalProps restrictToAmount:(NSNumber *)amount startingAt:(NSNumber *)start {
 
     NSMutableArray * ids = [NSMutableArray array];
     
     NSLog(@"[RetrieveFromDBController updateCollection] additional properties: %@", additionalProps);
-    
-    NSMutableString * add = [[NSMutableString alloc] init];
-    [additionalProps enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        [add appendFormat:@"%@ : %@ ,", key, obj];
-    }];
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_db_ListOfIDs" ofType:@"pl"];
     polymake::perl::ListResult results =
@@ -110,11 +105,11 @@
                                                                 [coll cStringUsingEncoding:NSUTF8StringEncoding],
                                                                 (long)amount,
                                                                 (long)start,
-                                                                [add cStringUsingEncoding:NSUTF8StringEncoding]);
+                                                                [additionalProps cStringUsingEncoding:NSUTF8StringEncoding]);
     NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] retrieved: %d", results.size());
     for (int i=0, end=results.size(); i<end; ++i) {
-        const char* idstring = results[i];
-        NSString *  id = [[NSString alloc] initWithCString:idstring encoding:NSUTF8StringEncoding];
+//        const char* idstring = results[i];
+        NSString *  id = [[NSString alloc] initWithCString:results[i] encoding:NSUTF8StringEncoding];
         [ids addObject:id];
     }
     
