@@ -53,6 +53,8 @@ extern NSString * const ChildrenOfRootHaveChangedNotification;
 	
 }
 
+
+
 @property (readwrite,copy) NSString * lastOpenDialogStartDirectory;
 @property (readonly) PolymakeObject * polymakeObject;
 @property (readwrite,assign) BOOL alignedColumns;

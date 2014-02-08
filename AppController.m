@@ -31,16 +31,31 @@
 }
 
 @synthesize preferencesController = _preferencesController;
+@synthesize retrieveController    = _retrieveController;
 
 -(IBAction)showPreferences:(id)sender{
-  if(!self.preferencesController)
+  NSLog(@"[AppController showPreferences] called");
+    if(!self.preferencesController) {
 		self.preferencesController = [[PreferencesController alloc] initWithWindowNibName:@"Preferences"];
+    }
 	
   [self.preferencesController showWindow:self];
+  NSLog(@"[AppController showPreferences] leaving");
+}
+
+-(IBAction)showRetrieveFromDB:(id)sender {
+    NSLog(@"[AppController showRetrieveFromDB] called");
+    if(!self.retrieveController) {
+		self.retrieveController = [[RetrieveFromDBController alloc] initWithWindowNibName:@"DatabaseAccess"];
+    }
+    
+    [self.retrieveController showWindow:self];
+    NSLog(@"[AppController showRetrieveFromDB] leaving");
 }
 
 - (void)dealloc {
     [_preferencesController release];
+    [_retrieveController release];
     [pinst release];
     [super dealloc];
 }
@@ -51,10 +66,37 @@
 }
 
 
-	// closing a window should close the app
+	// closing a window should NOT close the app
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed: (NSApplication *)theApplication {
-	return YES;
+	return NO;
 }	
 
+-(NSArray *)databaseNames {
+    return [pinst databaseNames];
+}
+
+-(NSArray *)collectionNamesOfDatabase:(NSString *)db {
+    return [pinst collectionNamesofDatabase:db];
+}
+
+- (NSArray *) idsForDatabase:(NSString *)selectedDatabase
+               andCollection:(NSString *)selectedCollection
+     withAddtionalProperties:(NSString *)additionalProps
+            restrictToAmount:(NSNumber *)amount
+                  startingAt:(NSNumber *)start {
+  return [pinst idsForDatabase:selectedDatabase
+                 andCollection:selectedCollection
+       withAddtionalProperties:additionalProps
+              restrictToAmount:amount
+                    startingAt:start];
+}
+    
+- (NSInteger) countForDatabase:(NSString *)selectedDatabase
+               andCollection:(NSString *)selectedCollection
+     withAddtionalProperties:(NSString *)additionalProps {
+        return [pinst countForDatabase:selectedDatabase
+                       andCollection:selectedCollection
+             withAddtionalProperties:additionalProps];
+}
 
 @end

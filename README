@@ -28,7 +28,7 @@ to the file
 
 .bash_profile
 
-in your $HOME folder
+in your $HOME folder.
 
 For this reason there is currently no precompiled version of PolyViewer: 
   Paths are hardcoded into the project after compilation, so if your polymake is in a different location than mine it won't work.

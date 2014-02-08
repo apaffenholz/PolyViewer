@@ -48,7 +48,7 @@
 }
 
 
-
+    
 - (id)initWithPolymakeObject:(NSString *)filename {
     NSLog(@"[PolymakeObjectWrapper initWithPolymakeObject filename] entering with filename %@", filename);
     
@@ -56,6 +56,17 @@
     p = CallPolymakeFunction("load",[filename UTF8String]);
     
     NSLog(@"[PolymakeObjectWrapper initWithPolymakeObject filename] done]");
+	return self;
+}
+
+- (id)initWithPolymakeObjectFromDatabase:(NSString *)database andCollection:(NSString *)collection withID:(NSString *)ID {
+    NSLog(@"[PolymakeObjectWrapper initWithPolymakeObjectFromDatabase andCollection withID] entering");
+    
+	self = [super init];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"retrieve_database_object" ofType:@"pl"];
+    p = CallPolymakeFunction("script",[filePath UTF8String],[database UTF8String],[collection UTF8String],[ID UTF8String]);
+    
+    NSLog(@"[PolymakeObjectWrapper initWithPolymakeObjectFromDatabase andCollection withID] done]");
 	return self;
 }
 

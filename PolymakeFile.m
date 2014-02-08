@@ -151,13 +151,20 @@ NSString * const ChildrenOfRootHaveChangedNotification = @"ChildrenOfRootHaveCha
 } // end of windowControllerDidLoadNib
 
 
-// this app is currently read-only...
-- (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
-    if ( outError != NULL ) {
-		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-	}
-	return nil;
-}  
+- (BOOL)readFromDatabase:(NSString *)database
+           andCollection:(NSString *)collection
+                  withID:(NSString *)ID {
+
+    NSLog(@"[PolymakeFile readFromDatabase andCollection withID] called");
+    
+    _polyObj = [[PolymakeObject alloc] retrieveFromDatabase:database
+                                              andCollection:collection
+                                                     withID:ID];
+    
+    NSLog(@"[PolymakeFile readFromDatabase andCollection withID] leaving");
+    return YES;
+}
+
 
 
 // method overriden from NSDocument
@@ -173,6 +180,7 @@ NSString * const ChildrenOfRootHaveChangedNotification = @"ChildrenOfRootHaveCha
     else
         return YES;
 }
+
 
 
 // the close button on the main window should just close the window

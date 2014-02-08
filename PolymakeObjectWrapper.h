@@ -32,6 +32,10 @@
                  andProperty:(NSString *)prop
                      ofIndex:(int)index;
 
+- (id)initWithPolymakeObjectFromDatabase:(NSString *)database
+                           andCollection:(NSString *)collection
+                                  withID:(NSString *)ID;
+
 - (id)initWithPolymakeObject:(NSString *)filename;
 - (NSString *)getObjectType;
 - (NSString *)getObjectName;

@@ -12,141 +12,78 @@
 				<string>poly</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string></string>
-			<key>CFBundleTypeName</key>
-			<string>polytope</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>NSDocumentClass</key>
-			<string>PolymakeFile</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
+			<string>poly</string>
+			<key>CFBundleTypeMIMETypes</key>
 			<array>
-				<string>fan</string>
+				<string>application/polymake</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>fan</string>
+			<string>polymake polytope</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
-			<key>NSDocumentClass</key>
-			<string>PolymakeFile</string>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>XML</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
 			<array>
-				<string>cone</string>
+				<string>org.polymake.polytope</string>
 			</array>
-			<key>CFBundleTypeName</key>
-			<string>cone</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>LSTypeIsPackage</key>
-			<false/>
+			<integer>0</integer>
 			<key>NSDocumentClass</key>
 			<string>PolymakeFile</string>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>XML</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>top</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>top</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
-			<key>NSDocumentClass</key>
-			<string>PolymakeFile</string>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>XML</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>pcom</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>pcom</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
-			<key>NSDocumentClass</key>
-			<string>PolymakeFile</string>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>XML</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>mat</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>mat</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
-			<key>NSDocumentClass</key>
-			<string>PolymakeFile</string>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>XML</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>trop</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>trop</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
-			<key>NSDocumentClass</key>
-			<string>PolymakeFile</string>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>XML</string>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>grp</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>group</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
-			<key>NSDocumentClass</key>
-			<string>PolymakeFile</string>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>XML</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>graph</string>
 			</array>
-			<key>CFBundleTypeName</key>
+			<key>CFBundleTypeIconFile</key>
 			<string>graph</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/polymake</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>polymake graph</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.polymake.graph</string>
+			</array>
 			<key>LSTypeIsPackage</key>
-			<false/>
+			<integer>0</integer>
 			<key>NSDocumentClass</key>
 			<string>PolymakeFile</string>
-			<key>NSPersistentStoreTypeKey</key>
-			<string>XML</string>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>trop</string>
+				<string>tom</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>trop</string>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>application/polymake</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>polymake tropical object</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.polymake.tropical</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
+			<key>NSDocumentClass</key>
+			<string>PolymakeFile</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -175,5 +112,78 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>polymake polytope</string>
+			<key>UTTypeIconFile</key>
+			<string>poly</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.polymake.polytope</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>poly</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/polymake</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>polymake tropical object</string>
+			<key>UTTypeIconFile</key>
+			<string>trop</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.polymake.tropical</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>trop</string>
+					<string>tom</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/polymake</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>polymake graph</string>
+			<key>UTTypeIconFile</key>
+			<string>graph</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.polymake.graph</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>graph</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/polymake</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

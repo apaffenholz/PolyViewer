@@ -2,4 +2,9 @@ use application "common";
 
 my $p = shift;
 
-return $p->name;
+my $n;
+unless(defined($n = $p->name)) {
+    $n="<unnamed>";
+};
+
+return $n;

@@ -23,4 +23,15 @@
 - (id)init;
 - (void)createScope;
 
+-(NSArray *)databaseNames;
+-(NSArray *)collectionNamesofDatabase:(NSString *)db;
+    -(NSArray *)idsForDatabase:(NSString *)db
+                 andCollection:(NSString *)coll
+       withAddtionalProperties:(NSString *)additionalProps
+              restrictToAmount:(NSNumber *)amount
+                    startingAt:(NSNumber *)start;
+
+-(NSInteger)countForDatabase:(NSString *)db
+               andCollection:(NSString *)coll
+     withAddtionalProperties:(NSString *)additionalProps;
 @end

@@ -18,21 +18,37 @@
 
 #import <Cocoa/Cocoa.h>
 #import "PreferencesController.h"
+#import "RetrieveFromDBController.h"
 #import "PolymakeInstanceWrapper.h"
 
 @interface AppController : NSDocumentController {
 
 	PreferencesController * _preferencesController;
+    RetrieveFromDBController * _retrieveController;
+    
     PolymakeInstanceWrapper *pinst;
 	
 }
 
 
+
 @property (retain) PreferencesController *preferencesController;
+@property (retain) RetrieveFromDBController *retrieveController;
 
 -(IBAction)showPreferences:(id)sender;
+-(IBAction)showRetrieveFromDB:(id)sender;
 
 -(BOOL)applicationShouldOpenUntitledFile:(NSApplication*)app;
 
+-(NSArray *)databaseNames;
+-(NSArray *)collectionNamesOfDatabase:(NSString *)db;
+- (NSArray *) idsForDatabase:(NSString *)selectedDatabase
+               andCollection:(NSString *)selectedCollection
+     withAddtionalProperties:(NSString *)additionalProperties
+            restrictToAmount:(NSNumber *)amount
+                  startingAt:(NSNumber *)start;
+- (NSInteger) countForDatabase:(NSString *)selectedDatabase
+               andCollection:(NSString *)selectedCollection
+     withAddtionalProperties:(NSString *)additionalProps;
 
 @end
