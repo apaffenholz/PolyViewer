@@ -12,3 +12,6 @@ build/
 *.mode2v3
 
 *.pbxproj -crlf -diff -merge
+
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
