@@ -47,5 +47,8 @@
      withAddtionalProperties:(NSString *)additionalProperties
             restrictToAmount:(NSNumber *)amount
                   startingAt:(NSNumber *)start;
+- (NSInteger) countForDatabase:(NSString *)selectedDatabase
+               andCollection:(NSString *)selectedCollection
+     withAddtionalProperties:(NSString *)additionalProps;
 
 @end

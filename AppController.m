@@ -90,5 +90,13 @@
               restrictToAmount:amount
                     startingAt:start];
 }
+    
+- (NSInteger) countForDatabase:(NSString *)selectedDatabase
+               andCollection:(NSString *)selectedCollection
+     withAddtionalProperties:(NSString *)additionalProps {
+        return [pinst countForDatabase:selectedDatabase
+                       andCollection:selectedCollection
+             withAddtionalProperties:additionalProps];
+}
 
 @end

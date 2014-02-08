@@ -1,4 +1,3 @@
-#***********************************************************************
 # Created by Andreas Paffenholz on 05/02/14.
 # Copyright 2012-2014 by Andreas Paffenholz.
 #
@@ -21,11 +20,8 @@ use application "common";
 
 my $db_name = shift;
 my $coll_name = shift;
-my $amount = shift;
-my $start = shift;
-
 my $additional_props=shift;
 
-my $ids = poly_db_ids({eval($additional_props)}, db=>$db_name, collection=>$coll_name, limit=>$amount, skip=>$start);
+my $count = poly_db_count({eval($additional_props)}, db=>$db_name, collection=>$coll_name);
 
-return @{$ids};
+return $count;

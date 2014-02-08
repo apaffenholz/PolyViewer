@@ -31,4 +31,7 @@
               restrictToAmount:(NSNumber *)amount
                     startingAt:(NSNumber *)start;
 
+-(NSInteger)countForDatabase:(NSString *)db
+               andCollection:(NSString *)coll
+     withAddtionalProperties:(NSString *)additionalProps;
 @end
