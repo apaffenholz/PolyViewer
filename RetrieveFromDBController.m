@@ -17,7 +17,7 @@
  **************************************************************************/
 
 #import "RetrieveFromDBController.h"
-#import "PolymakeFile.h"
+#import "PolymakeObjectController.h"
 #import "AppController.h"
 #import "PolymakeInstanceWrapper.h"
 #import "DatabaseAccess.h"
@@ -92,7 +92,7 @@
     _ID = (NSString *)[_IDs objectAtIndex:[idSelection indexOfSelectedItem]];
   
     NSLog(@"[RetrieveFromDBController retrieveFromDB] selected item: %@",_database);
-    PolymakeFile * pf = [[PolymakeFile alloc] init];
+    PolymakeObjectController * pf = [[PolymakeObjectController alloc] init];
     [pf readFromDatabase:_database andCollection:_collection withID:_ID];
     
     [pf makeWindowControllers];
@@ -165,11 +165,14 @@
                                                 andCollection:selectedCollection
                                       withAddtionalProperties:[[[NSApp delegate] databaseConnection] additionalPropertiesAsString]];
         
+        if ( _IDs != nil )
+            [_IDs release];
         _IDs = [[NSApp delegate] idsForDatabase:selectedDatabase
                                    andCollection:selectedCollection
                          withAddtionalProperties:[[[NSApp delegate] databaseConnection] additionalPropertiesAsString]
                                 restrictToAmount:[[[[NSApp delegate] databaseConnection] amount] intValue]
                                       startingAt:[[[[NSApp delegate] databaseConnection] skip] intValue]];
+        [_IDs retain];
         
         NSString * numberReportTotal = [NSString stringWithFormat:@"database elements satisfying given properties: %ld", count];
         NSString * numberReport = [NSString stringWithFormat:@"number of results in query: %lu",(unsigned long)[_IDs count]];

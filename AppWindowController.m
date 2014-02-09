@@ -18,7 +18,7 @@
 
 
 #import "AppWindowController.h"
-#import "PolymakeFile.h"
+#import "PolymakeObjectController.h"
 
 @implementation AppWindowController
 

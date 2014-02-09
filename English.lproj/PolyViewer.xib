@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="PolymakeFile">
+        <customObject id="-2" userLabel="File's Owner" customClass="PolymakeObjectController">
             <connections>
                 <outlet property="_alignedColumnsBox" destination="100449" id="100455"/>
                 <outlet property="_creditTable" destination="100372" id="100380"/>

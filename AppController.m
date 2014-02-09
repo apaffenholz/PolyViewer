@@ -17,7 +17,7 @@
  **************************************************************************/
 
 #import "AppController.h"
-#import "PolymakeFile.h"
+#import "PolymakeObjectController.h"
 
 @implementation AppController
 

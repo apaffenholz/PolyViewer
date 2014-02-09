@@ -17,7 +17,7 @@
  **************************************************************************/
 
 
-#import "PolymakeFile.h"
+#import "PolymakeObjectController.h"
 #import "AppWindowController.h"
 #import "PolymakeInstanceWrapper.h"
 #import "PolymakeObjectWrapper.h"
@@ -26,7 +26,7 @@
 NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDidChange";
 NSString * const ChildrenOfRootHaveChangedNotification = @"ChildrenOfRootHaveChanged";
 
-@implementation PolymakeFile
+@implementation PolymakeObjectController
 
 @synthesize lastOpenDialogStartDirectory = _lastOpenDialogStartDirectory;
 @synthesize polymakeObject = _polyObj;

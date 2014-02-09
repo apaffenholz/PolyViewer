@@ -30,7 +30,7 @@
 			<key>LSTypeIsPackage</key>
 			<integer>0</integer>
 			<key>NSDocumentClass</key>
-			<string>PolymakeFile</string>
+			<string>PolymakeObjectController</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -56,7 +56,7 @@
 			<key>LSTypeIsPackage</key>
 			<integer>0</integer>
 			<key>NSDocumentClass</key>
-			<string>PolymakeFile</string>
+			<string>PolymakeObjectController</string>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -83,7 +83,7 @@
 			<key>LSTypeIsPackage</key>
 			<integer>0</integer>
 			<key>NSDocumentClass</key>
-			<string>PolymakeFile</string>
+			<string>PolymakeObjectController</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>

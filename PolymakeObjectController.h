@@ -27,7 +27,7 @@
 extern NSString * const PVValueFormattingDidChangeNotification;
 extern NSString * const ChildrenOfRootHaveChangedNotification;
 
-@interface PolymakeFile : NSDocument <NSOutlineViewDataSource,NSTableViewDelegate> {
+@interface PolymakeObjectController : NSDocument <NSOutlineViewDataSource,NSTableViewDelegate> {
 	
 		// class variables
 	NSString * _lastOpenDialogStartDirectory;
