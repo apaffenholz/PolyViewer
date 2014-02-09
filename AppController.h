@@ -20,6 +20,7 @@
 #import "PreferencesController.h"
 #import "RetrieveFromDBController.h"
 #import "PolymakeInstanceWrapper.h"
+#import "DatabaseAccess.h"
 
 @interface AppController : NSDocumentController {
 
@@ -27,13 +28,15 @@
     RetrieveFromDBController * _retrieveController;
     
     PolymakeInstanceWrapper *pinst;
+    
+    IBOutlet DatabaseAccess * _databaseConnection;
 	
 }
 
 
-
 @property (retain) PreferencesController *preferencesController;
 @property (retain) RetrieveFromDBController *retrieveController;
+@property (retain) DatabaseAccess * databaseConnection;
 
 -(IBAction)showPreferences:(id)sender;
 -(IBAction)showRetrieveFromDB:(id)sender;

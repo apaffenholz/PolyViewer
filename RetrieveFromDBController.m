@@ -20,6 +20,7 @@
 #import "PolymakeFile.h"
 #import "AppController.h"
 #import "PolymakeInstanceWrapper.h"
+#import "DatabaseAccess.h"
 
 @implementation RetrieveFromDBController
 
@@ -40,12 +41,11 @@
         _databases = nil;
         _collections = nil;
         _reportNumberOfResults = nil;
-        _additionalProperties = nil;
-        amount = nil;
-        skip = nil;
+        _IDs = nil;
 
         //[self addObserver:_reportNumberOfResults forKeyPath:@"reportNumberOfresults" options:NSKeyValueChangeSetting context:nil];
         //[_noOfRes addObserver:self forKeyPath:@"reportNumberOfResults" options:NSKeyValueChangeNewKey context:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self forKeyPath:@"skip" options:NSKeyValueObservingOptionNew context:nil];
     }
     
 	return self;
@@ -56,6 +56,7 @@
 	[_database release];
     [_collection dealloc];
     [_ID dealloc];
+    [_IDs dealloc];
     
 	[super dealloc];
 }
@@ -71,13 +72,6 @@
     _ID = @"F.4D.0123";
     [self setReportNumberOfResults:@"no results"];
     [_reportNumberOfResultsLabel setStringValue:_reportNumberOfResults];
-    
-    _additionalProperties = @"";
-    amount = [NSNumber numberWithInt:1000];
-    skip = [NSNumber numberWithInt:0];
-    [_amountTextfield setStringValue:[amount stringValue]];
-    [_skipTextfield setStringValue:[skip stringValue]];
-    [_additionalPropertiesTextfield setStringValue:_additionalProperties];
     
     _databases = [[[NSApp delegate] databaseNames] retain];
     [databaseSelection addItemsWithObjectValues:_databases];
@@ -113,11 +107,11 @@
     NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] entered");
     
     id myObject = [notification object];
-    if ( myObject == databaseSelection ) {    // the selected databas has changed, so we retrieve the list of collections
+    NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
+    NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] selected database: %@", selectedDatabase);
+    if ( myObject == databaseSelection ) {    // the selected database has changed, so we retrieve the list of collections
         
-        NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
         
-        NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] selected database: %@", selectedDatabase);
         if ( _collections != nil )
             [_collections release];
         _collections = [[[NSApp delegate] collectionNamesOfDatabase:selectedDatabase] retain];
@@ -157,40 +151,25 @@
     
     if ( [selectedCollection length] != 0 && selectedCollection != NULL && selectedCollection != nil ) {
         
-        if ( _IDs != nil )
-        [_IDs release];
         NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
         [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-        amount = [formatter numberFromString:[_amountTextfield stringValue]];
-        skip = [formatter numberFromString:[_skipTextfield stringValue]];
-        _additionalProperties = [_additionalPropertiesTextfield stringValue];
         [formatter release];
 
-    
-        NSLog(@"[RetrieveFromDBController updateCollection] additional properties: %@", _additionalProperties);
         
-//        NSMutableDictionary *propDict = [[NSMutableDictionary alloc] init];
-//        if ( [_additionalProperties length] > 0 ) {
-//            NSArray *objects = [_additionalProperties componentsSeparatedByCharactersInSet:
-//                                                    [NSCharacterSet characterSetWithCharactersInString:@"=,"]];
         
-//            NSLog(@"[RetrieveFromDBController updateCollection] additional properties as array: %@", objects);
+        NSLog(@"[RetrieveFromDBController updateCollection] skip: %@ and amount %@", [[[NSApp delegate] databaseConnection] skip], [[[NSApp delegate] databaseConnection] amount]);
         
-//            for (int i=0; i<[objects count]; i=i+2) {
-//                [propDict setObject:objects[i+1] forKey:objects[i]];
-//            }
-//            NSLog(@"[RetrieveFromDBController updateCollection] additional properties as dict: %@", propDict);
-//        }
+
         
         NSInteger count = [[NSApp delegate] countForDatabase:selectedDatabase
                                                 andCollection:selectedCollection
-                                      withAddtionalProperties:_additionalProperties];
+                                      withAddtionalProperties:[[[NSApp delegate] databaseConnection] additionalPropertiesAsString]];
         
-        _IDs = [[[NSApp delegate] idsForDatabase:selectedDatabase
+        _IDs = [[NSApp delegate] idsForDatabase:selectedDatabase
                                    andCollection:selectedCollection
-                         withAddtionalProperties:_additionalProperties
-                                restrictToAmount:[amount intValue]
-                                      startingAt:[skip intValue]] retain];
+                         withAddtionalProperties:[[[NSApp delegate] databaseConnection] additionalPropertiesAsString]
+                                restrictToAmount:[[[[NSApp delegate] databaseConnection] amount] intValue]
+                                      startingAt:[[[[NSApp delegate] databaseConnection] skip] intValue]];
         
         NSString * numberReportTotal = [NSString stringWithFormat:@"database elements satisfying given properties: %ld", count];
         NSString * numberReport = [NSString stringWithFormat:@"number of results in query: %lu",(unsigned long)[_IDs count]];
@@ -198,7 +177,7 @@
         [self setReportNumberOfResults:(NSString *)numberReport];
         [_reportTotalNumberOfResultsLabel setStringValue:numberReportTotal];
         [_reportTotalNumberOfResultsLabel setTextColor:[NSColor colorWithCalibratedWhite:0 alpha:1.0]];
-        if ( count > [amount intValue] )
+        if ( count > [[[[NSApp delegate] databaseConnection] amount] intValue] )
             [_reportTotalNumberOfResultsLabel setTextColor:[NSColor colorWithCalibratedRed:0.914 green:0.686 blue:0.227 alpha:1]];
 
         

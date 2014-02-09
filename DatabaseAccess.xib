@@ -8,10 +8,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="RetrieveFromDBController">
             <connections>
                 <outlet property="_additionalPropertiesTextfield" destination="Udp-7o-yLJ" id="59U-WF-5uS"/>
-                <outlet property="_amountTextfield" destination="XWg-VA-yjx" id="rdb-2n-0hF"/>
                 <outlet property="_reportNumberOfResultsLabel" destination="eri-r3-fhu" id="yUW-Zt-CnZ"/>
                 <outlet property="_reportTotalNumberOfResultsLabel" destination="c49-jT-noP" id="YQD-Vi-Swt"/>
-                <outlet property="_skipTextfield" destination="Le4-zn-L9Y" id="D2i-ZH-Id0"/>
                 <outlet property="collectionSelection" destination="bFG-9w-3d9" id="qBZ-e8-vNK"/>
                 <outlet property="databaseSelection" destination="C33-fh-q8z" id="xXf-h6-P6J"/>
                 <outlet property="idSelection" destination="lYX-Da-Xtx" id="aG3-T6-HEY"/>
@@ -137,8 +135,9 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
+                            <action selector="updateAdditionalPropertiesDict:" target="jxh-l2-MGw" id="Wm6-GR-eCC"/>
                             <outlet property="delegate" destination="-2" id="tk4-PZ-2lf"/>
-                            <outlet property="nextKeyView" destination="XWg-VA-yjx" id="rRe-R3-x80"/>
+                            <outlet property="nextKeyView" destination="XWg-VA-yjx" id="NO6-Yg-1Pq"/>
                         </connections>
                     </textField>
                     <box autoresizesSubviews="NO" verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="KZD-Op-02W">
@@ -149,7 +148,7 @@ Gw
                         <font key="titleFont" metaFont="system"/>
                     </box>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Le4-zn-L9Y">
-                        <rect key="frame" x="311" y="147" width="164" height="22"/>
+                        <rect key="frame" x="311" y="144" width="164" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="bDi-FA-qgh">
                             <font key="font" metaFont="system"/>
@@ -157,7 +156,12 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
-                            <outlet property="delegate" destination="-2" id="qxC-Fv-Blv"/>
+                            <binding destination="jxh-l2-MGw" name="value" keyPath="skip" id="xMH-Hn-eft">
+                                <dictionary key="options">
+                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                    <bool key="NSValidatesImmediately" value="YES"/>
+                                </dictionary>
+                            </binding>
                             <outlet property="nextKeyView" destination="lYX-Da-Xtx" id="gFf-nS-dLw"/>
                         </connections>
                     </textField>
@@ -170,8 +174,8 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
-                            <outlet property="delegate" destination="-2" id="FMY-wF-JVF"/>
-                            <outlet property="nextKeyView" destination="Le4-zn-L9Y" id="PbO-Oh-Jac"/>
+                            <binding destination="jxh-l2-MGw" name="value" keyPath="amount" id="jVG-yi-AlI"/>
+                            <outlet property="nextKeyView" destination="Le4-zn-L9Y" id="cp9-f6-rtq"/>
                         </connections>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wyc-dO-j5S">
@@ -256,6 +260,12 @@ Gw
             </connections>
         </window>
         <customObject id="xdT-fD-Eod" customClass="RetrieveFromDBController"/>
+        <customObject id="EZw-Qx-s7o" customClass="AppController">
+            <connections>
+                <outlet property="_databaseConnection" destination="jxh-l2-MGw" id="oH8-Rq-dA9"/>
+            </connections>
+        </customObject>
+        <customObject id="jxh-l2-MGw" customClass="DatabaseAccess"/>
         <userDefaultsController representsSharedInstance="YES" id="BPz-9c-9oe"/>
     </objects>
 </document>

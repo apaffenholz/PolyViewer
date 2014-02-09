@@ -21,18 +21,22 @@
 
 @implementation AppController
 
+@synthesize preferencesController = _preferencesController;
+@synthesize retrieveController    = _retrieveController;
+@synthesize databaseConnection = _databaseConnection;
+    
+
+    
 -(id)init {
 	self = [super init];
     
     pinst = [[PolymakeInstanceWrapper alloc] init];
     [pinst createScope];
+    _databaseConnection = [[DatabaseAccess alloc] init];
     
 	return self;
 }
-
-@synthesize preferencesController = _preferencesController;
-@synthesize retrieveController    = _retrieveController;
-
+    
 -(IBAction)showPreferences:(id)sender{
   NSLog(@"[AppController showPreferences] called");
     if(!self.preferencesController) {

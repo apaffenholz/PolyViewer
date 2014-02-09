@@ -21,10 +21,14 @@
 @interface RetrieveFromDBController : NSWindowController <NSComboBoxDelegate> {
 
     IBOutlet NSButton    * retrieveObject;
-    IBOutlet NSTextField * _skipTextfield;
-    IBOutlet NSTextField * _amountTextfield;
     IBOutlet NSTextField * _additionalPropertiesTextfield;
 
+    // currently unused
+    // values controlled by bindings
+    // IBOutlet NSTextField * _skipTextfield;
+    // IBOutlet NSTextField * _amountTextfield;
+
+    
     IBOutlet NSTextField * _reportNumberOfResultsLabel;
     IBOutlet NSTextField * _reportTotalNumberOfResultsLabel;
     
@@ -39,9 +43,6 @@
     NSString             * _ID;
     
     NSString             * _reportNumberOfResults;
-    NSString             * _additionalProperties;
-    NSNumber             * amount;
-    NSNumber             * skip;
 
     NSArray              * _databases;
     NSArray              * _collections;
