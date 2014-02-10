@@ -25,7 +25,6 @@
     if ( self ) {
         [self setSkip:@"30"];
         [self setAmount:@"10"];
-        _additionalProperties = @"";
     }
     return self;
 }

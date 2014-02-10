@@ -15,10 +15,18 @@
     NSString * _ID;
     
     NSString * _reportNumberOfResults;
-    NSString * _additionalProperties;
     
+    // A dictionary that contains additional restrictions for the database search
+    // in the form of property-value pairs.
+    // passed to polymake as hash in the form "property=>value"
     NSDictionary * _additionalPropertiesDict;
+    
+    // the max number of elements retrieved from the database
+    // passed to polymake as "limit=><amount>"
     NSString * _amount;
+    
+    // the number of elements of the query skipped from the beginning
+    // passed to polymake in the form "skip=><skip>"
     NSString * _skip;
     
     NSArray  * _databases;

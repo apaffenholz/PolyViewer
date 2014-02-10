@@ -20,7 +20,9 @@
 
 @interface RetrieveFromDBController : NSWindowController <NSComboBoxDelegate> {
 
-    IBOutlet NSButton    * retrieveObject;
+    IBOutlet NSButton    * openObjectButton;
+    IBOutlet NSButton    * queryDBButton;
+    IBOutlet NSButton    * retrieveIDsButton;
     IBOutlet NSTextField * _additionalPropertiesTextfield;
 
     // currently unused
@@ -57,6 +59,11 @@
 @property (readwrite,copy) NSString * reportNumberOfResults;
 
 - (IBAction)retrieveFromDB:(id)sender;
+- (IBAction)queryDB:(id)sender;
+- (IBAction) getIdsForCurrentSelections:(id)sender;
+
+- (NSInteger)queryDB;
 - (void)updateCollection;
 
+    
 @end
