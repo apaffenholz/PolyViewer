@@ -24,23 +24,16 @@
 
 @implementation RetrieveFromDBController
 
-@synthesize database = _database;
-@synthesize collection = _collection;
-@synthesize ID = _ID;
 @synthesize databases = _databases;
 @synthesize collections = _collections;
-@synthesize reportNumberOfResults = _reportNumberOfResults;
 
+// initialization, deallocation, window loading
 
 -(id)init {
 	self = [super init];
 	if (self) {
-        _database = nil;
-        _collection = nil;
-        _ID = nil;
         _databases = nil;
         _collections = nil;
-        _reportNumberOfResults = nil;
         _IDs = nil;
     }
     
@@ -49,9 +42,8 @@
 
 
 -(void)dealloc {
-	[_database release];
-    [_collection dealloc];
-    [_ID dealloc];
+    [_databases dealloc];
+    [_collections dealloc];
     [_IDs dealloc];
     
 	[super dealloc];
@@ -61,13 +53,7 @@
 - (void)windowDidLoad {
 	NSLog(@"[RetrieveFromDBController windowDidLoad] called");
     
-    // start with some example values to prevent the obvious crash
-    // as we currently don't do any value checking
-    _database = nil;
-    _collection = nil;
-    _ID = nil;
-    [self setReportNumberOfResults:@"no results"];
-    [_reportNumberOfResultsLabel setStringValue:_reportNumberOfResults];
+    [_reportNumberOfResultsLabel setStringValue:@"no results"];
     
     _databases = [[[NSApp delegate] databaseNames] retain];
     [databaseSelection addItemsWithObjectValues:_databases];
@@ -77,21 +63,23 @@
     }
     
     NSString * selectedDatabase = [_databases objectAtIndex:[databaseSelection selectedTag]];
-
     
 	NSLog(@"[RetrieveFromDBController windowDidLoad] got db: %@", selectedDatabase);
     NSLog(@"[RetrieveFromDBController windowDidLoad] database names are %@",_databases);
 }
     
 
+    
+// window actions
+    
 - (IBAction)retrieveFromDB:(id)sender {
     NSLog(@"[RetrieveFromDBController retrieveFromDB] called");
 
     NSLog(@"[RetrieveFromDBController retrieveFromDB] index of selected item: %ld",(long)[databaseSelection indexOfSelectedItem]);
     
-    _database = (NSString *)[_databases objectAtIndex:[databaseSelection indexOfSelectedItem]];
-    _collection = (NSString *)[_collections objectAtIndex:[collectionSelection indexOfSelectedItem]];
-    _ID = (NSString *)[_IDs objectAtIndex:[idSelection indexOfSelectedItem]];
+    NSString * _database = (NSString *)[_databases objectAtIndex:[databaseSelection indexOfSelectedItem]];
+    NSString * _collection = (NSString *)[_collections objectAtIndex:[collectionSelection indexOfSelectedItem]];
+    NSString * _ID = (NSString *)[_IDs objectAtIndex:[idSelection indexOfSelectedItem]];
   
     NSLog(@"[RetrieveFromDBController retrieveFromDB] selected item: %@",_database);
     PolymakeObjectController * pf = [[PolymakeObjectController alloc] init];
@@ -101,6 +89,8 @@
     [pf showWindows];
     [[NSDocumentController sharedDocumentController] addDocument:pf];
     [pf release];
+
+    // should we close the window after we have loaded an object from the current list?
     //[[self window] orderOut:nil];
 }
  
@@ -113,12 +103,20 @@
     if ( count > [[[[NSApp delegate] databaseConnection] amount] intValue] )
         [_reportTotalNumberOfResultsLabel setTextColor:[NSColor colorWithCalibratedRed:0.914 green:0.686 blue:0.227 alpha:1]];
 
+    // if we query the DB for numbers of results, then we should clear the current list of results
+    [idSelection removeAllItems];
 }
     
 - (IBAction) getIdsForCurrentSelections:(id)sender {
     [self updateCollection];
 }
 
+    
+// combo boxes:
+// - databases :                 _databases
+// - collections in databases:   _collections
+// - IDs of objects in database: _IDs
+    
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification {
 
     NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] entered");
@@ -131,12 +129,18 @@
     }
 }
     
+// editing of text fields
+// currently does nothing
+// amount and skip attached via bindings
+    
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
     NSTextField *textField = [notification object];
     NSLog(@"[RetrieveDromDBController controlTextDidChange] %@", [textField stringValue]);
 }
 
 
+// other methods
+    
 - (void) updateCollectionList {
     NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
     NSLog(@"[RetrieveFromDBController updateCollectionList] selected database: %@", selectedDatabase);
@@ -157,6 +161,53 @@
     }
 }
     
+
+    - (void)updateCollection {
+        
+        NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
+        NSString * selectedCollection = [collectionSelection objectValueOfSelectedItem];
+        
+        NSLog(@"[RetrieveFromDBController updateCollection] selected database: %@", selectedDatabase);
+        NSLog(@"[RetrieveFromDBController updateCollection] selected collection: %@", selectedCollection);
+        
+        if ( [selectedCollection length] != 0 ) {
+            
+            /*
+             NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
+             [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+             [formatter release];
+             */
+            
+            if ( _IDs != nil )
+                [_IDs release];
+            _IDs = [[NSApp delegate] idsForDatabase:selectedDatabase
+                                      andCollection:selectedCollection
+                            withAddtionalProperties:[[[NSApp delegate] databaseConnection] additionalPropertiesAsString]
+                                   restrictToAmount:[[[[NSApp delegate] databaseConnection] amount] intValue]
+                                         startingAt:[[[[NSApp delegate] databaseConnection] skip] intValue]];
+            [_IDs retain];
+            
+            // report how many IDs actually match the query
+            NSString * numberReport = [NSString stringWithFormat:@"number of results in query: %lu",(unsigned long)[_IDs count]];
+            [_reportTotalNumberOfResultsLabel setTextColor:[NSColor colorWithCalibratedWhite:0 alpha:1.0]];
+            [_reportNumberOfResultsLabel setStringValue:numberReport];
+            
+            // select an item
+            [idSelection deselectItemAtIndex:[idSelection indexOfSelectedItem]];
+            [idSelection removeAllItems];
+            [idSelection addItemsWithObjectValues:_IDs];
+            if ( [idSelection numberOfItems] > 0 ) {
+                [idSelection selectItemAtIndex:0];
+                [idSelection setObjectValue:[idSelection objectValueOfSelectedItem]];
+            }
+        } else {
+            [idSelection removeAllItems];
+        }
+    }
+    
+    
+// FIXME the following doesn't really belong to this class. Should be a database method
+    
 - (NSInteger)queryDB {
     
     NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
@@ -172,59 +223,13 @@
                                      andCollection:selectedCollection
                            withAddtionalProperties:[[[NSApp delegate] databaseConnection] additionalPropertiesAsString]];
     
+    [idSelection deselectItemAtIndex:[idSelection indexOfSelectedItem]];
+    [idSelection removeAllItems];
+
     return count;
 }
     
-    
-- (void)updateCollection {
 
-    NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
-    NSString * selectedCollection = [collectionSelection objectValueOfSelectedItem];
 
-    NSLog(@"[RetrieveFromDBController updateCollection] selected database: %@", selectedDatabase);
-    NSLog(@"[RetrieveFromDBController updateCollection] selected collection: %@", selectedCollection);
-    
-    if ( [selectedCollection length] != 0 && selectedCollection != NULL && selectedCollection != nil ) {
-        
-        /*
-        NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
-        [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-        [formatter release];
-*/
-        
-        
-        NSLog(@"[RetrieveFromDBController updateCollection] skip: %@ and amount %@", [[[NSApp delegate] databaseConnection] skip], [[[NSApp delegate] databaseConnection] amount]);
-        
-
-        
-        if ( _IDs != nil )
-            [_IDs release];
-        _IDs = [[NSApp delegate] idsForDatabase:selectedDatabase
-                                   andCollection:selectedCollection
-                         withAddtionalProperties:[[[NSApp delegate] databaseConnection] additionalPropertiesAsString]
-                                restrictToAmount:[[[[NSApp delegate] databaseConnection] amount] intValue]
-                                      startingAt:[[[[NSApp delegate] databaseConnection] skip] intValue]];
-        [_IDs retain];
-        
-        NSString * numberReport = [NSString stringWithFormat:@"number of results in query: %lu",(unsigned long)[_IDs count]];
-        
-        [self setReportNumberOfResults:(NSString *)numberReport];
-        [_reportTotalNumberOfResultsLabel setTextColor:[NSColor colorWithCalibratedWhite:0 alpha:1.0]];
-        
-        [_reportNumberOfResultsLabel setStringValue:_reportNumberOfResults];
-        
-        
-        [idSelection deselectItemAtIndex:[idSelection indexOfSelectedItem]];
-        [idSelection removeAllItems];
-        [idSelection addItemsWithObjectValues:_IDs];
-        if ( [idSelection numberOfItems] > 0 ) {
-            [idSelection selectItemAtIndex:0];
-            [idSelection setObjectValue:[idSelection objectValueOfSelectedItem]];
-        }
-    } else {
-        [idSelection removeAllItems];
-    }
-    
-}
 
 @end

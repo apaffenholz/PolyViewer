@@ -96,7 +96,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </comboBoxCell>
                         <connections>
-                            <outlet property="delegate" destination="-2" id="TAr-D6-GD6"/>
+                            <outlet property="delegate" destination="-2" id="mrX-TE-WYv"/>
                             <outlet property="nextKeyView" destination="bFG-9w-3d9" id="SgH-Ty-q42"/>
                         </connections>
                     </comboBox>
@@ -109,7 +109,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </comboBoxCell>
                         <connections>
-                            <outlet property="delegate" destination="-2" id="3Ca-wi-yEG"/>
+                            <outlet property="delegate" destination="-2" id="IyQ-1j-py9"/>
                             <outlet property="nextKeyView" destination="Udp-7o-yLJ" id="Yc7-nV-ymL"/>
                         </connections>
                     </comboBox>

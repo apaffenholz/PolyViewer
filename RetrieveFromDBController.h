@@ -23,28 +23,14 @@
     IBOutlet NSButton    * openObjectButton;
     IBOutlet NSButton    * queryDBButton;
     IBOutlet NSButton    * retrieveIDsButton;
-    IBOutlet NSTextField * _additionalPropertiesTextfield;
 
-    // currently unused
-    // values controlled by bindings
-    // IBOutlet NSTextField * _skipTextfield;
-    // IBOutlet NSTextField * _amountTextfield;
-
-    
     IBOutlet NSTextField * _reportNumberOfResultsLabel;
     IBOutlet NSTextField * _reportTotalNumberOfResultsLabel;
-    
-    
+    IBOutlet NSTextField * _additionalPropertiesTextfield;
     
     IBOutlet NSComboBox * databaseSelection;
     IBOutlet NSComboBox * collectionSelection;
     IBOutlet NSComboBox * idSelection;
-    
-    NSString             * _database;
-    NSString             * _collection;
-    NSString             * _ID;
-    
-    NSString             * _reportNumberOfResults;
 
     NSArray              * _databases;
     NSArray              * _collections;
@@ -53,10 +39,6 @@
 
 @property (readwrite,copy) NSArray * databases;
 @property (readwrite,copy) NSArray * collections;
-@property (readwrite,copy) NSString * database;
-@property (readwrite,copy) NSString * collection;
-@property (readwrite,copy) NSString * ID;
-@property (readwrite,copy) NSString * reportNumberOfResults;
 
 - (IBAction)retrieveFromDB:(id)sender;
 - (IBAction)queryDB:(id)sender;

@@ -19,6 +19,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+// this is the NSOutlineView that fills the left column of an object window
+// subclassed to
+//    * add custm colors
+//    * allow addition of properties
+// 
 @interface PropertyView : NSOutlineView {
     
 }
