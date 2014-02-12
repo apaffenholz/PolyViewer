@@ -15,7 +15,7 @@
 			<string>poly</string>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
-				<string>application/polymake</string>
+				<string>text/xml</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>polymake polytope</string>
@@ -41,7 +41,7 @@
 			<string>graph</string>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
-				<string>application/polymake</string>
+				<string>text/xml</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>polymake graph</string>
@@ -68,7 +68,7 @@
 			<string>trop</string>
 			<key>CFBundleTypeMIMETypes</key>
 			<array>
-				<string>application/polymake</string>
+				<string>text/xml</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>polymake tropical object</string>
@@ -133,7 +133,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/polymake</string>
+					<string>text/xml</string>
 				</array>
 			</dict>
 		</dict>
@@ -157,7 +157,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/polymake</string>
+					<string>text/xml</string>
 				</array>
 			</dict>
 		</dict>
@@ -180,7 +180,7 @@
 				</array>
 				<key>public.mime-type</key>
 				<array>
-					<string>application/polymake</string>
+					<string>text/xml</string>
 				</array>
 			</dict>
 		</dict>
