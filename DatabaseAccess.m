@@ -84,6 +84,16 @@
     return count;
 }
     
+
+- (NSArray *)getIDsForDatabase:db andCollection:coll {
+
+    _IDs = [[NSApp delegate] idsForDatabase:db
+                              andCollection:coll
+                    withAddtionalProperties:[self additionalPropertiesAsString]
+                           restrictToAmount:[[self amount] intValue]
+                                 startingAt:[[self skip] intValue]];
     
+    return _IDs;
+}
     
 @end

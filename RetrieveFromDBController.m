@@ -121,6 +121,7 @@
     
 - (IBAction) getIdsForCurrentSelections:(id)sender {
     [self updateCollection];
+    [_idTableView reloadData];
 }
 
     
@@ -219,6 +220,21 @@
     
 
 
+    /****************/
+- (NSInteger) numberOfRowsInTableView:(NSTableView *)tv {
+    NSLog(@"[RetrieveFromDBController numberOFRowsInTableView] called");
+	
+    // default return 0
+	return [_IDs count];
+}
+    
+    /****************/
+- (id)tableView:(NSTableView *)tv objectValueForTableColumn:(NSTableColumn *)column row:(NSInteger) row {
+    NSLog(@"[RetrieveFromDBController tableView ObjectValueTableColumn column row] called");
+    
+	NSString * value = _IDs[row];
+	return value;
+}
 
-
+    
 @end
