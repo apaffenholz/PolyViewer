@@ -96,13 +96,25 @@
  
 // action if the query button is pressed
 - (IBAction)queryDB:(id)sender {
-    NSLog(@"[RetrieveFromDBController queryDB:sender] entered");    
-    NSInteger count = [self queryDB];
-    NSString * numberReportTotal = [NSString stringWithFormat:@"database elements satisfying given properties: %ld", count];
-    [_reportTotalNumberOfResultsLabel setStringValue:numberReportTotal];
-    if ( count > [[[[NSApp delegate] databaseConnection] amount] intValue] )
-        [_reportTotalNumberOfResultsLabel setTextColor:[NSColor colorWithCalibratedRed:0.914 green:0.686 blue:0.227 alpha:1]];
+    NSLog(@"[RetrieveFromDBController queryDB:sender] entered");
+    
+    NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
+    NSString * selectedCollection = [collectionSelection objectValueOfSelectedItem];
+    
+    NSInteger count = 0;
+    
+    if ( [selectedCollection length] != 0 ) {
+        count = [[[NSApp delegate] databaseConnection] queryDBwithDatabase:selectedDatabase
+                                                             andCollection:selectedCollection];
+        NSString * numberReportTotal = [NSString stringWithFormat:@"database elements satisfying given properties: %ld", count];
+        [_reportTotalNumberOfResultsLabel setStringValue:numberReportTotal];
+        if ( count > [[[[NSApp delegate] databaseConnection] amount] intValue] )
+            [_reportTotalNumberOfResultsLabel setTextColor:[NSColor colorWithCalibratedRed:0.914 green:0.686 blue:0.227 alpha:1]];
 
+        // if we query the DB for numbers of results, then we should deselct and clear the current list of results
+        [idSelection deselectItemAtIndex:[idSelection indexOfSelectedItem]];
+    }
+    
     // if we query the DB for numbers of results, then we should clear the current list of results
     [idSelection removeAllItems];
 }
@@ -205,30 +217,7 @@
         }
     }
     
-    
-// FIXME the following doesn't really belong to this class. Should be a database method
-    
-- (NSInteger)queryDB {
-    
-    NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
-    NSString * selectedCollection = [collectionSelection objectValueOfSelectedItem];
-    
-    NSLog(@"[RetrieveFromDBController updateCollection] selected database: %@", selectedDatabase);
-    NSLog(@"[RetrieveFromDBController updateCollection] selected collection: %@", selectedCollection);
-    
-    NSInteger count = 0;
-    
-    if ( [selectedCollection length] != 0 && selectedCollection != NULL && selectedCollection != nil )
-        count = [[NSApp delegate] countForDatabase:selectedDatabase
-                                     andCollection:selectedCollection
-                           withAddtionalProperties:[[[NSApp delegate] databaseConnection] additionalPropertiesAsString]];
-    
-    [idSelection deselectItemAtIndex:[idSelection indexOfSelectedItem]];
-    [idSelection removeAllItems];
 
-    return count;
-}
-    
 
 
 

@@ -44,7 +44,6 @@
 - (IBAction)queryDB:(id)sender;
 - (IBAction) getIdsForCurrentSelections:(id)sender;
 
-- (NSInteger)queryDB;
 - (void)updateCollection;
 
     

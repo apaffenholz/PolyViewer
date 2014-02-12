@@ -7,6 +7,7 @@
 //
 
 #import "DatabaseAccess.h"
+#import "AppController.h"
 
 @implementation DatabaseAccess
     
@@ -67,6 +68,22 @@
     NSLog(@"[DatabaseAccess additionalPropertiesAsString] returning: %@", props);
     return props;
 }
+    
+    
+- (NSInteger)queryDBwithDatabase:db andCollection:coll {
+    
+    NSLog(@"[DatabaseAcces queryDBwithDatabase: andCollection:] selected database: %@ and collection: %@", db, coll);
+    
+    NSInteger count = 0;
+    
+    if ( [coll length] != 0 && coll != NULL && coll != nil )
+        count = [[NSApp delegate] countForDatabase:db
+                                     andCollection:coll
+                           withAddtionalProperties:[self additionalPropertiesAsString]];
+    
+    return count;
+}
+    
     
     
 @end

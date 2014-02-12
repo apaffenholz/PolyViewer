@@ -46,5 +46,6 @@
     
 - (IBAction)updateAdditionalPropertiesDict:(id)sender;
 - (NSString *) additionalPropertiesAsString;
+- (NSInteger)queryDBwithDatabase:db andCollection:coll;
     
 @end
