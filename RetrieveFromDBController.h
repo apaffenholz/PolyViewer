@@ -30,7 +30,6 @@
     
     IBOutlet NSComboBox * databaseSelection;
     IBOutlet NSComboBox * collectionSelection;
-    IBOutlet NSComboBox * idSelection;
     
     IBOutlet NSTableView * _idTableView;
 

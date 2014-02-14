@@ -79,7 +79,7 @@
     
     NSString * _database = (NSString *)[_databases objectAtIndex:[databaseSelection indexOfSelectedItem]];
     NSString * _collection = (NSString *)[_collections objectAtIndex:[collectionSelection indexOfSelectedItem]];
-    NSString * _ID = (NSString *)[_IDs objectAtIndex:[idSelection indexOfSelectedItem]];
+    NSString * _ID = (NSString *)[_IDs objectAtIndex:[_idTableView selectedRow]];
   
     NSLog(@"[RetrieveFromDBController retrieveFromDB] selected item: %@",_database);
     PolymakeObjectController * pf = [[PolymakeObjectController alloc] init];
@@ -106,17 +106,14 @@
     if ( [selectedCollection length] != 0 ) {
         count = [[[NSApp delegate] databaseConnection] queryDBwithDatabase:selectedDatabase
                                                              andCollection:selectedCollection];
-        NSString * numberReportTotal = [NSString stringWithFormat:@"database elements satisfying given properties: %ld", count];
+        NSString * numberReportTotal = [NSString stringWithFormat:@"elements in database: %ld", count];
         [_reportTotalNumberOfResultsLabel setStringValue:numberReportTotal];
         if ( count > [[[[NSApp delegate] databaseConnection] amount] intValue] )
             [_reportTotalNumberOfResultsLabel setTextColor:[NSColor colorWithCalibratedRed:0.914 green:0.686 blue:0.227 alpha:1]];
 
-        // if we query the DB for numbers of results, then we should deselct and clear the current list of results
-        [idSelection deselectItemAtIndex:[idSelection indexOfSelectedItem]];
     }
     
-    // if we query the DB for numbers of results, then we should clear the current list of results
-    [idSelection removeAllItems];
+    _IDs = nil;
 }
     
 - (IBAction) getIdsForCurrentSelections:(id)sender {
@@ -201,20 +198,9 @@
             [_IDs retain];
             
             // report how many IDs actually match the query
-            NSString * numberReport = [NSString stringWithFormat:@"number of results in query: %lu",(unsigned long)[_IDs count]];
+            NSString * numberReport = [NSString stringWithFormat:@"query size: %lu",(unsigned long)[_IDs count]];
             [_reportTotalNumberOfResultsLabel setTextColor:[NSColor colorWithCalibratedWhite:0 alpha:1.0]];
             [_reportNumberOfResultsLabel setStringValue:numberReport];
-            
-            // select an item
-            [idSelection deselectItemAtIndex:[idSelection indexOfSelectedItem]];
-            [idSelection removeAllItems];
-            [idSelection addItemsWithObjectValues:_IDs];
-            if ( [idSelection numberOfItems] > 0 ) {
-                [idSelection selectItemAtIndex:0];
-                [idSelection setObjectValue:[idSelection objectValueOfSelectedItem]];
-            }
-        } else {
-            [idSelection removeAllItems];
         }
     }
     
@@ -224,13 +210,12 @@
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tv {
     NSLog(@"[RetrieveFromDBController numberOFRowsInTableView] called");
 	
-    // default return 0
 	return [_IDs count];
 }
     
     /****************/
 - (id)tableView:(NSTableView *)tv objectValueForTableColumn:(NSTableColumn *)column row:(NSInteger) row {
-    NSLog(@"[RetrieveFromDBController tableView ObjectValueTableColumn column row] called");
+    NSLog(@"[RetrieveFromDBController tableView ObjectValueTableColumn column row] called for row %ld", (long)row);
     
 	NSString * value = _IDs[row];
 	return value;
