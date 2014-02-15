@@ -175,6 +175,10 @@
         if ( [_collections count] > 0 ) {
             [collectionSelection selectItemAtIndex:0];
             [collectionSelection setObjectValue:[collectionSelection objectValueOfSelectedItem]];
+            if ( [_IDs count] > 0 ) {
+                _IDs = nil;
+                [_idTableView reloadData];
+            }
         }
     }
 }
