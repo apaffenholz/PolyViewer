@@ -132,11 +132,11 @@
     return collections;
 }
 
+    
+    /***************************************************************/
 -(NSArray *)idsForDatabase:(NSString *)db andCollection:(NSString *)coll withAddtionalProperties:(NSString *)additionalProps restrictToAmount:(NSNumber *)amount startingAt:(NSNumber *)start {
 
     NSMutableArray * ids = [NSMutableArray array];
-    
-    NSLog(@"[RetrieveFromDBController updateCollection] additional properties: %@", additionalProps);
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_db_ListOfIDs" ofType:@"pl"];
     polymake::perl::ListResult results =
@@ -145,9 +145,27 @@
                                                                 (long)amount,
                                                                 (long)start,
                                                                 [additionalProps cStringUsingEncoding:NSUTF8StringEncoding]);
+    
+    if ( results.size() == 1 ) {
+        NSLog(@"[PolymakeInstanceWrapper idsForDatabase andCollection withAdditionalProperties restrictToAmount startingAt] checking success");
+        const char* dbstring = results[0];
+        char * err = strstr(dbstring, "ERROR");
+        if (err != NULL) {
+            char * err_db = strstr(dbstring, "connect to server");
+            char * err_timeout = strstr(dbstring, "timed out");
+            if (err_db != NULL) {
+                [self showCommandFailedAlert:@"could not connect to database server"];
+            } else if (err_timeout != NULL) {
+                [self showCommandFailedAlert:@"database query time out"];
+            } else {
+                [self showCommandFailedAlert:@"an unknown error occured"];
+            }
+            return ids;
+        }
+    }
+    
     NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] retrieved: %d", results.size());
     for (int i=0, end=results.size(); i<end; ++i) {
-//        const char* idstring = results[i];
         NSString *  id = [[NSString alloc] initWithUTF8String:results[i]];
         [ids addObject:id];
     }
@@ -155,6 +173,8 @@
     return ids;
 }
 
+    
+    /***************************************************************/
 -(NSInteger)countForDatabase:(NSString *)db andCollection:(NSString *)coll withAddtionalProperties:(NSString *)additionalProps {
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_db_CountOfIDs" ofType:@"pl"];
@@ -164,6 +184,8 @@
     return count;
 }
     
+    
+    /***************************************************************/
 -(NSArray *)configuredExtensions {
     
     NSMutableArray * extensions = [NSMutableArray array];
@@ -181,7 +203,8 @@
     return extensions;
 }
     
-    
+
+    /***************************************************************/
 - (void)showCommandFailedAlert:(NSString *)reason {
     NSAlert *alert = [NSAlert alertWithMessageText:reason
                                      defaultButton:@"OK"

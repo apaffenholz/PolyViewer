@@ -23,9 +23,12 @@ my $db_name = shift;
 my $coll_name = shift;
 my $amount = shift;
 my $start = shift;
-
 my $additional_props=shift;
 
-my $ids = poly_db_ids({eval($additional_props)}, db=>$db_name, collection=>$coll_name, limit=>$amount, skip=>$start);
+my @ids = eval{ @{poly_db_ids({eval($additional_props)}, db=>$db_name, collection=>$coll_name, limit=>$amount, skip=>$start)}; };
 
-return @{$ids};
+if ( $@ ) {
+    $ids[0] = "ERROR : $@";
+}
+
+return @ids;

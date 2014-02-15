@@ -20,6 +20,8 @@
 @synthesize amount = _amount;
 @synthesize skip = _skip;
     
+    
+    /***************************************************************/
 -(id) init {
     NSLog(@"[DatabaseAccess init] called");
     self = [super init];
@@ -32,6 +34,7 @@
 }
     
     
+    /***************************************************************/
 - (IBAction)updateAdditionalPropertiesDict:(id)sender {
     NSLog(@"[DatabaseAccess updateAdditionalPropertiesDict] recieved: %@", sender);
     
@@ -53,6 +56,7 @@
 }
 
     
+    /***************************************************************/
 - (NSString *) additionalPropertiesAsString {
     
     NSLog(@"[DatabaseAccess additionalPropertiesAsString] entering, current dict is: %@", _additionalPropertiesDict);
@@ -71,6 +75,7 @@
 }
     
     
+    /***************************************************************/
 - (NSInteger)queryDBwithDatabase:db andCollection:coll {
     
     NSLog(@"[DatabaseAcces queryDBwithDatabase: andCollection:] selected database: %@ and collection: %@", db, coll);
@@ -86,6 +91,7 @@
 }
     
 
+    /***************************************************************/
 - (NSArray *)getIDsForDatabase:db andCollection:coll {
 
     _IDs = [[NSApp delegate] idsForDatabase:db

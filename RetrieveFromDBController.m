@@ -27,8 +27,8 @@
 @synthesize databases = _databases;
 @synthesize collections = _collections;
 
+        /***************************************************************/
 // initialization, deallocation, window loading
-
 -(id)init {
 	self = [super init];
 	if (self) {
@@ -41,6 +41,8 @@
 }
 
 
+    
+    /***************************************************************/
 -(void)dealloc {
     [_databases dealloc];
     [_collections dealloc];
@@ -50,6 +52,8 @@
 }
 
 
+    
+    /***************************************************************/
 - (void)windowDidLoad {
 	NSLog(@"[RetrieveFromDBController windowDidLoad] called");
     
@@ -69,6 +73,7 @@
     
 
     
+    /***************************************************************/
 // window actions
     
 - (IBAction)retrieveFromDB:(id)sender {
@@ -93,6 +98,7 @@
     //[[self window] orderOut:nil];
 }
  
+    /***************************************************************/
 // action if the query button is pressed
 - (IBAction)queryDB:(id)sender {
     NSLog(@"[RetrieveFromDBController queryDB:sender] entered");
@@ -115,17 +121,19 @@
     _IDs = nil;
 }
     
+    /***************************************************************/
 - (IBAction) getIdsForCurrentSelections:(id)sender {
     [self updateCollection];
+    NSLog(@"[RetrieveFromDBController GetIdsForCurrentSelections] starting table reload");
     [_idTableView reloadData];
 }
 
     
+    /***************************************************************/
 // combo boxes:
 // - databases :                 _databases
 // - collections in databases:   _collections
 // - IDs of objects in database: _IDs
-    
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification {
 
     NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] entered");
@@ -138,10 +146,10 @@
     }
 }
     
+        /***************************************************************/
 // editing of text fields
 // currently does nothing
 // amount and skip attached via bindings
-    
 - (void)controlTextDidEndEditing:(NSNotification *)notification {
     NSTextField *textField = [notification object];
     NSLog(@"[RetrieveDromDBController controlTextDidChange] %@", [textField stringValue]);
@@ -150,6 +158,7 @@
 
 // other methods
     
+    /***************************************************************/
 - (void) updateCollectionList {
     NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
     NSLog(@"[RetrieveFromDBController updateCollectionList] selected database: %@", selectedDatabase);
@@ -173,7 +182,8 @@
     }
 }
     
-
+    
+    /***************************************************************/
 - (void)updateCollection {
         
     NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
@@ -208,14 +218,14 @@
     
 
 
-    /****************/
+    /***************************************************************/
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tv {
     NSLog(@"[RetrieveFromDBController numberOfRowsInTableView] called");
 	
 	return [_IDs count];
 }
     
-    /****************/
+    /***************************************************************/
 - (id)tableView:(NSTableView *)tv objectValueForTableColumn:(NSTableColumn *)column row:(NSInteger) row {
     NSLog(@"[RetrieveFromDBController tableView ObjectValueTableColumn column row] called for row %ld", (long)row);
     
