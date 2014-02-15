@@ -23,7 +23,8 @@
 
 @synthesize preferencesController = _preferencesController;
 @synthesize retrieveController    = _retrieveController;
-@synthesize databaseConnection = _databaseConnection;
+@synthesize databaseConnection    = _databaseConnection;
+@synthesize configuredExtensions  = _configuredExtensions;
     
 
     
@@ -32,10 +33,35 @@
     
     pinst = [[PolymakeInstanceWrapper alloc] init];
     [pinst createScope];
-    _databaseConnection = [[DatabaseAccess alloc] init];
+    _configuredExtensions = [pinst configuredExtensions];
+    
+    if ( [_configuredExtensions containsObject:@"poly_db"] ) {
+        _databaseConnection = [[DatabaseAccess alloc] init];
+    } else {
+        _databaseConnection = nil;
+    }
+    
+
     
 	return self;
 }
+    
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)menuItem {
+    
+    SEL menuAction = [menuItem action];
+    NSLog(@"[AppController validateUserInterfaceItem] called checking %@", NSStringFromSelector(menuAction));
+    if (menuAction == @selector(showRetrieveFromDB:)) {
+        NSLog(@"[AppController validateUserInterfaceItem] checking for database");        
+        if ( _databaseConnection == nil ) {
+            NSLog(@"[AppController validateUserInterfaceItem] database found");
+            return NO;
+        } else
+        return YES;
+    }
+
+    return [super validateUserInterfaceItem:menuItem];
+}
+  
     
 -(IBAction)showPreferences:(id)sender{
   NSLog(@"[AppController showPreferences] called");

@@ -24,7 +24,8 @@
     NSLog(@"[DatabaseAccess init] called");
     self = [super init];
     if ( self ) {
-        [self setSkip:@"30"];
+        _databases = [[[NSApp delegate] databaseNames] retain];
+        [self setSkip:@"0"];
         [self setAmount:@"10"];
     }
     return self;

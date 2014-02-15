@@ -24,19 +24,22 @@
 
 @interface AppController : NSDocumentController {
 
-	PreferencesController * _preferencesController;
+    IBOutlet DatabaseAccess  * _databaseConnection;
+
+    // window controller
+	PreferencesController    * _preferencesController;
     RetrieveFromDBController * _retrieveController;
     
-    PolymakeInstanceWrapper *pinst;
-    
-    IBOutlet DatabaseAccess * _databaseConnection;
-	
+    // central structue variables
+    PolymakeInstanceWrapper  * pinst;
+    NSArray                  * _configuredExtensions;
 }
 
 
-@property (retain) PreferencesController *preferencesController;
+@property (retain) PreferencesController    *preferencesController;
 @property (retain) RetrieveFromDBController *retrieveController;
-@property (retain) DatabaseAccess * databaseConnection;
+@property (retain) DatabaseAccess           *databaseConnection;
+@property (retain) NSArray                  *configuredExtensions;
 
 -(IBAction)showPreferences:(id)sender;
 -(IBAction)showRetrieveFromDB:(id)sender;

@@ -42,6 +42,7 @@
 		E1AA8B2818A5C3820054DECF /* get_db_ListOfIDs.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1C9455618A4195C00E30E4E /* get_db_ListOfIDs.pl */; };
 		E1AA8B2918A5C3860054DECF /* get_db_CountOfIDs.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1AA8B2518A5C0540054DECF /* get_db_CountOfIDs.pl */; };
 		E1AA8B7118A6E6F50054DECF /* DatabaseAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AA8B7018A6E6F50054DECF /* DatabaseAccess.m */; };
+		E1AA8B7518AED1D70054DECF /* get_configured_extensions.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1AA8B7418AED1D70054DECF /* get_configured_extensions.pl */; };
 		E1C9455218A1B17900E30E4E /* get_db_list.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1C9455018A1B07D00E30E4E /* get_db_list.pl */; };
 		E1C9455518A2C4EB00E30E4E /* get_db_collection_list.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1C9455318A29FA000E30E4E /* get_db_collection_list.pl */; };
 		E1D968641893D55B0060FEEA /* polymake.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E1D968631893D55B0060FEEA /* polymake.xcconfig */; };
@@ -107,6 +108,7 @@
 		E1AA8B2518A5C0540054DECF /* get_db_CountOfIDs.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_db_CountOfIDs.pl; sourceTree = "<group>"; };
 		E1AA8B6F18A6E6F50054DECF /* DatabaseAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseAccess.h; sourceTree = "<group>"; };
 		E1AA8B7018A6E6F50054DECF /* DatabaseAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseAccess.m; sourceTree = "<group>"; };
+		E1AA8B7418AED1D70054DECF /* get_configured_extensions.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_configured_extensions.pl; sourceTree = "<group>"; };
 		E1C9455018A1B07D00E30E4E /* get_db_list.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_db_list.pl; sourceTree = "<group>"; };
 		E1C9455318A29FA000E30E4E /* get_db_collection_list.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_db_collection_list.pl; sourceTree = "<group>"; };
 		E1C9455618A4195C00E30E4E /* get_db_ListOfIDs.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_db_ListOfIDs.pl; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				E1C9455318A29FA000E30E4E /* get_db_collection_list.pl */,
 				E1C9455618A4195C00E30E4E /* get_db_ListOfIDs.pl */,
 				E1AA8B2518A5C0540054DECF /* get_db_CountOfIDs.pl */,
+				E1AA8B7418AED1D70054DECF /* get_configured_extensions.pl */,
 			);
 			name = polymakePerlScripts;
 			path = scripts;
@@ -352,6 +355,7 @@
 				E12E28981895779400051EBD /* DatabaseAccess.xib in Resources */,
 				72BD024D18849CF600837D78 /* list_props.pl in Resources */,
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
+				E1AA8B7518AED1D70054DECF /* get_configured_extensions.pl in Resources */,
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				1DDD582C0DA1D0D100B32029 /* PolyViewer.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,

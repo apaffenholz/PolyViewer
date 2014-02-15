@@ -34,4 +34,6 @@
 -(NSInteger)countForDatabase:(NSString *)db
                andCollection:(NSString *)coll
      withAddtionalProperties:(NSString *)additionalProps;
+    
+-(NSArray *)configuredExtensions;
 @end

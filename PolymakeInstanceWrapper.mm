@@ -125,4 +125,21 @@
     return count;
 }
     
+-(NSArray *)configuredExtensions {
+    
+    NSMutableArray * extensions = [NSMutableArray array];
+    
+    NSLog(@"[RetrieveFromDBController configuredExtensions] called");
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_configured_extensions" ofType:@"pl"];
+    polymake::perl::ListResult results = ListCallPolymakeFunction("script",[filePath UTF8String]);
+    for (int i=0, end=results.size(); i<end; ++i) {
+        NSString *  ext = [[NSString alloc] initWithUTF8String:results[i]];
+        [extensions addObject:ext];
+    }
+    
+    NSLog(@"[RetrieveFromDBController configuredExtensions] found the following configured extensions: %@", extensions);
+    return extensions;
+}
+    
 @end
