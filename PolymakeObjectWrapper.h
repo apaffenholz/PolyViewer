@@ -44,5 +44,6 @@
 - (PolymakeObjectWrapper *)getSubobject:(NSString *)name;
 - (PolymakeObjectWrapper *)getSubobjectWithIndex:(int)index andName:(NSString *)propertyName;
 - (NSArray *)getPropertyListAtRootLevel;
-
+- (void)showCommandFailedAlert:(NSString *)reason;
+    
 @end

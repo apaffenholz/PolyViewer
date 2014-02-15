@@ -160,8 +160,8 @@ NSString * const ChildrenOfRootHaveChangedNotification = @"ChildrenOfRootHaveCha
     _polyObj = [[PolymakeObject alloc] retrieveFromDatabase:database
                                               andCollection:collection
                                                      withID:ID];
-    
-    NSLog(@"[PolymakeFile readFromDatabase andCollection withID] leaving");
+    if ( _polyObj == nil )
+        return NO;
     return YES;
 }
 
@@ -169,7 +169,9 @@ NSString * const ChildrenOfRootHaveChangedNotification = @"ChildrenOfRootHaveCha
 
 // method overriden from NSDocument
 // the only input routine in this application
-- (BOOL)readFromURL:(NSURL *)input ofType:(NSString *)typeName error:(NSError **)outError {
+- (BOOL)readFromURL:(NSURL *)input
+             ofType:(NSString *)typeName
+              error:(NSError **)outError {
     NSLog(@"[PolymakeFile readFromURL] called");
   
     _polyObj = [[PolymakeObject alloc] initObjectWithURL:input];
@@ -386,14 +388,17 @@ NSString * const ChildrenOfRootHaveChangedNotification = @"ChildrenOfRootHaveCha
 /****************/
 - (void) tableViewSelectionDidChange: (NSNotification *) notification {
     NSLog(@"[PolymakeFile tableViewSelectionDidChange] called");
-	int row = [_creditTable selectedRow];
+    if ( [notification object] == _creditTable ) {
+        
+        int row = [_creditTable selectedRow];
 	
-	if ( row != -1 ) {
-		NSArray * allValues = [[_polyObj credits] allValues];
-		NSString * value = [[NSString alloc] initWithString:(NSString *)[allValues objectAtIndex:row]];
-		[_creditView setString:value];
-		[value release];
-	}
+        if ( row != -1 ) {
+            NSArray * allValues = [[_polyObj credits] allValues];
+            NSString * value = [[NSString alloc] initWithString:(NSString *)[allValues objectAtIndex:row]];
+            [_creditView setString:value];
+            [value release];
+        }
+    }
 } 
 
 

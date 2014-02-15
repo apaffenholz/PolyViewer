@@ -22,6 +22,14 @@ my $db=shift;
 my $coll=shift;
 my $id = shift;
 
-my $a=poly_db_one({"_id" => $id}, db=>$db, collection=>$coll);
+my $a= eval { poly_db_one({"_id" => $id}, db=>$db, collection=>$coll); };
 
-return $a;
+my $b = "";
+
+if ( $@ ) {
+    $b = "ERROR : $@";
+}
+
+my @c = ($a,$b);
+
+return @c;

@@ -75,7 +75,6 @@
     
     /***************************************************************/
 // window actions
-    
 - (IBAction)retrieveFromDB:(id)sender {
     NSLog(@"[RetrieveFromDBController retrieveFromDB] called");
 
@@ -87,15 +86,13 @@
   
     NSLog(@"[RetrieveFromDBController retrieveFromDB] selected item: %@",_database);
     PolymakeObjectController * pf = [[PolymakeObjectController alloc] init];
-    [pf readFromDatabase:_database andCollection:_collection withID:_ID];
+    if ( [pf readFromDatabase:_database andCollection:_collection withID:_ID] ) {
+        [pf makeWindowControllers];
+        [pf showWindows];
+        [[NSDocumentController sharedDocumentController] addDocument:pf];
+    }
     
-    [pf makeWindowControllers];
-    [pf showWindows];
-    [[NSDocumentController sharedDocumentController] addDocument:pf];
     [pf release];
-
-    // should we close the window after we have loaded an object from the current list?
-    //[[self window] orderOut:nil];
 }
  
     /***************************************************************/
@@ -233,5 +230,13 @@
 	return value;
 }
 
-    
+/****************/
+- (void) tableViewSelectionDidChange: (NSNotification *) notification {
+    NSLog(@"[RetrieveFromDBController tableViewSelectionDidChange] called");
+	int row = [_idTableView selectedRow];
+	
+	if ( row != -1 ) {
+	}
+}
+
 @end

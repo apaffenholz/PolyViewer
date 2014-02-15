@@ -59,13 +59,33 @@
 	return self;
 }
 
-- (id)initWithPolymakeObjectFromDatabase:(NSString *)database andCollection:(NSString *)collection withID:(NSString *)ID {
+- (id)initWithPolymakeObjectFromDatabase:(NSString *)database
+                           andCollection:(NSString *)collection
+                                  withID:(NSString *)ID {
     NSLog(@"[PolymakeObjectWrapper initWithPolymakeObjectFromDatabase andCollection withID] entering");
     
-	self = [super init];
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"retrieve_database_object" ofType:@"pl"];
-    p = CallPolymakeFunction("script",[filePath UTF8String],[database UTF8String],[collection UTF8String],[ID UTF8String]);
+    polymake::perl::ListResult rval = ListCallPolymakeFunction("script",[filePath UTF8String],[database UTF8String],[collection UTF8String],[ID UTF8String]);
+
+    NSString * err_string = [[NSString alloc] initWithUTF8String:rval[1]];
+    NSLog(@"[PolymakeObjectWrapper initWithPolymakeObjectFromDatabase andCollection withID] checking success, error string is: %@",err_string);
+    if ( [err_string length] > 0 ) {
+        NSLog(@"[PolymakeObjectWrapper initWithPolymakeObjectFromDatabase andCollection withID] load failed");
+        if ( [err_string rangeOfString:@"ERROR"].location != NSNotFound ) {
+            if ([err_string rangeOfString:@"timed out"].location != NSNotFound) {
+                [self showCommandFailedAlert:@"could not connect to database server"];
+            } else if ([err_string rangeOfString:@"Unknown application"].location != NSNotFound) {
+                [self showCommandFailedAlert:[NSString stringWithFormat:@"please install an extension providing the following application: \n%@",err_string]];
+            } else {
+                [self showCommandFailedAlert:[NSString stringWithFormat:@"an unknown error occured:\n%@", err_string]];
+            }
+            return nil;
+        }
+    }
     
+    NSLog(@"[PolymakeObjectWrapper initWithPolymakeObjectFromDatabase andCollection withID] success!");
+	self = [super init];
+    p = rval[0];
     NSLog(@"[PolymakeObjectWrapper initWithPolymakeObjectFromDatabase andCollection withID] done]");
 	return self;
 }
@@ -239,6 +259,18 @@
     
     NSLog(@"[PolymakeObjectWrapper getPropertyListAtRootLevel] leaving");
     return props;
+}
+    
+    
+    /***************************************************************/
+- (void)showCommandFailedAlert:(NSString *)reason {
+    NSAlert *alert = [NSAlert alertWithMessageText:reason
+                                     defaultButton:@"OK"
+                                   alternateButton:nil
+                                       otherButton:nil
+                         informativeTextWithFormat:@""];
+    
+    [alert runModal];
 }
 
 @end

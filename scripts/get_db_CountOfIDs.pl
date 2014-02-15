@@ -22,7 +22,7 @@ my $db_name = shift;
 my $coll_name = shift;
 my $additional_props=shift;
 
-my $count = eval { poly_db_count({eval($additional_props)}, db=>$db_name, collection=>$coll_name); }
+my $count = eval { poly_db_count({eval($additional_props)}, db=>$db_name, collection=>$coll_name); };
 
 if ( $@ ) {
     $count = "ERROR : $@";
