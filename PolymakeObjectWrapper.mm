@@ -40,7 +40,14 @@
 
 @implementation PolymakeObjectWrapper
 
+// *****************************
+//
+// INITIALIZATION
+//
+//******************************
 
+
+/**********************************************************************************/
 - (void)initWithPolymakeInstance:(PolymakeInstanceWrapper *)pinst
                      andPolytope:(NSString *)filename {
    
@@ -59,6 +66,8 @@
 	return self;
 }
 
+
+/**********************************************************************************/
 - (id)initWithPolymakeObjectFromDatabase:(NSString *)database
                            andCollection:(NSString *)collection
                                   withID:(NSString *)ID {
@@ -92,7 +101,9 @@
 
 
 
-- (id)initWithPolymakeObject:(PolymakeObjectWrapper *)polyObj andProperty:(NSString *)prop {
+/**********************************************************************************/
+- (id)initWithPolymakeObject:(PolymakeObjectWrapper *)polyObj
+                 andProperty:(NSString *)prop {
     NSLog(@"[PolymakeObjectWrapper initWithPolymakePerlObject andProperty] entering with prop %@", prop);
 
 	self = [super init];
@@ -102,7 +113,10 @@
 	return self;
 }
 
-- (id)initWithPolymakeObject:(PolymakeObjectWrapper *)polyObj andProperty:(NSString *)prop ofIndex:(int)index {
+/**********************************************************************************/
+- (id)initWithPolymakeObject:(PolymakeObjectWrapper *)polyObj
+                 andProperty:(NSString *)prop
+                     ofIndex:(int)index {
     NSLog(@"[PolymakeObjectWrapper initWithPolymakePerlObject andProperty ofIndex] entering with prop %@ and index: %d", prop,index);
     
 	self = [super init];
@@ -115,6 +129,14 @@
 
 
 
+// *****************************
+//
+// OBJECT METADATA
+//
+//******************************
+
+
+/**********************************************************************************/
 - (NSString *)getObjectType {
     NSLog(@"[PolymakeObjectWrapper getObjectType] entering");
     
@@ -130,7 +152,8 @@
     return objectType;
 }
 
-    
+
+/**********************************************************************************/
 - (NSString *)getObjectName {
     NSLog(@"[PolymakeObjectWrapper getObjectName] entering");
     
@@ -141,7 +164,8 @@
     return objectName;
 }
 
-    
+
+/**********************************************************************************/
 - (NSString *)getObjectDescription {
     NSLog(@"[PolymakeObjectWrapper getObjectDescription] entering");
 
@@ -151,48 +175,18 @@
     return objectDescr;
 }
 
-    
-- (NSString *)getProperty:(NSString *)propertyName {
-    NSLog(@"[PolymakeObjectWrapper getProperty] called for propertyName %@",propertyName);
-    
-    NSString * property = [[NSString alloc] initWithUTF8String:p.give([propertyName cStringUsingEncoding:NSUTF8StringEncoding])
-                                                   ];
-    
-    NSLog(@"[PolymakeObjectWrapper getProperty] returning");
-    return property;
-}
-    
 
-- (PolymakeObjectWrapper *)getSubobject:(NSString *)propertyName {
-    NSLog(@"[PolymakeObjectWrapper getSubobject] called for propertyName %@",propertyName);
-    
-    PolymakeObjectWrapper * sub = [[PolymakeObjectWrapper alloc] initWithPolymakeObject:self andProperty:propertyName];
-
-    NSLog(@"[PolymakeObjectWrapper getSubobject] returning");
-    return sub;
-}
-
-
-- (PolymakeObjectWrapper *)getSubobjectWithIndex:(int)index andName:(NSString *)propertyName {
-    NSLog(@"[PolymakeObjectWrapper getSubobjectWithIndex] called for propertyName %@",propertyName);
-    
-    PolymakeObjectWrapper * sub = [[PolymakeObjectWrapper alloc] initWithPolymakeObject:self andProperty:propertyName ofIndex:index];
-    
-    NSLog(@"[PolymakeObjectWrapper getSubobjectWithIndex] returning");
-    return sub;
-}
-
-    
+/**********************************************************************************/
 - (NSArray *)getPropertyListAtRootLevel {
     NSLog(@"[PolymakeObjectWrapper getPropertyListAtRootLevel] called");
-
+    
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"list_props" ofType:@"pl"];
     polymake::perl::ListResult results = ListCallPolymakeFunction("script",[filePath UTF8String],p);
     
     NSMutableArray * props = [NSMutableArray array];
     for (int i=0, end=results.size(); i<end; ++i) {
         NSLog(@"[PolymakeObjectWrapper] reading props: %i",i);
-
+        
         std::pair<std::string,polymake::Array<bool> > prop = results[i];
         PolymakeObjectWrapper * _prop = nil;
         
@@ -208,7 +202,7 @@
                                                                asObject:(BOOL)prop.second[0]
                                                              asMultiple:prop.second[1]
                                                                  asLeaf:!(BOOL)prop.second[0]];
-        
+            
             [props addObject:propNode];
             [propNode release];
         } else {
@@ -216,12 +210,12 @@
             NSLog(@"[PolymakeObjectWrapper children] retrieving multiple subobject: %s",prop.first.c_str());
             filePath = [[NSBundle mainBundle] pathForResource:@"get_names_for_multiple" ofType:@"pl"];
             polymake::perl::ListResult namesOfMultiples = ListCallPolymakeFunction("script",[filePath UTF8String],p,prop.first.c_str());
-
+            
             NSLog(@"[PolymakeObjectWrapper children] found %d subobjects",namesOfMultiples.size());
-
+            
             for (int j=0, jend = namesOfMultiples.size(); j<jend; ++j) {
                 NSLog(@"[PolymakeObjectWrapper children] working on number %d",j);
-
+                
                 if ( prop.second[0] ) {
                     _prop = [[PolymakeObjectWrapper alloc] init];
                     _prop = [self getSubobjectWithIndex:j
@@ -230,7 +224,7 @@
                 } else {
                     _prop = self;
                 }
-            
+                
                 NSString * propname;
                 if( namesOfMultiples[j] )
                     propname = [NSString stringWithCString:namesOfMultiples[j] encoding:NSUTF8StringEncoding];
@@ -244,14 +238,14 @@
                                                                    asObject:(BOOL)prop.second[0]
                                                                  asMultiple:prop.second[1]
                                                                      asLeaf:!(BOOL)prop.second[0]];
-            
+                
                 [props addObject:propNode];
                 [propNode release];
             }
             
         }
-            
-  
+        
+        
         NSLog(@"%s -- is an object: %d   --- is multiple: %d",prop.first.c_str(),prop.second[0],prop.second[1]);
     }
     
@@ -260,9 +254,72 @@
     NSLog(@"[PolymakeObjectWrapper getPropertyListAtRootLevel] leaving");
     return props;
 }
+
+
+
+
+// *****************************
+//
+// COMPUTING PROPERTIES
+//
+//******************************
+
+/**********************************************************************************/
+- (NSString *)getProperty:(NSString *)propertyName {
+    NSLog(@"[PolymakeObjectWrapper getProperty] called for propertyName %@",propertyName);
     
+    NSString * property = [[NSString alloc] init];
     
-    /***************************************************************/
+    // FIXME how can we catch polymake exceptions?
+    // property = [[NSString alloc] initWithUTF8String:p.give([propertyName cStringUsingEncoding:NSUTF8StringEncoding])];
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_property" ofType:@"pl"];
+    property = [[NSString alloc] initWithUTF8String:CallPolymakeFunction("script",[filePath UTF8String],p,[propertyName UTF8String])];
+    
+    if ( [property rangeOfString:@"ERROR"].location != NSNotFound ) {
+        if ([property rangeOfString:@"unknown"].location != NSNotFound) {
+            [self showCommandFailedAlert:@"property unknown"];
+        } else {
+            [self showCommandFailedAlert:[NSString stringWithFormat:@"an unknown error occured:\n%@", property]];
+        }
+        [property release];
+        return nil;
+    }
+    
+    NSLog(@"[PolymakeObjectWrapper getProperty] returning");
+    return property;
+}
+    
+
+/**********************************************************************************/
+- (PolymakeObjectWrapper *)getSubobject:(NSString *)propertyName {
+    NSLog(@"[PolymakeObjectWrapper getSubobject] called for propertyName %@",propertyName);
+    
+    PolymakeObjectWrapper * sub = [[PolymakeObjectWrapper alloc] initWithPolymakeObject:self andProperty:propertyName];
+
+    NSLog(@"[PolymakeObjectWrapper getSubobject] returning");
+    return sub;
+}
+
+
+/**********************************************************************************/
+- (PolymakeObjectWrapper *)getSubobjectWithIndex:(int)index andName:(NSString *)propertyName {
+    NSLog(@"[PolymakeObjectWrapper getSubobjectWithIndex] called for propertyName %@",propertyName);
+    
+    PolymakeObjectWrapper * sub = [[PolymakeObjectWrapper alloc] initWithPolymakeObject:self andProperty:propertyName ofIndex:index];
+    
+    NSLog(@"[PolymakeObjectWrapper getSubobjectWithIndex] returning");
+    return sub;
+}
+
+// *****************************
+//
+// HELPERS
+//
+//******************************
+
+    
+/***************************************************************/
 - (void)showCommandFailedAlert:(NSString *)reason {
     NSAlert *alert = [NSAlert alertWithMessageText:reason
                                      defaultButton:@"OK"
