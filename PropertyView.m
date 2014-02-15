@@ -69,21 +69,9 @@
                        autorelease];
     [theMenu addItem:addPropItem];
     
-    // FIXME the following can be done faster by adding at some index different from 0
     if ( isObj )
         [theMenu insertItemWithTitle:@"Compute subproperty of object"
                               action:@selector(addSubProperty:)
-                       keyEquivalent:@""
-                             atIndex:0];
-    
-    [theMenu insertItemWithTitle:[NSString stringWithFormat:@"Remove property"]
-                          action:@selector(removeProperty:)
-                   keyEquivalent:@""
-                         atIndex:0];
-    
-    if ( isObj )
-        [theMenu insertItemWithTitle:@"Remove subproperty of object"
-                              action:@selector(removeSubProperty:)
                        keyEquivalent:@""
                              atIndex:0];
     
@@ -125,24 +113,28 @@
     }
     
     PropertyNode * propNode = (PropertyNode *)[self itemAtRow:row];
+    PropertyNode * parent = (PropertyNode *)[self parentForItem:[self itemAtRow:row]];
     if ( ![propNode isObject] ) {
         NSLog(@"[PropertyView addProperty] switching to parent");
         [[propNode polyObj] getProperty:_property];   //FIXME change this: we are computing the prop and throw away the result
-        
-        
-        // here we again have to find out wether our property is a child of the root or some lower node
-        // we treat the root differently as it is not displayed in the view
-        // and we associate additional information with the node
-        PropertyNode * parent = (PropertyNode *)[self parentForItem:[self itemAtRow:row]];
-        if ( parent == nil ) {
-            NSLog(@"[PropertyView addProperty] property added to root");
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ChildrenOfRootHaveChanged" object:nil];
-        } else {
-            [parent resetChildren];
-            [self reloadItem:nil reloadChildren:YES];
-        }
     } else {
-        NSLog(@"[PropertyView addProperty] not at a leaf node");
+        if ( parent == nil ) {
+             NSLog(@"[PropertyView addProperty] parent is nil");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ComputePropertyOfRoot" object:_property];
+        } else {
+            [[parent polyObj] getProperty:_property];
+        }
+    }
+    
+    // here we again have to find out wether our property is a child of the root or some lower node
+    // we treat the root differently as it is not displayed in the view
+    // and we associate additional information with the node
+    if ( parent == nil ) {
+        NSLog(@"[PropertyView addProperty] property added to root");
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ChildrenOfRootHaveChanged" object:nil];
+    } else {
+        [parent resetChildren];
+        [self reloadItem:nil reloadChildren:YES];
     }
 }
 

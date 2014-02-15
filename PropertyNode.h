@@ -24,7 +24,7 @@
 
     NSString              * _propertyName;  // the property name
 
-    // relevant variables if the property defines a perl::Object (with declare object in s rule file)
+    // relevant variables if the property defines a perl::Object (with declare object in some rule file)
     PolymakeObjectWrapper * _polyObj;       // a pointer to the perl::Object associated with the property
     NSArray               * _children;      // the properties defined for the perl::Object
 

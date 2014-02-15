@@ -25,6 +25,7 @@
 
 NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDidChange";
 NSString * const ChildrenOfRootHaveChangedNotification = @"ChildrenOfRootHaveChanged";
+NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 
 @implementation PolymakeObjectController
 
@@ -67,6 +68,10 @@ NSString * const ChildrenOfRootHaveChangedNotification = @"ChildrenOfRootHaveCha
 			[[NSNotificationCenter defaultCenter] addObserver:self
                                                      selector:@selector(childrenOfRootHaveChanged:)
                                                          name:ChildrenOfRootHaveChangedNotification
+                                                       object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(computePropertyOfRoot:)
+                                                         name:ComputePropertyOfRootNotification
                                                        object:nil];
 			
 	}
@@ -290,6 +295,11 @@ NSString * const ChildrenOfRootHaveChangedNotification = @"ChildrenOfRootHaveCha
     [_propertyView reloadItem:nil reloadChildren:YES];
 }
 
+- (void)computePropertyOfRoot:(NSNotification *)aNotification {
+    NSLog(@"[PolymakeFile computePropertyOfRoot] called");
+    NSString *_property = [aNotification object];
+    [[[_polyObj rootPerl] polyObj] getProperty:_property];
+}
 
 #pragma mark _ValueTextView
 
