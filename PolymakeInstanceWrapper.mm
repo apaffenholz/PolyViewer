@@ -57,8 +57,28 @@
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_db_list" ofType:@"pl"];
     polymake::perl::ListResult results = ListCallPolymakeFunction("script",[filePath UTF8String]);
-    
+
     NSMutableArray * databases = [NSMutableArray array];
+    
+    if ( results.size() == 1 ) {
+        NSLog(@"[PolymakeInstanceWrapper databaseNames] checking success");
+        const char* dbstring = results[0];
+        char * err = strstr(dbstring, "ERROR");
+        if (err != NULL) {
+            char * err_db = strstr(dbstring, "connect to server");
+            char * err_timeout = strstr(dbstring, "timed out");
+            if (err_db != NULL) {
+                [self showCommandFailedAlert:@"could not connect to database server"];
+            } else if (err_timeout != NULL) {
+                [self showCommandFailedAlert:@"database query time out"];
+            } else {
+                [self showCommandFailedAlert:@"an unknown error occured"];
+            }
+            return databases;
+        }
+    }
+    
+
     for (int i=0, end=results.size(); i<end; ++i) {
         NSLog(@"[PolymakeInstanceWrapper databaseNames] in loop");
         const char* dbstring = results[i];
@@ -80,6 +100,25 @@
     
     NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] found %d results", results.size());
     NSMutableArray * collections = [NSMutableArray array];
+    
+    if ( results.size() == 1 ) {
+        NSLog(@"[PolymakeInstanceWrapper collectionNamesOfDatabase] checking success");
+        const char* dbstring = results[0];
+        char * err = strstr(dbstring, "ERROR");
+        if (err != NULL) {
+            char * err_db = strstr(dbstring, "connect to server");
+            char * err_timeout = strstr(dbstring, "timed out");
+            if (err_db != NULL) {
+                [self showCommandFailedAlert:@"could not connect to database server"];
+            } else if (err_timeout != NULL) {
+                [self showCommandFailedAlert:@"database query time out"];
+            } else {
+                [self showCommandFailedAlert:@"an unknown error occured"];
+            }
+            return collections;
+        }
+    }
+    
     for (int i=0, end=results.size(); i<end; ++i) {
         const char* collstring = results[i];
         if (strlen(collstring) > 0) {
@@ -140,6 +179,17 @@
     
     NSLog(@"[RetrieveFromDBController configuredExtensions] found the following configured extensions: %@", extensions);
     return extensions;
+}
+    
+    
+- (void)showCommandFailedAlert:(NSString *)reason {
+    NSAlert *alert = [NSAlert alertWithMessageText:reason
+                                     defaultButton:@"OK"
+                                   alternateButton:nil
+                                       otherButton:nil
+                         informativeTextWithFormat:@""];
+    
+    [alert runModal];
 }
     
 @end

@@ -20,6 +20,11 @@
 use application "common";
 
 my $db_name = shift;
-my $col = get_col_list($db_name);
 
-return @{$col};
+my @col = eval { @{get_col_list($db_name)}; };
+
+if ( $@ ) {
+    $col[0] = "ERROR : $@";
+}
+
+return @col;

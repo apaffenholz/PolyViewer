@@ -56,15 +56,14 @@
     [_reportNumberOfResultsLabel setStringValue:@"no results"];
     
     _databases = [[[NSApp delegate] databaseNames] retain];
-    [databaseSelection addItemsWithObjectValues:_databases];
+    
+	NSLog(@"[RetrieveFromDBController windowDidLoad] adding databases");
     if ( [_databases count] > 0 ) {
+        [databaseSelection addItemsWithObjectValues:_databases];
         [databaseSelection selectItemAtIndex:0];
         [databaseSelection setObjectValue:[databaseSelection objectValueOfSelectedItem]];
     }
     
-    NSString * selectedDatabase = [_databases objectAtIndex:[databaseSelection selectedTag]];
-    
-	NSLog(@"[RetrieveFromDBController windowDidLoad] got db: %@", selectedDatabase);
     NSLog(@"[RetrieveFromDBController windowDidLoad] database names are %@",_databases);
 }
     
@@ -157,28 +156,31 @@
 
     if ( _collections != nil )
         [_collections release];
-    _collections = [[[NSApp delegate] collectionNamesOfDatabase:selectedDatabase] retain];
+    
+    if ( _databases != nil ) {
+        _collections = [[[NSApp delegate] collectionNamesOfDatabase:selectedDatabase] retain];
 
-    NSLog(@"[RetrieveFromDBController updateCollectionList] got collections: %@", _collections);
-    NSLog(@"[RetrieveFromDBController updateCollectionList] of size: %lu", (unsigned long)[_collections count]);
+        NSLog(@"[RetrieveFromDBController updateCollectionList] got collections: %@", _collections);
+        NSLog(@"[RetrieveFromDBController updateCollectionList] of size: %lu", (unsigned long)[_collections count]);
 
-    [collectionSelection removeAllItems];
-    [collectionSelection addItemsWithObjectValues:_collections];
+        [collectionSelection removeAllItems];
+        [collectionSelection addItemsWithObjectValues:_collections];
 
-    if ( [_collections count] > 0 ) {
-        [collectionSelection selectItemAtIndex:0];
-        [collectionSelection setObjectValue:[collectionSelection objectValueOfSelectedItem]];
+        if ( [_collections count] > 0 ) {
+            [collectionSelection selectItemAtIndex:0];
+            [collectionSelection setObjectValue:[collectionSelection objectValueOfSelectedItem]];
+        }
     }
 }
     
 
-    - (void)updateCollection {
+- (void)updateCollection {
         
-        NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
-        NSString * selectedCollection = [collectionSelection objectValueOfSelectedItem];
+    NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
+    NSString * selectedCollection = [collectionSelection objectValueOfSelectedItem];
         
-        NSLog(@"[RetrieveFromDBController updateCollection] selected database: %@", selectedDatabase);
-        NSLog(@"[RetrieveFromDBController updateCollection] selected collection: %@", selectedCollection);
+    NSLog(@"[RetrieveFromDBController updateCollection] selected database: %@", selectedDatabase);
+    NSLog(@"[RetrieveFromDBController updateCollection] selected collection: %@", selectedCollection);
         
         if ( [selectedCollection length] != 0 ) {
             
@@ -208,7 +210,7 @@
 
     /****************/
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tv {
-    NSLog(@"[RetrieveFromDBController numberOFRowsInTableView] called");
+    NSLog(@"[RetrieveFromDBController numberOfRowsInTableView] called");
 	
 	return [_IDs count];
 }

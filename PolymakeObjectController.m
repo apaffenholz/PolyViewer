@@ -361,7 +361,7 @@ NSString * const ChildrenOfRootHaveChangedNotification = @"ChildrenOfRootHaveCha
 
 /****************/
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tv {
-    NSLog(@"[PolymakeFile numberOFRowsInTableView] called");
+    NSLog(@"[PolymakeFile numberOfRowsInTableView] called");
 	if ( _polyObj != nil )
 		return [[_polyObj credits] count];
 	

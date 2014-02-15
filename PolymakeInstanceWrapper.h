@@ -36,4 +36,5 @@
      withAddtionalProperties:(NSString *)additionalProps;
     
 -(NSArray *)configuredExtensions;
+- (void)showCommandFailedAlert:(NSString *)reason;
 @end
