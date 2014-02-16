@@ -19,6 +19,20 @@
 PolyViewer is a simple reader for files created by polymake (polymake.org) 
 released under the GPL.
 
+
+** BINARY DISTRIBUTION **
+
+A first attempt for a binary distribution can be downloaded at
+
+http://polymake.org/polytopes/paffenholz/data/polymake/mac/PolyViewer.dmg
+
+Follow the instructions given in the INSTALL file contained in the dmg. 
+This binary build is still **very** experimental (and the app still has many shortcomings I hope to fix soon). 
+Please report any problems you encounter!
+
+
+** COMPILING THE PROJECT **
+
 Building and running PolyViewer requires that 
   
   libpolymake.2.12.dylib and libpolymake-apps.2.12.dylib
