@@ -82,7 +82,6 @@
 		72965E9F156933290076B037 /* AppWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppWindowController.h; sourceTree = "<group>"; };
 		72965EA0156933290076B037 /* AppWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppWindowController.m; sourceTree = "<group>"; };
 		72965EE7156999CC0076B037 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		72BD024718849CC300837D78 /* get_type.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; name = get_type.pl; path = scripts/get_type.pl; sourceTree = "<group>"; };
 		72BD024A18849CF600837D78 /* get_object_type.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_object_type.pl; sourceTree = "<group>"; };
 		72BD024B18849CF600837D78 /* list_props.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = list_props.pl; sourceTree = "<group>"; };
 		72EBDFB3187BF97200F86EDE /* PolymakeObjectWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PolymakeObjectWrapper.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -164,7 +163,6 @@
 				E12E28961895348100051EBD /* get_multiple_object_by_index.pl */,
 				E12E28931895321B00051EBD /* get_names_for_multiple.pl */,
 				E1D968631893D55B0060FEEA /* polymake.xcconfig */,
-				72BD024718849CC300837D78 /* get_type.pl */,
 				72EBDFB8187CC3B700F86EDE /* list_props.pl */,
 				72965EE7156999CC0076B037 /* README */,
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,

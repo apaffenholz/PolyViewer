@@ -19,8 +19,10 @@
 PolyViewer is a simple reader for files created by polymake (polymake.org) 
 released under the GPL.
 
-Building PolyViewer requires that polymake-config can be found in your path (so in particular, polymake must be installed).
-So either place this in /usr/bin, or add 
+Building PolyViewer requires that polymake-config can be found in your path 
+(so in particular, polymake must be installed).
+
+So either place this in /usr/bin, or add
 
 export PATH=$PATH:/path/to/your/polymake-config
 
@@ -36,24 +38,48 @@ different location than mine it won't work.
   
 -------------
   
-The PolViewer project now provides a simple interface to the extension "poly_db" of polymake written by Silke Horn (see github) to acces the polymake database.
+The PolViewer project now provides a simple interface to the extension "poly_db" of polymake 
+written by Silke Horn (see github) to acces the polymake database.
 For similar reasons as above you will have to tweak some files: 
 
-Most likely the path to the perl modules for MongoDB running the database and some others won't be found. Please add
+Most likely the path to the perl modules for MongoDB running the 
+database and some others won't be found. Please add
 
 use lib "/path/to/MongoDB-<version>/lib";
 use lib "/path/to/boolean-<version>/lib";
 use lib "/path/to/Tie-IxHash-<version>/lib";
 use lib "/path/to/lib/perl5/site_perl/<perl-version>/darwin-thread-multi-2level";
 
+with the obvious replacements (i.e. replace /path/to and <*version>) 
+to the file apps/common/rules/main.rules in the folder of the "poly_db"-extension.
+
 -------------
 
-PolyViewer now partially supports computation of new properties: right click on any property at the same level 
-as the one you want to compute and choose "Compute property". Enter the property you want to have. This currently only
-works for non-object properties. As a workaround to add e.g. a Hasse diagram enter "HASSE_DIAGRAM.ADJACENCY" (or any other property of the 
-Hasse diagram you are interested in). Any string the polymake command "give" accepts that does not return a perl::Object should work.
+PolyViewer now partially supports computation of new properties: 
 
-with the obvious replacements (i.e. replace /path/to and <*version>) to the file apps/common/rules/main.rules in the folder of the "poly_db"-extension.
+- right click on any property at the same level as the one you want to 
+    compute and choose "Compute property". Enter the property you want to have.
+- right click on a property with subproperties and choose "Add subproperty to object" and
+    enter the name of a property you want to add to the current subproperty
+
+This currently only works for non-object properties. As a workaround 
+to add e.g. a Hasse diagram enter "HASSE_DIAGRAM.ADJACENCY" 
+(or any other property of the Hasse diagram you are interested in).
+Any string the polymake command "give" accepts that does not return a perl::Object should work.
+
+Note that for technical reasons the interface currently does not immediately select the new
+property in the window (polymake might add further properties during the computation, so
+we have to initiate a complete reload of the properties and loose track of the current one).
+
+
+--------------
+
+Acknowledgements:
+Silke Horn has contributed several pieces of code for this app, has developed the polymake database extension
+that this app interfaces (see her github page) and has contributed the nice icons for polymake data files!
+
+A more thorough integration of the polymake database into this app is planned.
+
 
 --- 
 
