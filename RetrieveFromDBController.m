@@ -121,8 +121,9 @@
     /***************************************************************/
 - (IBAction) getIdsForCurrentSelections:(id)sender {
     [self updateCollection];
-    NSLog(@"[RetrieveFromDBController GetIdsForCurrentSelections] starting table reload");
     [_idTableView reloadData];
+    if ( [_IDs count] > 0 )
+        [_idTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
 }
 
     
@@ -178,6 +179,7 @@
             if ( [_IDs count] > 0 ) {
                 _IDs = nil;
                 [_idTableView reloadData];
+                [_idTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
             }
         }
     }
