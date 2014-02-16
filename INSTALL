@@ -1,0 +1,115 @@
+/***********************************************************************
+ * Created by Andreas Paffenholz on 04/18/12.
+ * Copyright 2012-2014 by Andreas Paffenholz.
+ 
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation; either version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl.txt.
+ 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * INSTALL
+ * PolyViewer
+ **************************************************************************/
+ 
+ 
+** Installation instructions for the binary release of PolyViewer **
+
+
+1) Requirements
+ 
+This application has been built for Mac OS 10.9 and any perpetual beta release of polymake after October 2013.
+It will most likely not run on any other Mac OS or with older versions of polymake
+ 
+
+
+
+2) Preparations
+
+2a) libpolymake
+
+PolyViewer needs the libraries libpolymake.2.12.dylib and libpolymake-app.2.12.dylib.
+They will be found if you installed into /usr/local. Otherwise please do the following:
+ 
+i) Check if any DYLD_LIBRARY_PATH is set in your launchd configuration: In a terminal do
+
+echo export | launchctl
+
+and look for a line starting with DYLD_LIBRARY_PATH. If there is no such line, go to iii)
+
+ii) copy all paths assigned to DYLD_LIBRARY_PATH (without quotation marks and semicolons) and
+add them toegether with a colon to the front of the path contained in the command in the next step. 
+Also write them down somewhere in case you want to reset the variable to its original value.
+
+iii) adjust the path in the following command and issue it in a terminal:
+
+echo setenv DYLD_LIBRARY_PATH /path/to/your/libpolymake/lib | launchctl
+
+where the path should point to the directory containing libpolymake2.12.dylib
+
+
+
+2b) poly_db
+
+This step is optional. You only have to so this if you want to use the extension poly_db to
+access the polymake database.
+
+PolyViewer provides a simple interface to the extension
+"poly_db" of polymake written by Silke Horn (see github) to acces the 
+polymake database. To use this you first have to install poly_db and make polymake 
+aware of it (for this please follow the instructions on how to install extensions 
+at polymake.org, and the special installation instructions that come with poly_db)
+
+During installation of poly_db for polymake you have been asked to install the
+perl modules MongoDB, boolean, and Tie-IxHash. To use poly_db with PolyViewer please do
+the following: 
+
+i) In a terminal do
+
+echo export | launchctl
+
+and check whether there is a line starting with PERL5LIB. If there is none, please proceed with iii).
+
+ii) Copy all paths following PERL5LIB (without any quotation marks and semicolons)  and
+add them toegether with a colon to the front of the path contained in the command in the next step.
+Also write them down somewhere in case you want to reset the variable to its original value.
+
+iii) adjust the paths in the following command and issue it in a terminal:
+
+echo setenv PERL5LIB /path/to/MongoDB-<version>/lib:/path/to/boolean-<version>/lib:/path/to/Tie-IxHash-<version>/lib:/path/to/lib/perl5/site_perl/<perl-version>/darwin-thread-multi-2level | launchctl
+
+
+
+3) Installation
+
+Place the PolyViewer application in your /Application folder
+
+
+
+4) Use
+
+Start the viewer by double clicking its icon. Note that it doesn't open a window on statup. Please chose an action from the file menu.
+
+
+
+5) Uninstall:
+
+i) Delete the PolyViewer application in /Application
+
+ii) If you have changed the variables DYLD_LIBRARY_PATH or PERL5LIB for launchd during installation set them 
+to their original value by calling 
+
+echo setenv DYLD_LIBRARY_PATH <original value> | launchctl
+
+in a terminal (similarly for PERL5LIB). 
+
+Most likely, both variables have been empty originally, in that case do
+
+echo unsetenv DYLD_LIBRARY_PATH | launchctl
+echo unsetenv PERL5LIB | launchctl
+
+
