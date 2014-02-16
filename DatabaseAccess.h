@@ -37,14 +37,14 @@
     
 }
 
-@property (readwrite,copy) NSArray * databases;
-@property (readwrite,copy) NSArray * collections;
-@property (readwrite,copy) NSString * database;
-@property (readwrite,copy) NSString * collection;
-@property (readwrite,copy) NSString * ID;
-@property (readwrite,copy) NSString * reportNumberOfResults;
+@property (readwrite,copy)   NSArray * databases;
+@property (readwrite,copy)   NSArray * collections;
+@property (readwrite,copy)   NSString * database;
+@property (readwrite,copy)   NSString * collection;
+@property (readwrite,copy)   NSString * ID;
+@property (readwrite,copy)   NSString * reportNumberOfResults;
 @property (readwrite,retain) NSString * skip;
-@property (readwrite,copy) NSString * amount;
+@property (readwrite,copy)   NSString * amount;
     
 - (IBAction)updateAdditionalPropertiesDict:(id)sender;
 - (NSString *) additionalPropertiesAsString;
