@@ -38,6 +38,7 @@
 
 - (id)initWithPolymakeObject:(NSString *)filename;
 - (NSString *)getObjectType;
+- (NSString *)getPropertyType:(NSString *)property;
 - (NSString *)getObjectName;
 - (NSString *)getObjectDescription;
 - (NSString *)getProperty:(NSString *)name;

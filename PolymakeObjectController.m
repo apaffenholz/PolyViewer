@@ -320,6 +320,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 		// get the property
 	if ( selectedItem != nil ) {
 		PropertyNode * propNode = (PropertyNode *)selectedItem;
+        [_propertyTypeField setStringValue:[propNode propertyType]];
         [_currentPropertyName setStringValue:[propNode propertyName]];
 		if ( [[propNode value] isEmpty] ) {
 		  _currentPropertyValue = [[NSString alloc] initWithString:@"<empty property>"];
@@ -341,6 +342,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 		NSString * attrString = [[NSString alloc] initWithString:@"<empty>"];
 		_currentPropertyValue = [[NSString alloc] initWithString:attrString];
 		[_valueTextView setString:attrString];
+        [_propertyTypeField setStringValue:@""];
 		[attrString release];
 	}
 	

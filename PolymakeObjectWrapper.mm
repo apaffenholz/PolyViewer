@@ -141,7 +141,7 @@
     NSLog(@"[PolymakeObjectWrapper getObjectType] entering");
     
     NSString *objectType = @"";
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_type" ofType:@"pl"];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_object_type" ofType:@"pl"];
     objectType = [[NSString alloc] initWithUTF8String:CallPolymakeFunction("script",[filePath UTF8String],p)];
     if ( [objectType rangeOfString:@"ERROR"].location != NSNotFound ) {
         NSLog(@"[PolymakeObjectWrapper getObjectType] perl script failed");
@@ -152,6 +152,25 @@
     return objectType;
 }
 
+/**********************************************************************************/
+- (NSString *)getPropertyType:(NSString *)property {
+    NSLog(@"[PolymakeObjectWrapper getObjectType] entering");
+    
+    NSString *propertyType = @"";
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_property_type" ofType:@"pl"];
+    propertyType = [[NSString alloc] initWithUTF8String:CallPolymakeFunction("script",[filePath UTF8String],p,[property UTF8String])];
+    if ( [propertyType rangeOfString:@"ERROR"].location != NSNotFound ) {
+        if ( [propertyType rangeOfString:@"without a package or object"].location != NSNotFound ) {
+            propertyType = @"basic type";
+        } else {
+            NSLog(@"[PolymakeObjectWrapper getObjectType] perl script failed");
+            propertyType = @"<unable to retrieve property type>";
+        }
+    }
+    
+    NSLog(@"[PolymakeObjectWrapper getObjectType] returning");
+    return propertyType;
+}
 
 /**********************************************************************************/
 - (NSString *)getObjectName {

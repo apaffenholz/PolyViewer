@@ -49,6 +49,7 @@ extern NSString * const ChildrenOfRootHaveChangedNotification;
 	IBOutlet NSTextField         * _currentPropertyName;
 	IBOutlet NSSlider            * _fontSizeSlider;
 	IBOutlet NSTextView          * _descriptionView;
+	IBOutlet NSTextField          * _propertyTypeField;
 	IBOutlet NSButton            * _alignedColumnsBox;
 	
 }

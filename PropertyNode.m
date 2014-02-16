@@ -24,6 +24,7 @@
 
 @synthesize polyObj = _polyObj;
 @synthesize propertyName    = _propertyName;
+@dynamic    propertyType;
 @synthesize name    = _name;
 @synthesize index    = _index;
 @synthesize hasValue, isObject, isLeaf, isMultiple;
@@ -37,12 +38,12 @@
     if (self) {
         _polyObj = nil;
         _propertyName = @"undefined name";
+        _propertType = nil;
         _name = nil;
         _index = 0;
         isObject = nil;
         isMultiple = nil;
         isLeaf = nil;
-        
         _children = nil;
         _value = nil;
     }
@@ -66,6 +67,7 @@
         
         _children = nil;
         _value = nil;
+        [self propertyType];
     }
     
     NSLog(@"[PropertyNode initWithName...] returning with %@", self);
@@ -89,6 +91,8 @@
         
         _children = nil;
         _value = nil;
+        
+        [self propertyType];
     }
     
     NSLog(@"[PropertyNode initWithName...(multiple)] returning with %@", self);
@@ -104,6 +108,9 @@
         _polyObj = [polyObj retain];
         _propertyName = [polyObj getObjectName];
         [_propertyName retain];
+        _propertType = [polyObj getObjectType];
+        [_propertType retain];
+        
         isObject = TRUE;
         isMultiple = FALSE;  //FIXME
         isLeaf = FALSE;
@@ -176,6 +183,20 @@
     
     NSLog(@"[PropertyNode value] leaving");
 	return _value;
+}
+
+- (NSString *)propertyType {
+    
+    if ( _propertType == nil )  {
+        
+        if ( isObject ) {
+            _propertType = [_polyObj getObjectType];
+        } else {
+            _propertType = [_polyObj getPropertyType:_propertyName];
+        }
+    }
+    
+    return _propertType;
 }
 
 

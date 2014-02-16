@@ -20,7 +20,6 @@
 		72965DFF156919040076B037 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72965DFD156919040076B037 /* Preferences.xib */; };
 		72965EA1156933290076B037 /* AppWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72965EA0156933290076B037 /* AppWindowController.m */; };
 		72965EE8156999CC0076B037 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 72965EE7156999CC0076B037 /* README */; };
-		72BD024818849CC300837D78 /* get_type.pl in Resources */ = {isa = PBXBuildFile; fileRef = 72BD024718849CC300837D78 /* get_type.pl */; };
 		72BD024D18849CF600837D78 /* list_props.pl in Resources */ = {isa = PBXBuildFile; fileRef = 72BD024B18849CF600837D78 /* list_props.pl */; };
 		72EBDFB5187BF97300F86EDE /* PolymakeObjectWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 72EBDFB4187BF97200F86EDE /* PolymakeObjectWrapper.mm */; };
 		72EBDFBB187E07B400F86EDE /* PropertyNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EBDFBA187E07B400F86EDE /* PropertyNode.m */; };
@@ -44,6 +43,8 @@
 		E1AA8B7518AED1D70054DECF /* get_configured_extensions.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1AA8B7418AED1D70054DECF /* get_configured_extensions.pl */; };
 		E1AA8B7618AFB0DE0054DECF /* get_db_CountOfIDs.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1AA8B2518A5C0540054DECF /* get_db_CountOfIDs.pl */; };
 		E1AE4F6418B022B500EC88BD /* get_property.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1AE4F6318B022B500EC88BD /* get_property.pl */; };
+		E1AE4F6618B0C03600EC88BD /* get_property_type.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1AE4F6518B0C03600EC88BD /* get_property_type.pl */; };
+		E1BE9A8118B0C27E00C91402 /* get_object_type.pl in Resources */ = {isa = PBXBuildFile; fileRef = 72BD024A18849CF600837D78 /* get_object_type.pl */; };
 		E1C9455218A1B17900E30E4E /* get_db_list.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1C9455018A1B07D00E30E4E /* get_db_list.pl */; };
 		E1C9455518A2C4EB00E30E4E /* get_db_collection_list.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1C9455318A29FA000E30E4E /* get_db_collection_list.pl */; };
 		E1D968641893D55B0060FEEA /* polymake.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E1D968631893D55B0060FEEA /* polymake.xcconfig */; };
@@ -82,7 +83,7 @@
 		72965EA0156933290076B037 /* AppWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppWindowController.m; sourceTree = "<group>"; };
 		72965EE7156999CC0076B037 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		72BD024718849CC300837D78 /* get_type.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; name = get_type.pl; path = scripts/get_type.pl; sourceTree = "<group>"; };
-		72BD024A18849CF600837D78 /* get_type.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_type.pl; sourceTree = "<group>"; };
+		72BD024A18849CF600837D78 /* get_object_type.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_object_type.pl; sourceTree = "<group>"; };
 		72BD024B18849CF600837D78 /* list_props.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = list_props.pl; sourceTree = "<group>"; };
 		72EBDFB3187BF97200F86EDE /* PolymakeObjectWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PolymakeObjectWrapper.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		72EBDFB4187BF97200F86EDE /* PolymakeObjectWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = PolymakeObjectWrapper.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -111,6 +112,7 @@
 		E1AA8B7018A6E6F50054DECF /* DatabaseAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseAccess.m; sourceTree = "<group>"; };
 		E1AA8B7418AED1D70054DECF /* get_configured_extensions.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_configured_extensions.pl; sourceTree = "<group>"; };
 		E1AE4F6318B022B500EC88BD /* get_property.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_property.pl; sourceTree = "<group>"; };
+		E1AE4F6518B0C03600EC88BD /* get_property_type.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_property_type.pl; sourceTree = "<group>"; };
 		E1C9455018A1B07D00E30E4E /* get_db_list.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_db_list.pl; sourceTree = "<group>"; };
 		E1C9455318A29FA000E30E4E /* get_db_collection_list.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_db_collection_list.pl; sourceTree = "<group>"; };
 		E1C9455618A4195C00E30E4E /* get_db_ListOfIDs.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_db_ListOfIDs.pl; sourceTree = "<group>"; };
@@ -225,7 +227,7 @@
 		72BD024918849CF600837D78 /* polymakePerlScripts */ = {
 			isa = PBXGroup;
 			children = (
-				72BD024A18849CF600837D78 /* get_type.pl */,
+				72BD024A18849CF600837D78 /* get_object_type.pl */,
 				E13DCBD2188ADD6000DF3519 /* get_name.pl */,
 				72BD024B18849CF600837D78 /* list_props.pl */,
 				E12E289118952F4000051EBD /* get_names_for_multiple.pl */,
@@ -237,6 +239,7 @@
 				E1AA8B2518A5C0540054DECF /* get_db_CountOfIDs.pl */,
 				E1AA8B7418AED1D70054DECF /* get_configured_extensions.pl */,
 				E1AE4F6318B022B500EC88BD /* get_property.pl */,
+				E1AE4F6518B0C03600EC88BD /* get_property_type.pl */,
 			);
 			name = polymakePerlScripts;
 			path = scripts;
@@ -345,12 +348,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1BE9A8118B0C27E00C91402 /* get_object_type.pl in Resources */,
 				E1AA8B7618AFB0DE0054DECF /* get_db_CountOfIDs.pl in Resources */,
 				E1AA8B2818A5C3820054DECF /* get_db_ListOfIDs.pl in Resources */,
 				E1C9455518A2C4EB00E30E4E /* get_db_collection_list.pl in Resources */,
 				E1C9455218A1B17900E30E4E /* get_db_list.pl in Resources */,
-				72BD024818849CC300837D78 /* get_type.pl in Resources */,
 				E1AE4F6418B022B500EC88BD /* get_property.pl in Resources */,
+				E1AE4F6618B0C03600EC88BD /* get_property_type.pl in Resources */,
 				7AC8A16E18A463BD00B53BFC /* trop.icns in Resources */,
 				E12E289A1895B1DE00051EBD /* retrieve_database_object.pl in Resources */,
 				E12E28951895344800051EBD /* get_multiple_object_by_index.pl in Resources */,

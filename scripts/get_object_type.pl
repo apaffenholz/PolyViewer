@@ -12,7 +12,7 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
-# get_type.pl
+# get_object_type.pl
 # PolyViewer
 #**************************************************************************/
 
@@ -23,7 +23,7 @@ use Try::Tiny;
 
 my $p = shift;
 
-my $type = eval { $p->type->full_name; };
+my $type = eval { $p->type->generic_name; };
 
 if ( $@ ) {
     $type = "ERROR: $@";

@@ -23,6 +23,7 @@
 @interface PropertyNode : NSObject {
 
     NSString              * _propertyName;  // the property name
+    NSString              * _propertType;   // the type of the property
 
     // relevant variables if the property defines a perl::Object (with declare object in some rule file)
     PolymakeObjectWrapper * _polyObj;       // a pointer to the perl::Object associated with the property
@@ -56,6 +57,7 @@
 @property (readonly)      PolymakeObjectWrapper * polyObj;
 @property (readonly,copy) PropertyNodeValue * value;
 @property (readonly,copy) NSString * propertyName;
+@property (readonly,copy) NSString * propertyType;
 @property (readonly,copy) NSString * name;
 @property (readonly)      int index;
 @property (readonly)      NSArray * children;
