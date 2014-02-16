@@ -1,5 +1,13 @@
-// Configuration read from polymake-config during build phase.
+// Make the appropriate changes to this file before compiling the app
+// In particular, add the linker and include path for libpolymake and libpolymake-app
+// If the gmp headers are at a nonstandard place then you will also need those
+// Please chose the same gmp as was used for polymake
+// You don't have to (and you should not) link against gmp, this is done by libpolymake
+//
+// If you are unsure about the needed flags, you can rebuild this file
+// for your Mac with the provided run script
+// by uncommenting lines 7 to 19
 POLYMAKE_CFLAGS = -fPIC -Wall -Wno-logical-op-parentheses -Wno-shift-op-parentheses -Wno-duplicate-decl-specifier -O3 -DPOLYMAKE_DEBUG=0
-POLYMAKE_LDFLAGS = -L/Users/andreas/polymake/clang_devel_install/lib -stdlib=libstdc++ -L/Users/andreas/polymake/src/gmp-5.1.3-install/lib -Wl,-rpath,/Users/andreas/polymake/src/gmp-5.1.3-install/lib -L/Users/andreas/polymake/src/mpfr-3.1.2-install/lib -Wl,-rpath,/Users/andreas/polymake/src/mpfr-3.1.2-install/lib -flat_namespace
-POLYMAKE_LIBS = -lpolymake -lpolymake-apps -lgmp  -lxml2
+POLYMAKE_LDFLAGS = -L/Users/andreas/polymake/clang_devel_install/lib -stdlib=libstdc++ -flat_namespace
+POLYMAKE_LIBS = -lpolymake -lpolymake-apps -lxml2
 POLYMAKE_INCLUDES = -I/Users/andreas/polymake/clang_devel_install/include -I/usr/include/c++/4.2.1 -I/Users/andreas/polymake/src/gmp-5.1.3-install/include -I/Users/andreas/polymake/src/mpfr-3.1.2-install/include

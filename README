@@ -19,10 +19,20 @@
 PolyViewer is a simple reader for files created by polymake (polymake.org) 
 released under the GPL.
 
-Building PolyViewer requires that polymake-config can be found in your path 
-(so in particular, polymake must be installed).
+Building and running PolyViewer requires that 
+  
+  libpolymake.2.12.dylib and libpolymake-apps.2.12.dylib
 
-So either place this in /usr/bin, or add
+can be found. Further, the gmp headers are needed during compilation (during run time, 
+libpolymake knows how to find them). So, in particular, you will have to install polymake first.
+
+For building the app you will have to edit the file 
+
+polymake.xcconfig
+
+found in the root folder. Edit appropriately or use the run script
+found under "Build Phases" by uncommenting all lines starting with "echo". This
+requires that "polymake-config" can be found in your path. If this is not in a standard place, add
 
 export PATH=$PATH:/path/to/your/polymake-config
 
@@ -32,26 +42,34 @@ to the file
 
 in your $HOME folder.
 
-For this reason there is currently no precompiled version of PolyViewer: 
-Paths are hardcoded into the project after compilation, so if your polymake is in a
-different location than mine it won't work.
-  
 -------------
   
-The PolViewer project now provides a simple interface to the extension "poly_db" of polymake 
-written by Silke Horn (see github) to acces the polymake database.
-For similar reasons as above you will have to tweak some files: 
+The PolyViewer project now provides a simple interface to the extension 
+"poly_db" of polymake written by Silke Horn (see github) to acces the 
+polymake database. To use it you most likely have to adjust some search paths. 
 
-Most likely the path to the perl modules for MongoDB running the 
-database and some others won't be found. Please add
+During installation of poly_db for polymake you have been asked to install the
+perl modules MongoDB, boolean, and Tie-IxHash. To use poly_db with PolyViewer please do
+the following: 
 
-use lib "/path/to/MongoDB-<version>/lib";
-use lib "/path/to/boolean-<version>/lib";
-use lib "/path/to/Tie-IxHash-<version>/lib";
-use lib "/path/to/lib/perl5/site_perl/<perl-version>/darwin-thread-multi-2level";
+In a terminal do
 
-with the obvious replacements (i.e. replace /path/to and <*version>) 
-to the file apps/common/rules/main.rules in the folder of the "poly_db"-extension.
+echo export | launchctl
+
+and check whether there is a line starting with PERL5LIB. If there is, please copy all paths 
+following it (after the first =" and until before the semi-colon before export PERL5LIB). Copy this 
+in front of the paths (and add a colon) in the following command.
+
+Now make the appropriate changes to the paths in the following command (and add any paths copied in the previous step!) 
+and run this in a terminal:
+
+echo setenv PERL5LIB /path/to/MongoDB-<version>/lib:/path/to/boolean-<version>/lib:/path/to/Tie-IxHash-<version>/lib:/path/to/lib/perl5/site_perl/<perl-version>/darwin-thread-multi-2level | launchctl
+
+You can change this any time by invoking the same command with a different list of paths, and 
+remove the variable completely by issuing
+
+echo unsetenv PERL5LIB | launchctl
+
 
 -------------
 
