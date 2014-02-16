@@ -267,6 +267,7 @@
 /**********************************************************************************/
 - (NSString *)getProperty:(NSString *)propertyName {
     NSLog(@"[PolymakeObjectWrapper getProperty] called for propertyName %@",propertyName);
+    NSLog(@"[PolymakeObjectWrapper getProperty] curretn ObjectType %@", [self getObjectType]);
     
     NSString * property = [[NSString alloc] init];
     

@@ -23,7 +23,7 @@ use Try::Tiny;
 
 my $p = shift;
 
-my $type = eval { $p->type->full_nam; };
+my $type = eval { $p->type->full_name; };
 
 if ( $@ ) {
     $type = "ERROR: $@";

@@ -69,11 +69,14 @@
                        autorelease];
     [theMenu addItem:addPropItem];
     
-    if ( isObj )
-        [theMenu insertItemWithTitle:@"Compute subproperty of object"
-                              action:@selector(addSubProperty:)
-                       keyEquivalent:@""
-                             atIndex:0];
+    if ( isObj ) {
+        NSMenuItem * addSubPropItem = [[NSMenuItem alloc] initWithTitle:@"Compute subproperty of current"
+                                                              action:@selector(addSubProperty:)
+                                                       keyEquivalent:@""];
+        
+        [addSubPropItem setRepresentedObject:[NSNumber numberWithInt:row]];
+        [theMenu addItem:addSubPropItem];
+    }
     
     return theMenu;
 }
@@ -140,5 +143,37 @@
 
 
 
+
+- (void)addSubProperty:(id)sender {
+    NSLog(@"[PropertyView addSubProperty] called");
+    
+    int row = [[sender representedObject] intValue];
+    NSLog(@"The menu item's object is %d",row);
+    
+    NSString * _property = nil;
+    NSAlert *alert = [NSAlert alertWithMessageText: @"Compute property"
+                                     defaultButton:@"OK"
+                                   alternateButton:@"Cancel"
+                                       otherButton:nil
+                         informativeTextWithFormat:@""];
+    
+    NSTextField *input = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
+    [input setStringValue:@"<property>"];
+    [input autorelease];
+    [alert setAccessoryView:input];
+    NSInteger button = [alert runModal];
+    if (button == NSAlertDefaultReturn) {
+        [input validateEditing];
+        _property = [input stringValue];
+        NSLog(@"got %@", [input stringValue]);
+    } else if (button == NSAlertAlternateReturn) {
+    } else {
+    }
+    
+    PropertyNode * propNode = (PropertyNode *)[self itemAtRow:row];
+    [[propNode polyObj] getProperty:_property];   //FIXME change this: we are computing the prop and throw away the result
+    [propNode resetChildren];
+    [self reloadItem:nil reloadChildren:YES];
+}
 
 @end
