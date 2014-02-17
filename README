@@ -133,7 +133,7 @@ launchctl setenv PERL5LIB <mod paths>
 where <mod paths> should be the list of paths to the perl modules used above. The effect of this command is lost with the next restart.
 
 
-
+4) If you know of any better way to set PERL5LIB for a gui app it would be nice if you tell me!
 
 -------------
 
