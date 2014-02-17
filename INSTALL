@@ -32,55 +32,123 @@ It will most likely not run on any other Mac OS or with older versions of polyma
 
 2a) libpolymake
 
-PolyViewer needs the libraries libpolymake.2.12.dylib and libpolymake-app.2.12.dylib.
-They will be found if you installed into /usr/local. Otherwise please do the following:
+    PolyViewer needs the libraries libpolymake.2.12.dylib and libpolymake-app.2.12.dylib.
+    They will be found if you installed into /usr/local. Otherwise please do the following:
  
-i) Check if any DYLD_LIBRARY_PATH is set in your launchd configuration: In a terminal do
+    I) Check if any DYLD_LIBRARY_PATH is set in your launchd configuration: In a terminal do
 
-echo export | launchctl
+launchctl getenv DYLD_LIBRARY_PATH
 
-and look for a line starting with DYLD_LIBRARY_PATH. If there is no such line, go to iii)
+        and remember any output.
 
-ii) copy all paths assigned to DYLD_LIBRARY_PATH (without quotation marks and semicolons) and
-add them toegether with a colon to the front of the path contained in the command in the next step. 
-Also write them down somewhere in case you want to reset the variable to its original value.
+   II) launchd currently does not read locally defined configuration files (see the launchd man page).
 
-iii) adjust the path in the following command and issue it in a terminal:
+       There are two ways around this nuisance:
 
-echo setenv DYLD_LIBRARY_PATH /path/to/your/libpolymake/lib | launchctl
+       i) If you have sudo rights: Edit (or create, if it is not present) the file /etc/launchd.conf and add
 
-where the path should point to the directory containing libpolymake2.12.dylib
+setenv DYLD_LIBRARY_PATH <path>
+
+          where <path> should be the path to the directory containing libpolymake.2.12.dylib.
+          If in step 1) you found that DYLD_LIBRARY_PATH is already set, then add this to the above!
+
+
+      ii) If you do not have sudo rights, or you don't want to use them:
+     
+          a)  in your home folder, do
+
+mkdir ~/.polyviewer
+echo "eval \"launchctl setenv DYLD_LIBRARY_PATH <path>\" " > ~/.polyviewer/launchd-setenv
+chmod a+x ~/.polyviewer
+chmod a+x ~/.polyviewer/launchd-setenv
+
+          where <path> should be the path to the directory containing libpolymake.2.12.dylib.
+          If in step 1) you found that DYLD_LIBRARY_PATH is already set, then add this to the above!
+
+
+          ii) Inside the directory ~/Library/LaunchAgents create a file com.github.apaffenholz.PolyViewer.plist 
+              and place the folloing lines into it:
+        
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>EnableGlobbing</key>
+        <true/>
+        <key>Label</key>
+        <string>com.github.apaffenholz.PolyViewer</string>
+        <key>KeepAlive</key>
+        <false/>
+         <key>ProgramArguments</key>
+        <array>
+                <string>sh</string>
+                <string>-c</string>
+                <string>~/.polyviewer/launchd-setenv</string>
+         </array>
+        <key>RunAtLoad</key>
+        <true/>
+    </dict>
+</plist>
+
+              Make this file executable with
+             
+chmod a+x ~/Library/LaunchAgents/com.github.apaffenholz.PolyViewer.plist
+
+
+  III) In any case you will have to restart your computer to reload the launch 
+       demon, or set the variables temporarily by executing
+
+launchctl setenv DYLD_LIBRARY_PATH <path>
+
+       where again <path> should be the path to libpolymake.2.12.dylib. 
+       This setting is lost with the next restart.
+
+
+   IV) If you know of any better way to set DYLD_LIBRARY_PATH for a gui app 
+       it would be nice if you tell me!
+
 
 
 
 2b) poly_db
 
-This step is optional. You only have to so this if you want to use the extension poly_db to
-access the polymake database.
+    This step is optional. You only have to so this if you want to use the extension poly_db to
+    access the polymake database.
 
-PolyViewer provides a simple interface to the extension
-"poly_db" of polymake written by Silke Horn (see github) to acces the 
-polymake database. To use this you first have to install poly_db and make polymake 
-aware of it (for this please follow the instructions on how to install extensions 
-at polymake.org, and the special installation instructions that come with poly_db)
+    PolyViewer provides a simple interface to the extension
+    "poly_db" of polymake written by Silke Horn (see github) to acces the
+    polymake database. To use this you first have to install poly_db and make polymake
+    aware of it (for this please follow the instructions on how to install extensions
+    at polymake.org, and the special installation instructions that come with poly_db)
 
-During installation of poly_db for polymake you have been asked to install the
-perl modules MongoDB, boolean, and Tie-IxHash. To use poly_db with PolyViewer please do
-the following: 
+    During installation of poly_db for polymake you have been asked to install the
+    perl modules MongoDB, boolean, and Tie-IxHash. To use poly_db with PolyViewer you will
+    have to add the paths to these modules to the variable PERL5LIB. This is essentially done
+    in the same way as above for the path to libpolymake.2.12.dylib.
+    
+    So find out if any paths are set already with 
+    
+launchctl getenv PERL5LIB
 
-i) In a terminal do
+    Add any output together with an adjusted version of
+    
+/path/to/MongoDB-<version>/lib:/path/to/boolean-<version>/lib:/path/to/Tie-IxHash-<version>/lib:/path/to/lib/perl5/site_perl/<perl-version>/darwin-thread-multi-2level 
 
-echo export | launchctl
+    either to /etc/launchd.conf (remember to put 
+    
+    setenv PERL5LIB 
+    
+    in front) or to ~/.polyviewer/launchd-setenv (in this case add
+    
+    eval "launchctl setenv PERL5LIB
 
-and check whether there is a line starting with PERL5LIB. If there is none, please proceed with iii).
+    in front and " at the end).
 
-ii) Copy all paths following PERL5LIB (without any quotation marks and semicolons)  and
-add them toegether with a colon to the front of the path contained in the command in the next step.
-Also write them down somewhere in case you want to reset the variable to its original value.
+    Again, this is only read after a restart. Temporarily you could invoke
+    
+launchctl setenv PERL5LIB <paths>
 
-iii) adjust the paths in the following command and issue it in a terminal:
-
-echo setenv PERL5LIB /path/to/MongoDB-<version>/lib:/path/to/boolean-<version>/lib:/path/to/Tie-IxHash-<version>/lib:/path/to/lib/perl5/site_perl/<perl-version>/darwin-thread-multi-2level | launchctl
+    where <paths> are the paths used above.
 
 
 
@@ -103,13 +171,13 @@ i) Delete the PolyViewer application in /Application
 ii) If you have changed the variables DYLD_LIBRARY_PATH or PERL5LIB for launchd during installation set them 
 to their original value by calling 
 
-echo setenv DYLD_LIBRARY_PATH <original value> | launchctl
+launchctl setenv DYLD_LIBRARY_PATH <original value>
 
 in a terminal (similarly for PERL5LIB). 
 
 Most likely, both variables have been empty originally, in that case do
 
-echo unsetenv DYLD_LIBRARY_PATH | launchctl
-echo unsetenv PERL5LIB | launchctl
+launchctl unsetenv DYLD_LIBRARY_PATH 
+launchctl unsetenv PERL5LIB
 
 
