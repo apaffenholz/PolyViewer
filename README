@@ -98,7 +98,7 @@ chmod a+x ~/.polyviewer/launchd-setenv
 
             Again remember to adjust the paths and the version numbers, and to add any other PERL5LIB paths you found in step 1)!
            
-        ii) Inside the directory ~/Library/LaunchAgents create a file com.github.apaffenholz.PolyViewer.plist and place the folloing lines into it:
+        ii) Inside the directory ~/Library/LaunchAgents create a file com.github.apaffenholz.PolyViewer.plist and place the following lines into it:
         
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
