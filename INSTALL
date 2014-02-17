@@ -58,7 +58,8 @@ setenv DYLD_LIBRARY_PATH <path>
           a)  in your home folder, do
 
 mkdir ~/.polyviewer
-echo "eval \"launchctl setenv DYLD_LIBRARY_PATH <path>\" " > ~/.polyviewer/launchd-setenv
+echo "#!/bin/sh" > ~/.polyviewer/launchd-setenv
+echo "eval \"launchctl setenv DYLD_LIBRARY_PATH <path>\" " >> ~/.polyviewer/launchd-setenv
 chmod a+x ~/.polyviewer
 chmod a+x ~/.polyviewer/launchd-setenv
 

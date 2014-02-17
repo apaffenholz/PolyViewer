@@ -92,7 +92,8 @@ setenv PERL5LIB <path-to>/perl-modules/lib/perl5/darwin-thread-multi-2level:<pat
         i)  in your home folder, do
 
 mkdir ~/.polyviewer
-echo "eval \"launchctl setenv PERL5LIB <path-to>/perl-modules/lib/perl5/darwin-thread-multi-2level:<path-to>MongoDB-0.702.2/lib:<path-to>/boolean-0.30/lib/:<path-to>/Tie-IxHash-1.23/lib/:<path-to>/perl5/site_perl/5.16.2/darwin-thread-multi-2level/ > ~/.polyviewer/launchd-setenv\" "
+echo "#!/bin/sh" > ~/.polyviewer/launchd-setenv
+echo "eval \"launchctl setenv PERL5LIB <path-to>/perl-modules/lib/perl5/darwin-thread-multi-2level:<path-to>MongoDB-0.702.2/lib:<path-to>/boolean-0.30/lib/:<path-to>/Tie-IxHash-1.23/lib/:<path-to>/perl5/site_perl/5.16.2/darwin-thread-multi-2level/\" " >> ~/.polyviewer/launchd-setenv
 chmod a+x ~/.polyviewer
 chmod a+x ~/.polyviewer/launchd-setenv
 
