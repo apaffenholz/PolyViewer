@@ -63,26 +63,76 @@ The PolyViewer project now provides a simple interface to the extension
 polymake database. To use it you most likely have to adjust some search paths. 
 
 During installation of poly_db for polymake you have been asked to install the
-perl modules MongoDB, boolean, and Tie-IxHash. To use poly_db with PolyViewer please do
-the following: 
+perl modules MongoDB, boolean, and Tie-IxHash. To use poly_db with PolyViewer 
+we have to add these paths to the launch deamon. Do the following:
 
-In a terminal do
+1) Find out whether there are already perl libraries loaded (As launchd does not resolve 
+    enviroment variables we can't use the standard trick to add $PERL5LIB to the newly set path.). 
+    So in a terminal do
 
-echo export | launchctl
+launchctl getenv PERL5LIB
 
-and check whether there is a line starting with PERL5LIB. If there is, please copy all paths 
-following it (after the first =" and until before the semi-colon before export PERL5LIB). Copy this 
-in front of the paths (and add a colon) in the following command.
+    Remember its value (and maybe also write it down somewhere in case you want to remove the 
+    additions necessary for PolyViewer).
 
-Now make the appropriate changes to the paths in the following command (and add any paths copied in the previous step!) 
-and run this in a terminal:
+2) launchd currently does not read locally defined configuration files (see the launchd man page). 
 
-echo setenv PERL5LIB /path/to/MongoDB-<version>/lib:/path/to/boolean-<version>/lib:/path/to/Tie-IxHash-<version>/lib:/path/to/lib/perl5/site_perl/<perl-version>/darwin-thread-multi-2level | launchctl
+     There are two ways around this nuisance:
 
-You can change this any time by invoking the same command with a different list of paths, and 
-remove the variable completely by issuing
+     a) If you have sudo rights: Edit (or create, if it is not present) the file /etc/launchd.conf and add
 
-echo unsetenv PERL5LIB | launchctl
+setenv PERL5LIB <path-to>/perl-modules/lib/perl5/darwin-thread-multi-2level:<path-to>MongoDB-0.702.2/lib:<path-to>/boolean-0.30/lib/:<path-to>/Tie-IxHash-1.23/lib/:<path-to>/perl5/site_perl/5.16.2/darwin-thread-multi-2level/
+
+        Adjust the paths by replacing <path-to> with the appropriate value. Also adjust the version numbers if necessary. 
+        If in step 1) you found that PERL5LIB is already set, then add this to the above!
+
+
+     b) If you do not have sudo rights, or you don't want to use them:
+     
+        i)  in your home folder, do
+
+mkdir ~/.polyviewer
+echo setenv PERL5LIB <path-to>/perl-modules/lib/perl5/darwin-thread-multi-2level:<path-to>MongoDB-0.702.2/lib:<path-to>/boolean-0.30/lib/:<path-to>/Tie-IxHash-1.23/lib/:<path-to>/perl5/site_perl/5.16.2/darwin-thread-multi-2level/ > ~/.polyviewer/launchd-setenv
+chmod a+x ~/.polyviewer
+chmod a+x ~/.polyviewer/launchd-setenv
+
+            Again remember to adjust the paths and the version numbers, and to add any other PERL5LIB paths you found in step 1)!
+           
+        ii) Inside the directory ~/Library/LaunchAgents create a file com.github.apaffenholz.PolyViewer.plist and place the folloing lines into it:
+        
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>EnableGlobbing</key>
+        <true/>
+        <key>Label</key>
+        <string>com.github.apaffenholz.PolyViewer</string>
+        <key>KeepAlive</key>
+        <false/>
+         <key>ProgramArguments</key>
+        <array>
+                <string>sh</string>
+                <string>-c</string>
+                <string>~/.polyviewer/launchd-setenv</string>
+         </array>
+        <key>RunAtLoad</key>
+        <true/>
+    </dict>
+</plist>
+
+             Make this file executable with
+             
+chmod a+x ~/Library/LaunchAgents/com.github.apaffenholz.PolyViewer.plist
+
+
+3) In any case you will have to restart your computer to reload the launch demon, or set the variables temporarily by executing
+
+launchctl setenv PERL5LIB <mod paths>
+
+where <mod paths> should be the list of paths to the perl modules used above. The effect of this command is lost with the next restart.
+
+
 
 
 -------------
