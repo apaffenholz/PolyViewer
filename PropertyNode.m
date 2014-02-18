@@ -139,12 +139,17 @@
 
             newChildren = [[_polyObj getPropertyListAtRootLevel] copy];
 		}
-        
-		_children = [newChildren retain];
-	}
 
+        _children = [newChildren sortedArrayUsingComparator:^NSComparisonResult(id first, id second) {
+                NSString *firstPropName  = [(PropertyNode *)first  propertyName];
+                NSString *secondPropName = [(PropertyNode *)second propertyName];
+                return [firstPropName compare:secondPropName];
+        }];
+        
+    }
+    
     NSLog(@"[PropertyNode children] returning");
-	return _children;
+	return [_children retain];
 }
 
 - (void)resetChildren {
