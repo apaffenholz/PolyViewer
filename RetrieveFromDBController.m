@@ -68,6 +68,10 @@
         [databaseSelection setObjectValue:[databaseSelection objectValueOfSelectedItem]];
     }
     
+    [_idTableView setTarget:self];
+    [_idTableView setDoubleAction:@selector(retrieveFromDB:)];
+
+    
     NSLog(@"[RetrieveFromDBController windowDidLoad] database names are %@",_databases);
 }
     
