@@ -74,11 +74,10 @@
             // check whether the polytope has a description
             // this is stored in a property directly below the root
             _description = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectDescription]];
+
             
-            NSMutableArray * creditLabels = [NSMutableArray array];
-            NSMutableArray * creditStrings = [NSMutableArray array];
-            
-            _creditsDict = [NSDictionary dictionaryWithObjects:creditStrings forKeys:creditLabels];
+            // load credits from file
+            _creditsDict = [[_rootPerlNode polyObj] getObjectCredits];
             
             // apparently we have to retain this
             [_creditsDict retain];

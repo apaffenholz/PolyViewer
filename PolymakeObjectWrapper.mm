@@ -195,6 +195,32 @@
 }
 
 
+
+/**********************************************************************************/
+- (NSDictionary *)getObjectCredits {
+    NSLog(@"[PolymakeObjectWrapper getObjectCredits] entering");
+    
+    NSMutableDictionary * crDict = [[NSMutableDictionary alloc] init];
+    
+    // the following does not work
+    // polymake::perl::ListResult cr = p.CallPolymakeMethod("credits");
+    
+  
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"getCredits" ofType:@"pl"];
+    polymake::perl::ListResult results = ListCallPolymakeFunction("script",[filePath UTF8String],p);
+    
+    for (int i=0, end=results.size(); i<end; i=i+2) {
+        [crDict setObject:[NSString stringWithUTF8String:results[i+1]]
+                   forKey:[NSString stringWithUTF8String:results[i]]];
+    }
+        
+    NSLog(@"[PolymakeObjectWrapper getObjectCredits] returning");
+    return [crDict retain];
+}
+
+
+
+
 /**********************************************************************************/
 - (NSArray *)getPropertyListAtRootLevel {
     NSLog(@"[PolymakeObjectWrapper getPropertyListAtRootLevel] called");

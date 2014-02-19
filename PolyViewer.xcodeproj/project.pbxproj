@@ -43,6 +43,7 @@
 		E1AA8B7118A6E6F50054DECF /* DatabaseAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AA8B7018A6E6F50054DECF /* DatabaseAccess.m */; };
 		E1AA8B7518AED1D70054DECF /* get_configured_extensions.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1AA8B7418AED1D70054DECF /* get_configured_extensions.pl */; };
 		E1AA8B7618AFB0DE0054DECF /* get_db_CountOfIDs.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1AA8B2518A5C0540054DECF /* get_db_CountOfIDs.pl */; };
+		E1AD5AE318B4DF4E00ED56AA /* getCredits.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1AD5AE218B4DF4E00ED56AA /* getCredits.pl */; };
 		E1AE4F6418B022B500EC88BD /* get_property.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1AE4F6318B022B500EC88BD /* get_property.pl */; };
 		E1AE4F6618B0C03600EC88BD /* get_property_type.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1AE4F6518B0C03600EC88BD /* get_property_type.pl */; };
 		E1BE9A8118B0C27E00C91402 /* get_object_type.pl in Resources */ = {isa = PBXBuildFile; fileRef = 72BD024A18849CF600837D78 /* get_object_type.pl */; };
@@ -112,6 +113,7 @@
 		E1AA8B6F18A6E6F50054DECF /* DatabaseAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseAccess.h; sourceTree = "<group>"; };
 		E1AA8B7018A6E6F50054DECF /* DatabaseAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseAccess.m; sourceTree = "<group>"; };
 		E1AA8B7418AED1D70054DECF /* get_configured_extensions.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_configured_extensions.pl; sourceTree = "<group>"; };
+		E1AD5AE218B4DF4E00ED56AA /* getCredits.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = getCredits.pl; sourceTree = "<group>"; };
 		E1AE4F6318B022B500EC88BD /* get_property.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_property.pl; sourceTree = "<group>"; };
 		E1AE4F6518B0C03600EC88BD /* get_property_type.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_property_type.pl; sourceTree = "<group>"; };
 		E1C9455018A1B07D00E30E4E /* get_db_list.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_db_list.pl; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				E1AA8B7418AED1D70054DECF /* get_configured_extensions.pl */,
 				E1AE4F6318B022B500EC88BD /* get_property.pl */,
 				E1AE4F6518B0C03600EC88BD /* get_property_type.pl */,
+				E1AD5AE218B4DF4E00ED56AA /* getCredits.pl */,
 			);
 			name = polymakePerlScripts;
 			path = scripts;
@@ -351,6 +354,7 @@
 			files = (
 				E1BE9A8118B0C27E00C91402 /* get_object_type.pl in Resources */,
 				E1AA8B7618AFB0DE0054DECF /* get_db_CountOfIDs.pl in Resources */,
+				E1AD5AE318B4DF4E00ED56AA /* getCredits.pl in Resources */,
 				E15B857018B1575E004287F7 /* INSTALL in Resources */,
 				E1AA8B2818A5C3820054DECF /* get_db_ListOfIDs.pl in Resources */,
 				E1C9455518A2C4EB00E30E4E /* get_db_collection_list.pl in Resources */,

@@ -132,7 +132,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 	[_creditTable setSelectionHighlightStyle:NSTableViewSelectionHighlightStyleNone];	
 	[_creditTable reloadData];
 	[_creditTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"NSTableViewSelectionDidChangeNotification" object:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"NSTableViewSelectionDidChangeNotification" object:_creditTable];
 	
     
     // initialize the row numbers displayed left of the property values
@@ -403,7 +403,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
     if ( [notification object] == _creditTable ) {
         
         int row = [_creditTable selectedRow];
-	
+        
         if ( row != -1 ) {
             NSArray * allValues = [[_polyObj credits] allValues];
             NSString * value = [[NSString alloc] initWithString:(NSString *)[allValues objectAtIndex:row]];

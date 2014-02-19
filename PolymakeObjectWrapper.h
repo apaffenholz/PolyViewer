@@ -41,6 +41,7 @@
 - (NSString *)getPropertyType:(NSString *)property;
 - (NSString *)getObjectName;
 - (NSString *)getObjectDescription;
+- (NSDictionary *)getObjectCredits;
 - (NSString *)getProperty:(NSString *)name;
 - (PolymakeObjectWrapper *)getSubobject:(NSString *)name;
 - (PolymakeObjectWrapper *)getSubobjectWithIndex:(int)index andName:(NSString *)propertyName;
