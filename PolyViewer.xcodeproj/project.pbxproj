@@ -36,6 +36,7 @@
 		E12E28981895779400051EBD /* DatabaseAccess.xib in Resources */ = {isa = PBXBuildFile; fileRef = E12E28971895779400051EBD /* DatabaseAccess.xib */; };
 		E12E289A1895B1DE00051EBD /* retrieve_database_object.pl in Resources */ = {isa = PBXBuildFile; fileRef = E12E28991895B1DE00051EBD /* retrieve_database_object.pl */; };
 		E12E289E1897202F00051EBD /* RetrieveFromDBController.m in Sources */ = {isa = PBXBuildFile; fileRef = E12E289D1897202F00051EBD /* RetrieveFromDBController.m */; };
+		E13CC95918B6835B005EAA61 /* databaseInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = E13CC95818B6835B005EAA61 /* databaseInfo.xib */; };
 		E13DCBD1188AA84E00DF3519 /* PropertyNodeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = E13DCBD0188AA84E00DF3519 /* PropertyNodeValue.m */; };
 		E13DCBD3188ADD6000DF3519 /* get_name.pl in Resources */ = {isa = PBXBuildFile; fileRef = E13DCBD2188ADD6000DF3519 /* get_name.pl */; };
 		E15B857018B1575E004287F7 /* INSTALL in Resources */ = {isa = PBXBuildFile; fileRef = E15B856F18B1575E004287F7 /* INSTALL */; };
@@ -105,6 +106,7 @@
 		E12E289B1895BD9D00051EBD /* retrieve_database_object.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; name = retrieve_database_object.pl; path = scripts/retrieve_database_object.pl; sourceTree = "<group>"; };
 		E12E289C1897202F00051EBD /* RetrieveFromDBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetrieveFromDBController.h; sourceTree = "<group>"; };
 		E12E289D1897202F00051EBD /* RetrieveFromDBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetrieveFromDBController.m; sourceTree = "<group>"; };
+		E13CC95818B6835B005EAA61 /* databaseInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = databaseInfo.xib; sourceTree = "<group>"; };
 		E13DCBCF188AA84E00DF3519 /* PropertyNodeValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyNodeValue.h; sourceTree = "<group>"; };
 		E13DCBD0188AA84E00DF3519 /* PropertyNodeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertyNodeValue.m; sourceTree = "<group>"; };
 		E13DCBD2188ADD6000DF3519 /* get_name.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_name.pl; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				1DDD58280DA1D0D100B32029 /* PolyViewer.xib */,
 				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
 				E12E28971895779400051EBD /* DatabaseAccess.xib */,
+				E13CC95818B6835B005EAA61 /* databaseInfo.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				E1D968641893D55B0060FEEA /* polymake.xcconfig in Resources */,
 				72965DFF156919040076B037 /* Preferences.xib in Resources */,
 				72965EE8156999CC0076B037 /* README in Resources */,
+				E13CC95918B6835B005EAA61 /* databaseInfo.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

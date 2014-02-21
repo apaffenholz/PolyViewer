@@ -218,6 +218,23 @@
     return [crDict retain];
 }
 
+/**********************************************************************************/
+- (NSDictionary *)getDatabaseMetadata {
+    
+    NSMutableDictionary * dbDict = [[NSMutableDictionary alloc] init];
+    
+    std::string st;
+    if ( p.lookup("_id") >> st )
+        [dbDict setObject:[NSString stringWithUTF8String:st.c_str()] forKey:@"id"];
+    if ( p.lookup("collection") >> st )
+        [dbDict setObject:[NSString stringWithUTF8String:st.c_str()] forKey:@"collection"];
+    if ( p.lookup("contributor") >> st )
+        [dbDict setObject:[NSString stringWithUTF8String:st.c_str()] forKey:@"contributor"];
+    if ( p.lookup("database") >> st )
+        [dbDict setObject:[NSString stringWithUTF8String:st.c_str()] forKey:@"database"];
+    
+    return dbDict;
+}
 
 
 

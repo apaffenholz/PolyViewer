@@ -42,6 +42,7 @@
 - (NSString *)getObjectName;
 - (NSString *)getObjectDescription;
 - (NSDictionary *)getObjectCredits;
+- (NSDictionary *)getDatabaseMetadata;
 - (NSString *)getProperty:(NSString *)name;
 - (PolymakeObjectWrapper *)getSubobject:(NSString *)name;
 - (PolymakeObjectWrapper *)getSubobjectWithIndex:(int)index andName:(NSString *)propertyName;

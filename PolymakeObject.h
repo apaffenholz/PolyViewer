@@ -30,6 +30,9 @@
 	NSString        * _description;   // description 
 	NSDictionary    * _creditsDict;   // dictionary of credits for external software
     PropertyNode    * _rootPerlNode;
+    NSDictionary    * _databaseInfoDict;
+    
+    BOOL            databaseObject;
 }
 
 @property (readonly, retain) NSString * objectType;
@@ -37,7 +40,9 @@
 @property (readonly, copy)   NSString * name;
 @property (readonly, copy)   NSString * description;
 @property (readonly, retain) NSDictionary* credits;
+@property (readonly, retain) NSDictionary* databaseInfo;
 @property (readonly, retain) PropertyNode* rootPerl;
+@property (readonly) BOOL databaseObject;
 
 - (id)init;
 - (id)initObjectWithURL:(NSURL *)input;

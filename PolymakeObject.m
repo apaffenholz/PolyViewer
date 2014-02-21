@@ -26,8 +26,9 @@
 @synthesize name         = _name;
 @synthesize description  = _description;
 @synthesize credits      = _creditsDict;
+@synthesize databaseInfo = _databaseInfoDict;
 @synthesize rootPerl     = _rootPerlNode;
-
+@synthesize databaseObject = databaseObject;
 
 /***************************************************************************
  * init
@@ -42,6 +43,7 @@
 		_description  = nil;
 		_creditsDict  = nil;
         _rootPerlNode = nil;
+        _databaseInfoDict = nil;
     
 	} 
 	
@@ -84,6 +86,8 @@
             
             // keep the input filename
             _filename = [input retain];
+            
+            databaseObject = NO;
         } else {
             self = nil;
         }
@@ -118,15 +122,19 @@
         // this is stored in a property directly below the root
         _description = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectDescription]];
         
-        NSMutableArray * creditLabels = [NSMutableArray array];
-        NSMutableArray * creditStrings = [NSMutableArray array];
+        // load credits from file
+        _creditsDict = [[_rootPerlNode polyObj] getObjectCredits];
         
-        _creditsDict = [NSDictionary dictionaryWithObjects:creditStrings forKeys:creditLabels];
+        // apparently we have to retain this
+        [_creditsDict retain];
         
 		// apparently we have to retain this
         [_creditsDict retain];
         
         _filename = nil;
+        
+        databaseObject = YES;
+        _databaseInfoDict = [[_rootPerlNode polyObj] getDatabaseMetadata];
     }
     
     return self;
