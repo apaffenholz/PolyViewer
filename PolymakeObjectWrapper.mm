@@ -232,7 +232,8 @@
         [dbDict setObject:[NSString stringWithUTF8String:st.c_str()] forKey:@"contributor"];
     if ( p.lookup("database") >> st )
         [dbDict setObject:[NSString stringWithUTF8String:st.c_str()] forKey:@"database"];
-    
+    if ( p.lookup("date") >> st )
+        [dbDict setObject:[NSString stringWithUTF8String:st.c_str()] forKey:@"date"];
     return dbDict;
 }
 
@@ -247,66 +248,72 @@
     
     NSMutableArray * props = [NSMutableArray array];
     for (int i=0, end=results.size(); i<end; ++i) {
+        
         NSLog(@"[PolymakeObjectWrapper] reading props: %i",i);
         
         std::pair<std::string,polymake::Array<bool> > prop = results[i];
-        PolymakeObjectWrapper * _prop = nil;
+        NSString * propName = [NSString stringWithCString:prop.first.c_str() encoding:NSUTF8StringEncoding];
         
-        if ( prop.second[1] == NO ) {
-            if ( prop.second[0] ) {
-                _prop = [[PolymakeObjectWrapper alloc] init];
-                _prop = [self getSubobject:[NSString stringWithCString:prop.first.c_str() encoding:NSUTF8StringEncoding]];
-            } else {
-                _prop = self;
-            }
-            PropertyNode *propNode = [[PropertyNode alloc] initWithName: [NSString stringWithCString:prop.first.c_str() encoding:NSUTF8StringEncoding]
-                                                                 andObj:_prop
-                                                               asObject:(BOOL)prop.second[0]
-                                                             asMultiple:prop.second[1]
-                                                                 asLeaf:!(BOOL)prop.second[0]];
+        if ( ![propName isEqualToString:@"_id"] && ![propName isEqualToString:@"collection"] && ![propName isEqualToString:@"database"] && ![propName isEqualToString:@"contributor"] && ![propName isEqualToString:@"date"]) {
+            PolymakeObjectWrapper * _prop = nil;
             
-            [props addObject:propNode];
-            [propNode release];
-        } else {
             
-            NSLog(@"[PolymakeObjectWrapper children] retrieving multiple subobject: %s",prop.first.c_str());
-            filePath = [[NSBundle mainBundle] pathForResource:@"get_names_for_multiple" ofType:@"pl"];
-            polymake::perl::ListResult namesOfMultiples = ListCallPolymakeFunction("script",[filePath UTF8String],p,prop.first.c_str());
-            
-            NSLog(@"[PolymakeObjectWrapper children] found %d subobjects",namesOfMultiples.size());
-            
-            for (int j=0, jend = namesOfMultiples.size(); j<jend; ++j) {
-                NSLog(@"[PolymakeObjectWrapper children] working on number %d",j);
-                
+            if ( prop.second[1] == NO ) {
                 if ( prop.second[0] ) {
                     _prop = [[PolymakeObjectWrapper alloc] init];
-                    _prop = [self getSubobjectWithIndex:j
-                                                andName:[NSString stringWithCString:prop.first.c_str()
-                                                                           encoding:NSUTF8StringEncoding]];
+                    _prop = [self getSubobject:propName];
                 } else {
                     _prop = self;
                 }
-                
-                NSString * propname;
-                if( namesOfMultiples[j] )
-                    propname = [NSString stringWithCString:namesOfMultiples[j] encoding:NSUTF8StringEncoding];
-                else
-                    propname = @"";
-                PropertyNode *propNode = [[PropertyNode alloc] initWithName:[NSString stringWithCString:prop.first.c_str()
-                                                                                               encoding:NSUTF8StringEncoding]
+                PropertyNode *propNode = [[PropertyNode alloc] initWithName:propName
                                                                      andObj:_prop
-                                                                  withIndex:j
-                                                                   withName:propname
                                                                    asObject:(BOOL)prop.second[0]
                                                                  asMultiple:prop.second[1]
                                                                      asLeaf:!(BOOL)prop.second[0]];
                 
                 [props addObject:propNode];
                 [propNode release];
+            } else {
+                
+                NSLog(@"[PolymakeObjectWrapper children] retrieving multiple subobject: %s",prop.first.c_str());
+                filePath = [[NSBundle mainBundle] pathForResource:@"get_names_for_multiple" ofType:@"pl"];
+                polymake::perl::ListResult namesOfMultiples = ListCallPolymakeFunction("script",[filePath UTF8String],p,prop.first.c_str());
+                
+                NSLog(@"[PolymakeObjectWrapper children] found %d subobjects",namesOfMultiples.size());
+                
+                for (int j=0, jend = namesOfMultiples.size(); j<jend; ++j) {
+                    NSLog(@"[PolymakeObjectWrapper children] working on number %d",j);
+                    
+                    if ( prop.second[0] ) {
+                        _prop = [[PolymakeObjectWrapper alloc] init];
+                        _prop = [self getSubobjectWithIndex:j
+                                                    andName:[NSString stringWithCString:prop.first.c_str()
+                                                                               encoding:NSUTF8StringEncoding]];
+                    } else {
+                        _prop = self;
+                    }
+                    
+                    NSString * propname;
+                    if( namesOfMultiples[j] )
+                        propname = [NSString stringWithCString:namesOfMultiples[j] encoding:NSUTF8StringEncoding];
+                    else
+                        propname = @"";
+                    PropertyNode *propNode = [[PropertyNode alloc] initWithName:[NSString stringWithCString:prop.first.c_str()
+                                                                                                   encoding:NSUTF8StringEncoding]
+                                                                         andObj:_prop
+                                                                      withIndex:j
+                                                                       withName:propname
+                                                                       asObject:(BOOL)prop.second[0]
+                                                                     asMultiple:prop.second[1]
+                                                                         asLeaf:!(BOOL)prop.second[0]];
+                    
+                    [props addObject:propNode];
+                    [propNode release];
+                }
+                
             }
             
         }
-        
         
         NSLog(@"%s -- is an object: %d   --- is multiple: %d",prop.first.c_str(),prop.second[0],prop.second[1]);
     }
