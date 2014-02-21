@@ -40,7 +40,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 		self = [super init];
 		if (self) {
 			
-			_polyObj = nil;
+			[self setPolymakeObject:nil];
 			_currentPropertyValue = nil;
 			_alignedColumns = NO;
 			
@@ -152,6 +152,10 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 		[_valueTextView setFont:valueFont];	
     else                                                        // if there is nothing selected, use a default
 		[_valueTextView setFont:font];
+    
+    if ( ![_polyObj databaseObject] )
+        [_metaInfoTabView removeTabViewItem:[_metaInfoTabView tabViewItemAtIndex:3]];
+    
 	
 } // end of windowControllerDidLoadNib
 

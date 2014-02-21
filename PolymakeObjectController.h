@@ -33,7 +33,7 @@ extern NSString * const ChildrenOfRootHaveChangedNotification;
 	NSString * _lastOpenDialogStartDirectory;
 	NSString * _currentPropertyValue;
 
-    PolymakeObject  * _polyObj;
+    IBOutlet PolymakeObject  * _polyObj;
 	BOOL              _alignedColumns;
     	
 		// main window
@@ -51,13 +51,14 @@ extern NSString * const ChildrenOfRootHaveChangedNotification;
 	IBOutlet NSTextView          * _descriptionView;
 	IBOutlet NSTextField          * _propertyTypeField;
 	IBOutlet NSButton            * _alignedColumnsBox;
+    IBOutlet NSTabView           * _metaInfoTabView;
 	
 }
 
 
 
 @property (readwrite,copy) NSString * lastOpenDialogStartDirectory;
-@property (readonly) PolymakeObject * polymakeObject;
+@property (readwrite,retain) PolymakeObject * polymakeObject;
 @property (readwrite,assign) BOOL alignedColumns;
 
 
