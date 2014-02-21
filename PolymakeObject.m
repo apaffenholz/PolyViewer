@@ -39,11 +39,12 @@
 	if ( self = [super init] ) {
 
 		_filename     = nil;
-		_name         = nil;
-		_description  = nil;
+		_name         = @"";
+		_description  = @"";
 		_creditsDict  = nil;
         _rootPerlNode = nil;
-        _databaseInfoDict = nil;
+        _databaseInfoDict = [[NSDictionary alloc] init];
+        [_databaseInfoDict setValue:@"abc" forKey:@"abc"];
     
 	} 
 	

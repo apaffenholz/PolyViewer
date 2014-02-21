@@ -100,6 +100,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 	NSFont * font = [NSFont systemFontOfSize:14];
     
     [_type setStringValue:[_polyObj objectType]];	           	// set object type
+//    [_type setStringValue:[[self polymakeObject] objectType]];
 	[_type setFont:font];
     
 	[_name setStringValue:[_polyObj name]];                  	// set object name
@@ -155,6 +156,9 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
     
     if ( ![_polyObj databaseObject] )
         [_metaInfoTabView removeTabViewItem:[_metaInfoTabView tabViewItemAtIndex:3]];
+    else {
+        
+    }
     
 	
 } // end of windowControllerDidLoadNib
@@ -379,9 +383,17 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 
 /****************/
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tv {
-    NSLog(@"[PolymakeFile numberOfRowsInTableView] called");
-	if ( _polyObj != nil )
-		return [[_polyObj credits] count];
+    
+    if ( tv == _creditTable ) {
+        NSLog(@"[PolymakeFile numberOfRowsInTableView] called");
+        if ( _polyObj != nil )
+            return [[_polyObj credits] count];
+    }
+    
+    if ( tv == _databaseTableView ) {
+        NSLog(@"[PolymakeFile numberOfRowsInTableView] called dor database");
+        return [[_polyObj databaseInfo] count];
+    }
 	
 		// default return 0
 	return 0;
@@ -390,20 +402,43 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 /****************/
 - (id)tableView:(NSTableView *)tv objectValueForTableColumn:(NSTableColumn *)column row:(NSInteger) row {
     NSLog(@"[PolymakeFile tableView ObjectValueTableColumn column row] called");
-	NSString * value = [NSString stringWithString:(NSString *)[[[_polyObj credits] allKeys] objectAtIndex:row]];
-	return value;
+    
+    if ( tv == _creditTable ) {
+        NSLog(@"[PolymakeFile tableView ObjectValueTableColumn column row] called for credits");
+        NSString * value = [NSString stringWithString:(NSString *)[[[_polyObj credits] allKeys] objectAtIndex:row]];
+        return value;
+    }
+    
+    if ( tv == _databaseTableView ) {
+        NSLog(@"[PolymakeFile tableView ObjectValueTableColumn column row] called for database");
+        if ( [[column identifier]  isEqual: @"label"]) {
+            NSString *key = [[[_polyObj databaseInfo] allKeys] objectAtIndex:row];
+            return key;
+        } else {
+            NSString *key = [[[_polyObj databaseInfo] allKeys] objectAtIndex:row];
+            NSString * value = [NSString stringWithString:(NSString *)[[_polyObj databaseInfo] objectForKey:key]];
+            return value;
+        }
+    }
+    
+    return nil;
 }
 
 
 /****************/
 - (void)tableView:(NSTableView *)tv setObjectValue:(id)item forTableColumn:(NSTableColumn *)column row:(NSInteger)row {
     NSLog(@"[PolymakeFile tableView setObjectvalue forTableColumn row] called");
-	item = [NSString stringWithString:(NSString *)[[[_polyObj credits] allKeys] objectAtIndex:row]];
+
+    if ( tv == _creditTable ) {
+        item = [NSString stringWithString:(NSString *)[[[_polyObj credits] allKeys] objectAtIndex:row]];
+    }
+    
 }
 
 /****************/
 - (void) tableViewSelectionDidChange: (NSNotification *) notification {
     NSLog(@"[PolymakeFile tableViewSelectionDidChange] called");
+
     if ( [notification object] == _creditTable ) {
         
         int row = [_creditTable selectedRow];
@@ -415,16 +450,18 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
             [value release];
         }
     }
+    
 } 
 
 
 	// this just sets the background color
 -(void)tableView:(NSTableView *)tv willDisplayCell:(id)item forTableColumn:(NSTableColumn *)column row:(NSInteger)row {
     NSLog(@"[PolymakeFile tableView willDisplayCell for TableColumn row] called");
-	if ( [tv selectedRow] == row )
-		[item setBackgroundColor:[NSColor colorWithCalibratedRed:0.914 green:0.686 blue:0.227 alpha:1]];
-	else
-		[item setBackgroundColor:[NSColor colorWithCalibratedRed:0.8 green:0.41 blue:0.14 alpha:1]];
+    
+        if ( [tv selectedRow] == row )
+            [item setBackgroundColor:[NSColor colorWithCalibratedRed:0.914 green:0.686 blue:0.227 alpha:1]];
+        else
+            [item setBackgroundColor:[NSColor colorWithCalibratedRed:0.8 green:0.41 blue:0.14 alpha:1]];
 }
 
 

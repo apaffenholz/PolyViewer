@@ -52,6 +52,7 @@ extern NSString * const ChildrenOfRootHaveChangedNotification;
 	IBOutlet NSTextField          * _propertyTypeField;
 	IBOutlet NSButton            * _alignedColumnsBox;
     IBOutlet NSTabView           * _metaInfoTabView;
+    IBOutlet NSTableView         * _databaseTableView;
 	
 }
 
