@@ -157,7 +157,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
     if ( ![_polyObj databaseObject] )
         [_metaInfoTabView removeTabViewItem:[_metaInfoTabView tabViewItemAtIndex:3]];
     else {
-        
+        [_metaInfoTabView selectTabViewItemAtIndex:3];
     }
     
 	
