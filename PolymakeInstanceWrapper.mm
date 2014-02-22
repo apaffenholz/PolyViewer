@@ -57,8 +57,6 @@
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_db_list" ofType:@"pl"];
     polymake::perl::ListResult results = ListCallPolymakeFunction("script",[filePath UTF8String]);
-
-    NSMutableArray * databases = [NSMutableArray array];
     
     if ( results.size() == 1 ) {
         NSLog(@"[PolymakeInstanceWrapper databaseNames] checking success");
@@ -74,10 +72,12 @@
             } else {
                 [self showCommandFailedAlert:@"an unknown error occured"];
             }
-            return databases;
+            return nil;
         }
     }
     
+
+    NSMutableArray * databases = [NSMutableArray array];
 
     for (int i=0, end=results.size(); i<end; ++i) {
         NSLog(@"[PolymakeInstanceWrapper databaseNames] in loop");
@@ -93,7 +93,10 @@
 }
 
 -(NSArray *)collectionNamesofDatabase:(NSString *)db {
-    NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] entering");
+    NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] entering with database %@", db);
+   
+    if ( [db isEqualToString:@""] )
+        return nil;
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_db_collection_list" ofType:@"pl"];
     polymake::perl::ListResult results = ListCallPolymakeFunction("script",[filePath UTF8String],[db cStringUsingEncoding:NSUTF8StringEncoding]);

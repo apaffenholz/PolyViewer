@@ -27,8 +27,11 @@
 @synthesize configuredExtensions  = _configuredExtensions;
     
 
-    
+# pragma mark init
+
+/****************************************************************/
 -(id)init {
+    NSLog(@"[Appcontroller init] called");
 	self = [super init];
     
     pinst = [[PolymakeInstanceWrapper alloc] init];
@@ -45,7 +48,25 @@
     
 	return self;
 }
-    
+
+/****************************************************************/
+- (void)dealloc {
+    [_preferencesController release];
+    [_retrieveController release];
+    [pinst release];
+    [super dealloc];
+}
+
+
+
+
+/****************************************************************
+ *
+ * methods overwritten form base class
+ *
+ ****************************************************************/
+
+/****************************************************************/
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)menuItem {
     
     SEL menuAction = [menuItem action];
@@ -62,7 +83,32 @@
     return [super validateUserInterfaceItem:menuItem];
 }
   
-    
+
+
+/****************************************************************/
+-(BOOL)applicationShouldOpenUntitledFile:(NSApplication*)theApplication {
+	return NO;
+}
+
+
+
+/****************************************************************/
+// closing a window should NOT close the app
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed: (NSApplication *)theApplication {
+	return NO;
+}
+
+
+
+
+/****************************************************************
+ *
+ * open menu dialogs
+ *
+ ****************************************************************/
+
+
+/****************************************************************/
 -(IBAction)showPreferences:(id)sender{
   NSLog(@"[AppController showPreferences] called");
     if(!self.preferencesController) {
@@ -73,6 +119,7 @@
   NSLog(@"[AppController showPreferences] leaving");
 }
 
+/****************************************************************/
 -(IBAction)showRetrieveFromDB:(id)sender {
     NSLog(@"[AppController showRetrieveFromDB] called");
     if(!self.retrieveController) {
@@ -83,32 +130,27 @@
     NSLog(@"[AppController showRetrieveFromDB] leaving");
 }
 
-- (void)dealloc {
-    [_preferencesController release];
-    [_retrieveController release];
-    [pinst release];
-    [super dealloc];
-}
 
 
--(BOOL)applicationShouldOpenUntitledFile:(NSApplication*)theApplication {
-	return NO;
-}
 
+# pragma mark PolymakeInstanceWrapper
 
-	// closing a window should NOT close the app
-- (BOOL)applicationShouldTerminateAfterLastWindowClosed: (NSApplication *)theApplication {
-	return NO;
-}	
-
+/****************************************************************
+ *
+ * the following methods pass requests to the polymake instance to the instance wrapper
+ *
+ ****************************************************************/
 -(NSArray *)databaseNames {
     return [pinst databaseNames];
 }
 
+
+/****************************************************************/
 -(NSArray *)collectionNamesOfDatabase:(NSString *)db {
     return [pinst collectionNamesofDatabase:db];
 }
 
+/****************************************************************/
 - (NSArray *) idsForDatabase:(NSString *)selectedDatabase
                andCollection:(NSString *)selectedCollection
      withAddtionalProperties:(NSString *)additionalProps
@@ -120,7 +162,8 @@
               restrictToAmount:amount
                     startingAt:start];
 }
-    
+
+/****************************************************************/
 - (NSInteger) countForDatabase:(NSString *)selectedDatabase
                andCollection:(NSString *)selectedCollection
      withAddtionalProperties:(NSString *)additionalProps {
