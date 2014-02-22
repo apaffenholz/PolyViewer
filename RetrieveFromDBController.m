@@ -27,7 +27,10 @@
 @synthesize databases = _databases;
 @synthesize collections = _collections;
 
-        /***************************************************************/
+
+# pragma mark init
+
+/***************************************************************/
 // initialization, deallocation, window loading
 -(id)init {
 	self = [super init];
@@ -76,9 +79,15 @@
 }
     
 
-    
+
+/******************************************************************
+ *
+ * window actions
+ *
+ ******************************************************************/
+
+
     /***************************************************************/
-// window actions
 - (IBAction)retrieveFromDB:(id)sender {
     NSLog(@"[RetrieveFromDBController retrieveFromDB] called");
 
@@ -130,25 +139,10 @@
         [_idTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
 }
 
-    
-    /***************************************************************/
-// combo boxes:
-// - databases :                 _databases
-// - collections in databases:   _collections
-// - IDs of objects in database: _IDs
-- (void)comboBoxSelectionDidChange:(NSNotification *)notification {
 
-    NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] entered");
-    
-    id myObject = [notification object];
-    if ( myObject == databaseSelection ) {    // the selected database has changed, so we retrieve the list of collections
-        [self updateCollectionList];
-    } else {
-        // currently do nothing if other sections change
-    }
-}
-    
-        /***************************************************************/
+
+
+/***************************************************************/
 // editing of text fields
 // currently does nothing
 // amount and skip attached via bindings
@@ -156,6 +150,7 @@
     NSTextField *textField = [notification object];
     NSLog(@"[RetrieveDromDBController controlTextDidChange] %@", [textField stringValue]);
 }
+
 
 
 // other methods
@@ -225,6 +220,9 @@
     
 
 
+
+#pragma mark NSTableView
+
     /***************************************************************/
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tv {
     NSLog(@"[RetrieveFromDBController numberOfRowsInTableView] called");
@@ -248,5 +246,26 @@
 	if ( row != -1 ) {
 	}
 }
+
+
+
+#pragma mark NSComboBox
+
+/***************************************************************/
+// combo boxes:
+// - databases :                 _databases
+// - collections in databases:   _collections
+- (void)comboBoxSelectionDidChange:(NSNotification *)notification {
+    
+    NSLog(@"[RetrieveFromDBController comboBoxSelectionDidChange] entered");
+    
+    id myObject = [notification object];
+    if ( myObject == databaseSelection ) {    // the selected database has changed, so we retrieve the list of collections
+        [self updateCollectionList];
+    } else {
+        // currently do nothing if other sections change
+    }
+}
+
 
 @end
