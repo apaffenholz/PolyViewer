@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * PolymakeFile.m
+ * PolymakeObjectController.m
  * PolyViewer
  **************************************************************************/
 
@@ -168,7 +168,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
            andCollection:(NSString *)collection
                   withID:(NSString *)ID {
 
-    NSLog(@"[PolymakeFile readFromDatabase andCollection withID] called");
+    NSLog(@"[PolymakeObjectController readFromDatabase andCollection withID] called");
     
     _polyObj = [[PolymakeObject alloc] retrieveFromDatabase:database
                                               andCollection:collection
@@ -185,11 +185,11 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 - (BOOL)readFromURL:(NSURL *)input
              ofType:(NSString *)typeName
               error:(NSError **)outError {
-    NSLog(@"[PolymakeFile readFromURL] called");
+    NSLog(@"[PolymakeObjectController readFromURL] called");
   
     _polyObj = [[PolymakeObject alloc] initObjectWithURL:input];
     
-    NSLog(@"[PolymakeFile readFromURL] returning");
+    NSLog(@"[PolymakeObjectController readFromURL] returning");
     if ( _polyObj == nil )
         return NO;
     else
@@ -224,7 +224,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 
 /****************/
 - (NSInteger) outlineView:(NSOutlineView *)ov numberOfChildrenOfItem:(id)item {
-    NSLog(@"[PolymakeFile outlineView:NumberOfChildrenOfItem:] called");
+    NSLog(@"[PolymakeObjectController outlineView:NumberOfChildrenOfItem:] called");
               
 	if ( item == nil ) {
 		if ( _polyObj == nil )
@@ -234,48 +234,48 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 	
 	PropertyNode * propNode = (PropertyNode *)item;
     
-    NSLog(@"[PolymakeFile outlineView:NumberOfChildrenOfItem:] returning number of children of node %@", [propNode propertyName]);
-    NSLog(@"[PolymakeFile outlineView:NumberOfChildrenOfItem:] returning %lu children",(unsigned long)[[propNode children] count]);
+    NSLog(@"[PolymakeObjectController outlineView:NumberOfChildrenOfItem:] returning number of children of node %@", [propNode propertyName]);
+    NSLog(@"[PolymakeObjectController outlineView:NumberOfChildrenOfItem:] returning %lu children",(unsigned long)[[propNode children] count]);
 	return [[propNode children] count];
 }
 
 
 /****************/
 - (BOOL) outlineView:(NSOutlineView *)ov isItemExpandable:(id)item {
-    //NSLog(@"[PolymakeFile outlineView is Expandable] entering");
+    //NSLog(@"[PolymakeObjectController outlineView is Expandable] entering");
 
 	if ( item == nil ) {
-        //NSLog(@"[PolymakeFile outlineView is Expandable] leaving (item is nil)");
+        //NSLog(@"[PolymakeObjectController outlineView is Expandable] leaving (item is nil)");
 		return YES;
 	}
 	
 	PropertyNode * propNode = (PropertyNode *)item;
 
-    //NSLog(@"[PolymakeFile outlineView is Expandable] leaving, item is %@", [propNode propertyName]);
+    //NSLog(@"[PolymakeObjectController outlineView is Expandable] leaving, item is %@", [propNode propertyName]);
 	return ![propNode isLeaf];
 }
 
 
 /****************/
 - (id)outlineView:(NSOutlineView *)ov child:(NSInteger)index ofItem:(id)item {
-    //NSLog(@"[PolymakeFile outlineView child ofItem] entering]");
+    //NSLog(@"[PolymakeObjectController outlineView child ofItem] entering]");
 
 	if ( item == nil ) {
 
-        //NSLog(@"[PolymakeFile outlineView child ofItem] leaving]");
+        //NSLog(@"[PolymakeObjectController outlineView child ofItem] leaving]");
 		return [[[_polyObj rootPerl] children] objectAtIndex:index];
 	}
     
 	PropertyNode *node = (PropertyNode *)item;
     
-    //NSLog(@"[PolymakeFile outlineView child ofItem] leaving]");
+    //NSLog(@"[PolymakeObjectController outlineView child ofItem] leaving]");
 	return [[node children] objectAtIndex:index];
 }
 
 
 /****************/
 - (id)outlineView:(NSOutlineView *)ov objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
-    //NSLog(@"[PolymakeFile outlineView child objectValueForTableColumn] entering");
+    //NSLog(@"[PolymakeObjectController outlineView child objectValueForTableColumn] entering");
 
 	PropertyNode *node = (PropertyNode *)item;
     NSString *name = [NSString stringWithString:[node propertyName]];
@@ -289,7 +289,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
             name = [name stringByAppendingString:[NSString stringWithFormat:@" (%d)",[node index]]];
     }
         
-    //NSLog(@"[PolymakeFile outlineView child objectValueForTableColumn] leaving for item %@", item);
+    //NSLog(@"[PolymakeObjectController outlineView child objectValueForTableColumn] leaving for item %@", item);
 	return name;
 }
 
@@ -304,7 +304,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 }
 
 - (void)computePropertyOfRoot:(NSNotification *)aNotification {
-    NSLog(@"[PolymakeFile computePropertyOfRoot] called");
+    NSLog(@"[PolymakeObjectController computePropertyOfRoot] called");
     NSString *_property = [aNotification object];
     [[[_polyObj rootPerl] polyObj] getProperty:_property];
 }
@@ -320,7 +320,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 
 // fill the view with the value of the current property
 - (void)redrawValueTextView {
-    NSLog(@"[PolymakeFile redrawValueTextField] called");
+    NSLog(@"[PolymakeObjectController redrawValueTextField] called");
 	
     // determine which property we want to display
 	id selectedItem = [_propertyView itemAtRow:[_propertyView selectedRow]];
@@ -335,7 +335,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 		} else {
 			if ( [propNode isLeaf] ) {
                 NSString * proptemp = [[NSString alloc] initWithString:[[propNode value] data]];
-                NSLog(@"[PolymakeFile redrawValueTextView] setting prop:%@", proptemp);
+                NSLog(@"[PolymakeObjectController redrawValueTextView] setting prop:%@", proptemp);
 				if ( [propNode hasValue] )
                     _currentPropertyValue = [[NSString alloc] initWithString:proptemp];
 				else
@@ -359,7 +359,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 
 	// just a wrapper that accepts a notification and ignores it
 - (void)redrawValueTextViewWrapper:(NSNotification *)aNotification {
-    NSLog(@"[PolymakeFile redrawValueTextViewWrapper] called");
+    NSLog(@"[PolymakeObjectController redrawValueTextViewWrapper] called");
 	[self redrawValueTextView];
 }
 
@@ -385,13 +385,13 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tv {
     
     if ( tv == _creditTable ) {
-        NSLog(@"[PolymakeFile numberOfRowsInTableView] called");
+        NSLog(@"[PolymakeObjectController numberOfRowsInTableView] called");
         if ( _polyObj != nil )
             return [[_polyObj credits] count];
     }
     
     if ( tv == _databaseTableView ) {
-        NSLog(@"[PolymakeFile numberOfRowsInTableView] called dor database");
+        NSLog(@"[PolymakeObjectController numberOfRowsInTableView] called dor database");
         return [[_polyObj databaseInfo] count];
     }
 	
@@ -401,16 +401,16 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 
 /****************/
 - (id)tableView:(NSTableView *)tv objectValueForTableColumn:(NSTableColumn *)column row:(NSInteger) row {
-    NSLog(@"[PolymakeFile tableView ObjectValueTableColumn column row] called");
+    NSLog(@"[PolymakeObjectController tableView ObjectValueTableColumn column row] called");
     
     if ( tv == _creditTable ) {
-        NSLog(@"[PolymakeFile tableView ObjectValueTableColumn column row] called for credits");
+        NSLog(@"[PolymakeObjectController tableView ObjectValueTableColumn column row] called for credits");
         NSString * value = [NSString stringWithString:(NSString *)[[[_polyObj credits] allKeys] objectAtIndex:row]];
         return value;
     }
     
     if ( tv == _databaseTableView ) {
-        NSLog(@"[PolymakeFile tableView ObjectValueTableColumn column row] called for database");
+        NSLog(@"[PolymakeObjectController tableView ObjectValueTableColumn column row] called for database");
         if ( [[column identifier]  isEqual: @"label"]) {
             NSString *key = [[[_polyObj databaseInfo] allKeys] objectAtIndex:row];
             return key;
@@ -427,7 +427,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 
 /****************/
 - (void)tableView:(NSTableView *)tv setObjectValue:(id)item forTableColumn:(NSTableColumn *)column row:(NSInteger)row {
-    NSLog(@"[PolymakeFile tableView setObjectvalue forTableColumn row] called");
+    NSLog(@"[PolymakeObjectController tableView setObjectvalue forTableColumn row] called");
 
     if ( tv == _creditTable ) {
         item = [NSString stringWithString:(NSString *)[[[_polyObj credits] allKeys] objectAtIndex:row]];
@@ -437,7 +437,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 
 /****************/
 - (void) tableViewSelectionDidChange: (NSNotification *) notification {
-    NSLog(@"[PolymakeFile tableViewSelectionDidChange] called");
+    NSLog(@"[PolymakeObjectController tableViewSelectionDidChange] called");
 
     if ( [notification object] == _creditTable ) {
         
@@ -456,7 +456,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 
 	// this just sets the background color
 -(void)tableView:(NSTableView *)tv willDisplayCell:(id)item forTableColumn:(NSTableColumn *)column row:(NSInteger)row {
-    NSLog(@"[PolymakeFile tableView willDisplayCell for TableColumn row] called");
+    NSLog(@"[PolymakeObjectController tableView willDisplayCell for TableColumn row] called");
     
         if ( [tv selectedRow] == row )
             [item setBackgroundColor:[NSColor colorWithCalibratedRed:0.914 green:0.686 blue:0.227 alpha:1]];
