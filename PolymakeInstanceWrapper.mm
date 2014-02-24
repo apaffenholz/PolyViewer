@@ -32,17 +32,32 @@
 }
 @end
 
+
+
 @implementation PolymakeInstanceWrapper
+
+#pragma mark init
 
 - (id)init {
 	NSLog(@"[PolymakeInstanceWrapper init] entering");
 
 	self = [super init];
-
-    NSLog(@"[PolymakeInstanceWrapper init] leaving");
-	return self;
+    if ( self ) {
+        NSLog(@"[PolymakeInstanceWrapper init] leaving");
+        return self;
+    }
+    
+    NSLog(@"[PolymakeInstanceWrapper init] leaving, init failed");
+    return nil;
 }
 
+
+
+/********************************************************************
+ *
+ * create a scope within our instance
+ *
+ ********************************************************************/
 - (void)createScope {
 	NSLog(@"[PolymakeInstanceWrapper createScope] entering");
 
@@ -52,6 +67,39 @@
 	NSLog(@"[PolymakeInstanceWrapper createScope] leaving");
 }
 
+
+# pragma mark config-info
+
+/***************************************************************/
+-(NSArray *)configuredExtensions {
+    
+    NSMutableArray * extensions = [NSMutableArray array];
+    
+    NSLog(@"[RetrieveFromDBController configuredExtensions] called");
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_configured_extensions" ofType:@"pl"];
+    polymake::perl::ListResult results = ListCallPolymakeFunction("script",[filePath UTF8String]);
+    for (int i=0, end=results.size(); i<end; ++i) {
+        NSString *  ext = [[NSString alloc] initWithUTF8String:results[i]];
+        [extensions addObject:ext];
+    }
+    
+    NSLog(@"[RetrieveFromDBController configuredExtensions] found the following configured extensions: %@", extensions);
+    return extensions;
+}
+
+
+
+# pragma mark database
+
+/********************************************************************
+ *
+ * functions not bound to a particular polymake object
+ * executed in the main scope of polymake
+ *
+ ********************************************************************/
+
+// get the list of databases
 -(NSArray *)databaseNames {
     NSLog(@"[PolymakeInstanceWrapper databaseNames] entering");
     
@@ -92,6 +140,9 @@
     return databases;
 }
 
+
+
+// given a database get all collections
 -(NSArray *)collectionNamesofDatabase:(NSString *)db {
     NSLog(@"[PolymakeInstanceWrapper collectionNamesofDatabase] entering with database %@", db);
    
@@ -137,6 +188,7 @@
 
     
     /***************************************************************/
+// get amount many IDs for all elements in a collection of a database, skipping the first start many elements
 -(NSArray *)idsForDatabase:(NSString *)db andCollection:(NSString *)coll withAddtionalProperties:(NSString *)additionalProps restrictToAmount:(NSNumber *)amount startingAt:(NSNumber *)start {
 
     NSMutableArray * ids = [NSMutableArray array];
@@ -176,8 +228,10 @@
     return ids;
 }
 
-    
+
+
     /***************************************************************/
+// get the number of elements in a collection of a database
 -(NSInteger)countForDatabase:(NSString *)db andCollection:(NSString *)coll withAddtionalProperties:(NSString *)additionalProps {
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_db_CountOfIDs" ofType:@"pl"];
@@ -187,27 +241,14 @@
     return count;
 }
     
-    
-    /***************************************************************/
--(NSArray *)configuredExtensions {
-    
-    NSMutableArray * extensions = [NSMutableArray array];
-    
-    NSLog(@"[RetrieveFromDBController configuredExtensions] called");
-    
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_configured_extensions" ofType:@"pl"];
-    polymake::perl::ListResult results = ListCallPolymakeFunction("script",[filePath UTF8String]);
-    for (int i=0, end=results.size(); i<end; ++i) {
-        NSString *  ext = [[NSString alloc] initWithUTF8String:results[i]];
-        [extensions addObject:ext];
-    }
-    
-    NSLog(@"[RetrieveFromDBController configuredExtensions] found the following configured extensions: %@", extensions);
-    return extensions;
-}
-    
+
+
+
+
+
 
     /***************************************************************/
+// error function
 - (void)showCommandFailedAlert:(NSString *)reason {
     NSAlert *alert = [NSAlert alertWithMessageText:reason
                                      defaultButton:@"OK"
