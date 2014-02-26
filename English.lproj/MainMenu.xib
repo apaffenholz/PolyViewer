@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B3116" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
@@ -7,7 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
             <connections>
-                <outlet property="delegate" destination="530" id="562"/>
+                <outlet property="delegate" destination="dDl-h0-cBV" id="HFq-UC-asW"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -28,7 +28,7 @@
                             </menuItem>
                             <menuItem title="Preferences…" keyEquivalent="," id="129">
                                 <connections>
-                                    <action selector="showPreferences:" target="530" id="571"/>
+                                    <action selector="showPreferences:" target="dDl-h0-cBV" id="xj3-aG-dfE"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="143">
@@ -78,7 +78,7 @@
                             <menuItem title="Retrieve from DB" id="hNa-mJ-FkJ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="showRetrieveFromDB:" target="530" id="4Qx-Q6-9Z2"/>
+                                    <action selector="showRetrieveFromDB:" target="dDl-h0-cBV" id="nvl-8U-f5y"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Open Recent" id="124">
@@ -205,6 +205,6 @@
             </items>
         </menu>
         <customObject id="419" customClass="NSFontManager"/>
-        <customObject id="530" customClass="AppController"/>
+        <customObject id="dDl-h0-cBV" customClass="MainController"/>
     </objects>
 </document>

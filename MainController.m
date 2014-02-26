@@ -1,6 +1,6 @@
 /***********************************************************************
- * Created by Andreas Paffenholz on 04/18/12.
- * Copyright 2012-2014 by Andreas Paffenholz. 
+ * Created by Andreas Paffenholz on 24/02/14.
+ * Copyright 2012-2014 by Andreas Paffenholz.
  
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,20 +12,19 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * AppController.m
+ * MainController.h
  * PolyViewer
  **************************************************************************/
 
-#import "AppController.h"
-#import "PolymakeObjectController.h"
+#import "MainController.h"
 
-@implementation AppController
+@implementation MainController
 
 @synthesize preferencesController = _preferencesController;
 @synthesize retrieveController    = _retrieveController;
 @synthesize databaseConnection    = _databaseConnection;
 @synthesize configuredExtensions  = _configuredExtensions;
-    
+
 
 # pragma mark init
 
@@ -44,7 +43,7 @@
         _databaseConnection = nil;
     }
     
-
+    
     
 	return self;
 }
@@ -67,22 +66,22 @@
  ****************************************************************/
 
 /****************************************************************/
-- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)menuItem {
+- (BOOL)validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)menuItem {
     
+
     SEL menuAction = [menuItem action];
     NSLog(@"[AppController validateUserInterfaceItem] called checking %@", NSStringFromSelector(menuAction));
     if (menuAction == @selector(showRetrieveFromDB:)) {
-        NSLog(@"[AppController validateUserInterfaceItem] checking for database");        
+        NSLog(@"[AppController validateUserInterfaceItem] checking for database");
         if ( _databaseConnection == nil ) {
-            NSLog(@"[AppController validateUserInterfaceItem] database found");
+            NSLog(@"[AppController validateUserInterfaceItem] database not found");
             return NO;
         } else
-        return YES;
+            return YES;
     }
-
-    return [super validateUserInterfaceItem:menuItem];
+    return YES;
 }
-  
+
 
 
 /****************************************************************/
@@ -110,13 +109,13 @@
 
 /****************************************************************/
 -(IBAction)showPreferences:(id)sender{
-  NSLog(@"[AppController showPreferences] called");
+    NSLog(@"[AppController showPreferences] called");
     if(!self.preferencesController) {
 		self.preferencesController = [[PreferencesController alloc] initWithWindowNibName:@"Preferences"];
     }
 	
-  [self.preferencesController showWindow:self];
-  NSLog(@"[AppController showPreferences] leaving");
+    [self.preferencesController showWindow:self];
+    NSLog(@"[AppController showPreferences] leaving");
 }
 
 /****************************************************************/
@@ -156,20 +155,21 @@
      withAddtionalProperties:(NSString *)additionalProps
             restrictToAmount:(NSNumber *)amount
                   startingAt:(NSNumber *)start {
-  return [pinst idsForDatabase:selectedDatabase
-                 andCollection:selectedCollection
-       withAddtionalProperties:additionalProps
-              restrictToAmount:amount
-                    startingAt:start];
+    return [pinst idsForDatabase:selectedDatabase
+                   andCollection:selectedCollection
+         withAddtionalProperties:additionalProps
+                restrictToAmount:amount
+                      startingAt:start];
 }
 
 /****************************************************************/
 - (NSInteger) countForDatabase:(NSString *)selectedDatabase
-               andCollection:(NSString *)selectedCollection
-     withAddtionalProperties:(NSString *)additionalProps {
-        return [pinst countForDatabase:selectedDatabase
-                       andCollection:selectedCollection
-             withAddtionalProperties:additionalProps];
+                 andCollection:(NSString *)selectedCollection
+       withAddtionalProperties:(NSString *)additionalProps {
+    return [pinst countForDatabase:selectedDatabase
+                     andCollection:selectedCollection
+           withAddtionalProperties:additionalProps];
 }
+
 
 @end

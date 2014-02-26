@@ -1,6 +1,6 @@
 /***********************************************************************
- * Created by Andreas Paffenholz on 04/18/12.
- * Copyright 2012-2014 by Andreas Paffenholz. 
+ * Created by Andreas Paffenholz on 24/02/14.
+ * Copyright 2012-2014 by Andreas Paffenholz.
  
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,20 +12,20 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * AppController.h
+ * MainController.h
  * PolyViewer
  **************************************************************************/
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import "PreferencesController.h"
 #import "RetrieveFromDBController.h"
 #import "PolymakeInstanceWrapper.h"
 #import "DatabaseAccess.h"
 
-@interface AppController : NSDocumentController {
-
+@interface MainController : NSObject <NSUserInterfaceValidations> {
+    
     IBOutlet DatabaseAccess  * _databaseConnection;
-
+    
     // window controller
 	PreferencesController    * _preferencesController;
     RetrieveFromDBController * _retrieveController;
@@ -34,7 +34,6 @@
     PolymakeInstanceWrapper  * pinst;
     NSArray                  * _configuredExtensions;
 }
-
 
 @property (retain) PreferencesController    *preferencesController;
 @property (retain) RetrieveFromDBController *retrieveController;
@@ -54,7 +53,10 @@
             restrictToAmount:(NSNumber *)amount
                   startingAt:(NSNumber *)start;
 - (NSInteger) countForDatabase:(NSString *)selectedDatabase
-               andCollection:(NSString *)selectedCollection
-     withAddtionalProperties:(NSString *)additionalProps;
+                 andCollection:(NSString *)selectedCollection
+       withAddtionalProperties:(NSString *)additionalProps;
+
+
+
 
 @end

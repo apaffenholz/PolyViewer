@@ -13,7 +13,7 @@
 		724211C41564583E0077214A /* PolymakeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 724211BE1564583E0077214A /* PolymakeObject.m */; };
 		724211C61564583E0077214A /* ValueLineNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 724211C21564583E0077214A /* ValueLineNumberView.m */; };
 		7251383918786971004C9858 /* PolymakeInstanceWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7251383818786971004C9858 /* PolymakeInstanceWrapper.mm */; };
-		729658381565A60D0076B037 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 729658371565A60D0076B037 /* AppController.m */; };
+		729658381565A60D0076B037 /* MainDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 729658371565A60D0076B037 /* MainDocumentController.m */; };
 		72965A091567164F0076B037 /* PropertyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72965A081567164F0076B037 /* PropertyView.m */; };
 		72965C6E156847C70076B037 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72965C6D156847C70076B037 /* PreferencesController.m */; };
 		72965D041568E2BA0076B037 /* polyviewer.icns in Resources */ = {isa = PBXBuildFile; fileRef = 72965D031568E2BA0076B037 /* polyviewer.icns */; };
@@ -37,6 +37,7 @@
 		E12E289A1895B1DE00051EBD /* retrieve_database_object.pl in Resources */ = {isa = PBXBuildFile; fileRef = E12E28991895B1DE00051EBD /* retrieve_database_object.pl */; };
 		E12E289E1897202F00051EBD /* RetrieveFromDBController.m in Sources */ = {isa = PBXBuildFile; fileRef = E12E289D1897202F00051EBD /* RetrieveFromDBController.m */; };
 		E13CC95918B6835B005EAA61 /* databaseInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = E13CC95818B6835B005EAA61 /* databaseInfo.xib */; };
+		E13CC95C18BBD5C9005EAA61 /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = E13CC95B18BBD5C9005EAA61 /* MainController.m */; };
 		E13DCBD1188AA84E00DF3519 /* PropertyNodeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = E13DCBD0188AA84E00DF3519 /* PropertyNodeValue.m */; };
 		E13DCBD3188ADD6000DF3519 /* get_name.pl in Resources */ = {isa = PBXBuildFile; fileRef = E13DCBD2188ADD6000DF3519 /* get_name.pl */; };
 		E15B857018B1575E004287F7 /* INSTALL in Resources */ = {isa = PBXBuildFile; fileRef = E15B856F18B1575E004287F7 /* INSTALL */; };
@@ -74,8 +75,8 @@
 		724211C21564583E0077214A /* ValueLineNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValueLineNumberView.m; sourceTree = "<group>"; };
 		7251383718786970004C9858 /* PolymakeInstanceWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolymakeInstanceWrapper.h; sourceTree = "<group>"; };
 		7251383818786971004C9858 /* PolymakeInstanceWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PolymakeInstanceWrapper.mm; sourceTree = "<group>"; };
-		729658361565A60D0076B037 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
-		729658371565A60D0076B037 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
+		729658361565A60D0076B037 /* MainDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainDocumentController.h; sourceTree = "<group>"; };
+		729658371565A60D0076B037 /* MainDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainDocumentController.m; sourceTree = "<group>"; };
 		72965A071567164F0076B037 /* PropertyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyView.h; sourceTree = "<group>"; };
 		72965A081567164F0076B037 /* PropertyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertyView.m; sourceTree = "<group>"; };
 		72965C6C156847C70076B037 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
@@ -107,6 +108,8 @@
 		E12E289C1897202F00051EBD /* RetrieveFromDBController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetrieveFromDBController.h; sourceTree = "<group>"; };
 		E12E289D1897202F00051EBD /* RetrieveFromDBController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetrieveFromDBController.m; sourceTree = "<group>"; };
 		E13CC95818B6835B005EAA61 /* databaseInfo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = databaseInfo.xib; sourceTree = "<group>"; };
+		E13CC95A18BBD5C9005EAA61 /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
+		E13CC95B18BBD5C9005EAA61 /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
 		E13DCBCF188AA84E00DF3519 /* PropertyNodeValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyNodeValue.h; sourceTree = "<group>"; };
 		E13DCBD0188AA84E00DF3519 /* PropertyNodeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertyNodeValue.m; sourceTree = "<group>"; };
 		E13DCBD2188ADD6000DF3519 /* get_name.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_name.pl; sourceTree = "<group>"; };
@@ -266,18 +269,20 @@
 		E12E288F189520BB00051EBD /* AppController */ = {
 			isa = PBXGroup;
 			children = (
+				E13CC95A18BBD5C9005EAA61 /* MainController.h */,
+				E13CC95B18BBD5C9005EAA61 /* MainController.m */,
+				729658361565A60D0076B037 /* MainDocumentController.h */,
+				729658371565A60D0076B037 /* MainDocumentController.m */,
 				2A37F4AEFDCFA73011CA2CEA /* PolymakeObjectController.h */,
 				2A37F4ACFDCFA73011CA2CEA /* PolymakeObjectController.m */,
+				72965E9F156933290076B037 /* AppWindowController.h */,
+				72965EA0156933290076B037 /* AppWindowController.m */,
 				72965A071567164F0076B037 /* PropertyView.h */,
 				72965A081567164F0076B037 /* PropertyView.m */,
 				E12E289C1897202F00051EBD /* RetrieveFromDBController.h */,
 				E12E289D1897202F00051EBD /* RetrieveFromDBController.m */,
 				72965C6C156847C70076B037 /* PreferencesController.h */,
 				72965C6D156847C70076B037 /* PreferencesController.m */,
-				72965E9F156933290076B037 /* AppWindowController.h */,
-				72965EA0156933290076B037 /* AppWindowController.m */,
-				729658361565A60D0076B037 /* AppController.h */,
-				729658371565A60D0076B037 /* AppController.m */,
 				724211BB1564583E0077214A /* FloatIntTransformer.h */,
 				724211BC1564583E0077214A /* FloatIntTransformer.m */,
 				724211C11564583E0077214A /* ValueLineNumberView.h */,
@@ -413,6 +418,7 @@
 				8D15AC310486D014006FF6A4 /* PolymakeObjectController.m in Sources */,
 				7251383918786971004C9858 /* PolymakeInstanceWrapper.mm in Sources */,
 				E12E289E1897202F00051EBD /* RetrieveFromDBController.m in Sources */,
+				E13CC95C18BBD5C9005EAA61 /* MainController.m in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				E1AA8B7118A6E6F50054DECF /* DatabaseAccess.m in Sources */,
 				724211C31564583E0077214A /* FloatIntTransformer.m in Sources */,
@@ -420,7 +426,7 @@
 				E13DCBD1188AA84E00DF3519 /* PropertyNodeValue.m in Sources */,
 				72EBDFB5187BF97300F86EDE /* PolymakeObjectWrapper.mm in Sources */,
 				724211C61564583E0077214A /* ValueLineNumberView.m in Sources */,
-				729658381565A60D0076B037 /* AppController.m in Sources */,
+				729658381565A60D0076B037 /* MainDocumentController.m in Sources */,
 				72965A091567164F0076B037 /* PropertyView.m in Sources */,
 				72965C6E156847C70076B037 /* PreferencesController.m in Sources */,
 				72965EA1156933290076B037 /* AppWindowController.m in Sources */,

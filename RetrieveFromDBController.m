@@ -18,7 +18,7 @@
 
 #import "RetrieveFromDBController.h"
 #import "PolymakeObjectController.h"
-#import "AppController.h"
+#import "MainController.h"
 #import "PolymakeInstanceWrapper.h"
 #import "DatabaseAccess.h"
 
