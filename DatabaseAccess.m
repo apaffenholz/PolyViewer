@@ -31,12 +31,10 @@
         [self setAmount:@"10"];
     }
     
-    /*
     if ( _databases == nil ) { // if nothing is returned then we assume that we cannot connect to the database server
         [self dealloc];
         return nil;
     }
-     */
         
     return self;
 }

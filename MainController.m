@@ -35,16 +35,8 @@
     
     pinst = [[PolymakeInstanceWrapper alloc] init];
     [pinst createScope];
-    _configuredExtensions = [pinst configuredExtensions];
-    
-    if ( [_configuredExtensions containsObject:@"poly_db"] ) {
-        _databaseConnection = [[DatabaseAccess alloc] init];
-    } else {
-        _databaseConnection = nil;
-    }
-    
-    
-    
+    _configuredExtensions = [[pinst configuredExtensions] retain];
+   
 	return self;
 }
 
@@ -68,12 +60,13 @@
 /****************************************************************/
 - (BOOL)validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)menuItem {
     
+    
 
     SEL menuAction = [menuItem action];
     NSLog(@"[AppController validateUserInterfaceItem] called checking %@", NSStringFromSelector(menuAction));
     if (menuAction == @selector(showRetrieveFromDB:)) {
         NSLog(@"[AppController validateUserInterfaceItem] checking for database");
-        if ( _databaseConnection == nil ) {
+        if ( ![_configuredExtensions containsObject:@"poly_db"] ) {
             NSLog(@"[AppController validateUserInterfaceItem] database not found");
             return NO;
         } else
@@ -121,6 +114,11 @@
 /****************************************************************/
 -(IBAction)showRetrieveFromDB:(id)sender {
     NSLog(@"[AppController showRetrieveFromDB] called");
+    
+    if ( _databaseConnection == nil ) {
+        _databaseConnection = [[DatabaseAccess alloc] init];
+    }
+    
     if(!self.retrieveController) {
 		self.retrieveController = [[RetrieveFromDBController alloc] initWithWindowNibName:@"DatabaseAccess"];
     }

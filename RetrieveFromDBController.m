@@ -116,6 +116,8 @@
     NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
     NSString * selectedCollection = [collectionSelection objectValueOfSelectedItem];
     
+    NSLog(@"[RetrieveFromDBController queryDB:sender] checking %@ in %@", selectedCollection, selectedDatabase);
+    
     NSInteger count = 0;
     
     if ( [selectedCollection length] != 0 ) {
