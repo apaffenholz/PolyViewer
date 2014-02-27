@@ -18,7 +18,7 @@
 
 #import "RetrieveFromDBController.h"
 #import "PolymakeObjectController.h"
-#import "AppController.h"
+#import "MainController.h"
 #import "PolymakeInstanceWrapper.h"
 #import "DatabaseAccess.h"
 
@@ -115,6 +115,8 @@
     
     NSString * selectedDatabase = [databaseSelection objectValueOfSelectedItem];
     NSString * selectedCollection = [collectionSelection objectValueOfSelectedItem];
+    
+    NSLog(@"[RetrieveFromDBController queryDB:sender] checking %@ in %@", selectedCollection, selectedDatabase);
     
     NSInteger count = 0;
     

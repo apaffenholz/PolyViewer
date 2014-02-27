@@ -7,7 +7,7 @@
 //
 
 #import "DatabaseAccess.h"
-#import "AppController.h"
+#import "MainController.h"
 
 @implementation DatabaseAccess
     

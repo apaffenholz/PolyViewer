@@ -75,7 +75,7 @@
     
     NSMutableArray * extensions = [NSMutableArray array];
     
-    NSLog(@"[RetrieveFromDBController configuredExtensions] called");
+    NSLog(@"[PolymakeInstanceWrapper configuredExtensions] called");
     
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_configured_extensions" ofType:@"pl"];
     polymake::perl::ListResult results = ListCallPolymakeFunction("script",[filePath UTF8String]);
@@ -84,7 +84,7 @@
         [extensions addObject:ext];
     }
     
-    NSLog(@"[RetrieveFromDBController configuredExtensions] found the following configured extensions: %@", extensions);
+    NSLog(@"[PolymakeInstanceWrapper configuredExtensions] found the following configured extensions: %@", extensions);
     return extensions;
 }
 
