@@ -102,7 +102,7 @@
 
 
 - (id)retrieveFromDatabase:(NSString *)database andCollection:(NSString *)collection withID:(NSString *)ID {
-    NSLog(@"[PolymakeObject retrieveFromDatabase andCollection withProperties] called");
+    NSLog(@"[MainPolymakeObject retrieveFromDatabase andCollection withProperties] called");
 
     if ( self = [super init] ) {
         
@@ -140,7 +140,7 @@
     
     return self;
     
-    NSLog(@"[PolymakeObject retrieveFromDatabase andCollection withProperties] returning");
+    NSLog(@"[MainPolymakeObject retrieveFromDatabase andCollection withProperties] returning");
     return YES;
 }
 
