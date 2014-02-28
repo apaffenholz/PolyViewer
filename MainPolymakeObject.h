@@ -23,15 +23,18 @@
 
 
 @interface MainPolymakeObject : NSObject {
+
+    PropertyNode    * _rootPerlNode;
+
 	NSURL           * _filename;   	  // currently this is not so useful
                                       // but we might want to extend to a viewer that keeps multiple files
 	NSString        * _name;          // name of the object
 	NSString        * _objectType;    // the polymake big object type
 	NSString        * _description;   // description 
 	NSDictionary    * _creditsDict;   // dictionary of credits for external software
-    PropertyNode    * _rootPerlNode;
-    NSDictionary    * _databaseInfoDict;
     
+    // database information, unused if source is a local file
+    NSDictionary    * _databaseInfoDict;
     BOOL            databaseObject;
 }
 

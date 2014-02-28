@@ -31,6 +31,7 @@
 		8D15AC310486D014006FF6A4 /* PolymakeObjectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* PolymakeObjectController.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		E10AF6A818C139D700575421 /* CLASS_NOTES in Resources */ = {isa = PBXBuildFile; fileRef = E10AF6A718C139D700575421 /* CLASS_NOTES */; };
 		E12E289218952F4000051EBD /* get_names_for_multiple.pl in Resources */ = {isa = PBXBuildFile; fileRef = E12E289118952F4000051EBD /* get_names_for_multiple.pl */; };
 		E12E28951895344800051EBD /* get_multiple_object_by_index.pl in Resources */ = {isa = PBXBuildFile; fileRef = E12E28941895344800051EBD /* get_multiple_object_by_index.pl */; };
 		E12E28981895779400051EBD /* DatabaseAccess.xib in Resources */ = {isa = PBXBuildFile; fileRef = E12E28971895779400051EBD /* DatabaseAccess.xib */; };
@@ -97,6 +98,7 @@
 		7AC8A16F18A51A6500B53BFC /* graph.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = graph.icns; path = icons/graph.icns; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* PolyViewer-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PolyViewer-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* PolyViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PolyViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E10AF6A718C139D700575421 /* CLASS_NOTES */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CLASS_NOTES; sourceTree = "<group>"; };
 		E12E289118952F4000051EBD /* get_names_for_multiple.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_names_for_multiple.pl; sourceTree = "<group>"; };
 		E12E28931895321B00051EBD /* get_names_for_multiple.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; name = get_names_for_multiple.pl; path = scripts/get_names_for_multiple.pl; sourceTree = "<group>"; };
 		E12E28941895344800051EBD /* get_multiple_object_by_index.pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = get_multiple_object_by_index.pl; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 		2A37F4AAFDCFA73011CA2CEA /* PolyViewer */ = {
 			isa = PBXGroup;
 			children = (
+				E10AF6A718C139D700575421 /* CLASS_NOTES */,
 				E15B856F18B1575E004287F7 /* INSTALL */,
 				E12E289B1895BD9D00051EBD /* retrieve_database_object.pl */,
 				E12E28961895348100051EBD /* get_multiple_object_by_index.pl */,
@@ -378,6 +381,7 @@
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
 				1DDD582C0DA1D0D100B32029 /* PolyViewer.xib in Resources */,
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
+				E10AF6A818C139D700575421 /* CLASS_NOTES in Resources */,
 				7AC8A16C18A45B1A00B53BFC /* poly.icns in Resources */,
 				7AC8A17018A51A6500B53BFC /* graph.icns in Resources */,
 				72965D041568E2BA0076B037 /* polyviewer.icns in Resources */,
