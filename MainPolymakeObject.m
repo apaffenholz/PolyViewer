@@ -17,9 +17,9 @@
  **************************************************************************/
 
 
-#import "PolymakeObject.h"
+#import "MainPolymakeObject.h"
 
-@implementation PolymakeObject
+@implementation MainPolymakeObject
 
 @synthesize objectType   = _objectType;
 @synthesize filename     = _filename;

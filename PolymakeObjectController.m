@@ -21,7 +21,7 @@
 #import "AppWindowController.h"
 #import "PolymakeInstanceWrapper.h"
 #import "PolymakeObjectWrapper.h"
-#import "PolymakeObject.h"
+#import "MainPolymakeObject.h"
 
 NSString * const PVValueFormattingDidChangeNotification = @"PVValueFormattingDidChange";
 NSString * const ChildrenOfRootHaveChangedNotification = @"ChildrenOfRootHaveChanged";
@@ -170,7 +170,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 
     NSLog(@"[PolymakeObjectController readFromDatabase andCollection withID] called");
     
-    _polyObj = [[PolymakeObject alloc] retrieveFromDatabase:database
+    _polyObj = [[MainPolymakeObject alloc] retrieveFromDatabase:database
                                               andCollection:collection
                                                      withID:ID];
     if ( _polyObj == nil )
@@ -187,7 +187,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
               error:(NSError **)outError {
     NSLog(@"[PolymakeObjectController readFromURL] called");
   
-    _polyObj = [[PolymakeObject alloc] initObjectWithURL:input];
+    _polyObj = [[MainPolymakeObject alloc] initObjectWithURL:input];
     
     NSLog(@"[PolymakeObjectController readFromURL] returning");
     if ( _polyObj == nil )

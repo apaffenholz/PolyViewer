@@ -22,7 +22,7 @@
 #import "PropertyNode.h"
 
 
-@interface PolymakeObject : NSObject {
+@interface MainPolymakeObject : NSObject {
 	NSURL           * _filename;   	  // currently this is not so useful
                                       // but we might want to extend to a viewer that keeps multiple files
 	NSString        * _name;          // name of the object

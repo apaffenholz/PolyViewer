@@ -17,12 +17,12 @@
  **************************************************************************/
 
 #import <Cocoa/Cocoa.h>
-#import "PolymakeObject.h"
+#import "MainPolymakeObject.h"
 #import "ValueLineNumberView.h"
 #import "PropertyView.h"
 #import "PolymakeObjectWrapper.h"
 #import "PropertyNode.h"
-#import "PolymakeObject.h"
+#import "MainPolymakeObject.h"
 
 extern NSString * const PVValueFormattingDidChangeNotification;
 extern NSString * const ChildrenOfRootHaveChangedNotification;
@@ -33,7 +33,7 @@ extern NSString * const ChildrenOfRootHaveChangedNotification;
 	NSString * _lastOpenDialogStartDirectory;
 	NSString * _currentPropertyValue;
 
-    IBOutlet PolymakeObject  * _polyObj;
+    IBOutlet MainPolymakeObject  * _polyObj;
 	BOOL              _alignedColumns;
     	
 		// main window
@@ -59,7 +59,7 @@ extern NSString * const ChildrenOfRootHaveChangedNotification;
 
 
 @property (readwrite,copy) NSString * lastOpenDialogStartDirectory;
-@property (readwrite,retain) PolymakeObject * polymakeObject;
+@property (readwrite,retain) MainPolymakeObject * polymakeObject;
 @property (readwrite,assign) BOOL alignedColumns;
 
 
