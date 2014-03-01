@@ -67,7 +67,7 @@
     self = [super init];
     if (self) {
         _polyObj = polyObj;
-        _propertyName = [NSString stringWithString:propertyName];
+        _propertyName = [[NSString stringWithString:propertyName] retain];
         _name = nil;
         _index = 0;
         isObject = isObj;
@@ -94,7 +94,7 @@
     
     self = [self initWithName:propertyName andObj:polyObj asObject:isObj asMultiple:isMult asLeaf:isL];
     if (self) {
-        _name = [NSString stringWithString:name];
+        _name = [[NSString stringWithString:name] retain];
         _index = index;
     }
     

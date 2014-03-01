@@ -176,6 +176,7 @@
 				E1D968631893D55B0060FEEA /* polymake.xcconfig */,
 				72EBDFB8187CC3B700F86EDE /* list_props.pl */,
 				72965EE7156999CC0076B037 /* README */,
+				72BD024918849CF600837D78 /* polymakePerlScripts */,
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
@@ -189,9 +190,9 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E12E2890189520F000051EBD /* polymakeObject */,
 				E12E288E1895209100051EBD /* libpolymakeWrapper */,
-				72BD024918849CF600837D78 /* polymakePerlScripts */,
+				E12E2890189520F000051EBD /* polymakeObject */,
+				E14BDA6E18C297F200628AA4 /* database */,
 				E12E288F189520BB00051EBD /* AppController */,
 			);
 			name = Classes;
@@ -300,10 +301,17 @@
 				72EBDFBA187E07B400F86EDE /* PolymakeObjectPropertyTreeNode.m */,
 				E13DCBCF188AA84E00DF3519 /* PropertyNodeValue.h */,
 				E13DCBD0188AA84E00DF3519 /* PropertyNodeValue.m */,
+			);
+			name = polymakeObject;
+			sourceTree = "<group>";
+		};
+		E14BDA6E18C297F200628AA4 /* database */ = {
+			isa = PBXGroup;
+			children = (
 				E1AA8B6F18A6E6F50054DECF /* DatabaseAccess.h */,
 				E1AA8B7018A6E6F50054DECF /* DatabaseAccess.m */,
 			);
-			name = polymakeObject;
+			name = database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
