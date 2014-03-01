@@ -34,6 +34,19 @@
 @dynamic    propertyType;
 
 
+- (void) dealloc {
+    
+    [_propertyName dealloc];
+    [_propertType dealloc];
+    [_polyObj dealloc];
+    [_children dealloc];
+    [_value dealloc];
+    [_name dealloc];
+    
+    [super dealloc];
+}
+
+
 - (id)init {
     NSLog(@"[PolymakeObjectPropertyTreeNode init] called");
     
