@@ -34,18 +34,22 @@
 
 - (id)init {
     NSLog(@"[PropertyNode init] called");
+    
     self = [super init];
     if (self) {
         _polyObj = nil;
+
         _propertyName = @"undefined name";
         _propertType = nil;
         _name = nil;
         _index = 0;
-        isObject = nil;
+
+        isObject   = nil;
         isMultiple = nil;
-        isLeaf = nil;
-        _children = nil;
-        _value = nil;
+        isLeaf     = nil;
+        
+        _children  = nil;
+        _value     = nil;
     }
     
     return self;
@@ -57,8 +61,7 @@
     self = [super init];
     if (self) {
         _polyObj = polyObj;
-        _propertyName = propertyName;
-        [_propertyName retain];
+        _propertyName = [NSString stringWithString:propertyName];
         _name = nil;
         _index = 0;
         isObject = isObj;
@@ -77,22 +80,10 @@
 - (id)initWithName:(NSString *)propertyName andObj:(id) polyObj withIndex:(int)index withName:(NSString *)name asObject:(BOOL) isObj asMultiple:(BOOL) isMult asLeaf:(BOOL) isL {
     NSLog(@"[PropertyNode initWithName... (multiple)] called for name: %@ and with polyObj %@", propertyName, polyObj);
     
-    self = [super init];
+    self = [self initWithName:propertyName andObj:polyObj asObject:isObj asMultiple:isMult asLeaf:isL];
     if (self) {
-        _polyObj = polyObj;
-        _propertyName = propertyName;
-        [_propertyName retain];
-        _name = name;
-        [_name retain];
+        _name = [NSString stringWithString:name];
         _index = index;
-        isObject = isObj;
-        isMultiple = isMult;
-        isLeaf = isL;
-        
-        _children = nil;
-        _value = nil;
-        
-        [self propertyType];
     }
     
     NSLog(@"[PropertyNode initWithName...(multiple)] returning with %@", self);
@@ -105,18 +96,16 @@
 
     self = [super init];
     if (self) {
-        _polyObj = [polyObj retain];
-        _propertyName = [polyObj getObjectName];
-        [_propertyName retain];
-        _propertType = [polyObj getObjectType];
-        [_propertType retain];
+        _polyObj      = [polyObj retain];
+        _propertyName = [NSString stringWithString:[polyObj getObjectName]];
+        _propertType  = [NSString stringWithString:[polyObj getObjectType]];
         
-        isObject = TRUE;
-        isMultiple = FALSE;  //FIXME
-        isLeaf = FALSE;
+        isObject      = TRUE;
+        isMultiple    = FALSE;  //FIXME
+        isLeaf        = FALSE;
         
-        _children = nil;
-        _value = nil;
+        _children     = nil;
+        _value        = nil;
     }
     
     NSLog(@"[PropertyNode initWithObject] returning with %@",self);

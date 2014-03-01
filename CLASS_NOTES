@@ -23,6 +23,20 @@ Its only methods are for loading from a file or from the database
 
 PropertyNode
 
+ A node in the poroperty tree of a polymake object
+ The data at this node is kept in _value, the children (if any) in _children
+ Both _value and _children are set to nil by the initializers and only computed if actually needed in the view
+ 
+ The class is used both for inner nodes and for leaves. However, different variables are used in each case:
+ - for inner nodes, _polyObj points to the big polymake object (inside a PolymakeObjectWrapper) and _children points to the children
+ - for leaves, _polyObj points to the polymake big Object (inside a PolymakeObjectWrapper) this property is defined in (so, its parent in the tree) and _value contains the value
+ 
+ For multiple properties we define the variables _index and _name.
+ Note the difference between _propertyName and _name: The former is the name of property as defined by "propery XY" (e.g. "LP"), the name is a named assigned by the user (e.g. "my linear program")
+ 
+ for convenience, some meta properties of the node are stored alongside:
+ name and type of the property, wheter it is a polymake big object, multiple, or a leaf in the tree
+
 -------------------------------------
 
 PropertyNodeValue
