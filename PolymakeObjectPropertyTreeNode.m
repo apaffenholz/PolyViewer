@@ -22,14 +22,16 @@
 
 @implementation PolymakeObjectPropertyTreeNode
 
-@synthesize polyObj = _polyObj;
-@synthesize propertyName    = _propertyName;
-@dynamic    propertyType;
-@synthesize name    = _name;
-@synthesize index    = _index;
+@synthesize polyObj      = _polyObj;
+@synthesize propertyName = _propertyName;
+@synthesize name         = _name;
+@synthesize index        = _index;
+
 @synthesize isObject, isLeaf, isMultiple;
+
 @dynamic    children;
 @dynamic    value;
+@dynamic    propertyType;
 
 
 - (id)init {
@@ -151,6 +153,11 @@
 	return [_children retain];
 }
 
+
+
+// reset children to nil
+// used if a new property is computed
+// in this case we have to relead the children as we don't know wheter polymake computed further properties along the schedule
 - (void)resetChildren {
     NSLog(@"[PolymakeObjectPropertyTreeNode resetChildren] called");    
     [_children release];
@@ -166,31 +173,28 @@
     NSLog(@"[PolymakeObjectPropertyTreeNode value] entering");
     
 	if ( _value == nil ) {
-        NSLog(@"[PolymakeObjectPropertyTreeNode value] value not yet set");
-        
 		_value = [[PropertyNodeValue alloc] init];
+
 		if ( isLeaf ) {
-            NSLog(@"[PolymakeObjectPropertyTreeNode value] at a leaf");
-            
             [_value setData:[_polyObj getProperty:_propertyName]];
             if ( [[_value data] length] == 0 )
                 [_value setIsEmpty:YES];
                 
-            NSLog(@"[PolymakeObjectPropertyTreeNode value] value set: %@", _value);
             [_value retain];
-		}	else {
-            NSLog(@"[PolymakeObjectPropertyTreeNode value] not at a leaf");
-            
+		} else {
 			[_value setData:[[NSString alloc] initWithString:@"<no value>"]];
 		}
 	}
-    
-    NSLog(@"[PolymakeObjectPropertyTreeNode value] leaving");
+
 	return _value;
 }
 
+
+
+// obtain the type of the property (the return of $P->type->name)
 - (NSString *)propertyType {
-    
+
+    NSLog(@"[PolymakeObjectPropertyTreeNode propertyType] called");
     if ( _propertType == nil )  {
         
         if ( isObject ) {

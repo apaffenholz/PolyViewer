@@ -26,7 +26,7 @@
  Both _value and _children are set to nil by the initializers and only computed if actually needed in the view
  
  The class is used both for inner nodes and for leaves. However, different variables are used in each case:
- - for inner nodes, _polyObj points to the big polymake object (inside a PolymakeObjectWrapper) and _children points to the children
+ - for inner nodes, _polyObj points to the big polymake object (inside a PolymakeObjectWrapper) and _children points to the children. _values is set to "<no property>" to put something in the property view, so people don't think the comutation has failed.
  - for leaves, _polyObj points to the polymake big Object (inside a PolymakeObjectWrapper) this property is defined in (so, its parent in the tree) and _value contains the value
  
  For multiple properties we define the variables _index and _name.
