@@ -22,7 +22,7 @@
 		72965EE8156999CC0076B037 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 72965EE7156999CC0076B037 /* README */; };
 		72BD024D18849CF600837D78 /* list_props.pl in Resources */ = {isa = PBXBuildFile; fileRef = 72BD024B18849CF600837D78 /* list_props.pl */; };
 		72EBDFB5187BF97300F86EDE /* PolymakeObjectWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 72EBDFB4187BF97200F86EDE /* PolymakeObjectWrapper.mm */; };
-		72EBDFBB187E07B400F86EDE /* PropertyNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EBDFBA187E07B400F86EDE /* PropertyNode.m */; };
+		72EBDFBB187E07B400F86EDE /* PolymakeObjectPropertyTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EBDFBA187E07B400F86EDE /* PolymakeObjectPropertyTreeNode.m */; };
 		7AC8A16C18A45B1A00B53BFC /* poly.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8A16B18A45B1A00B53BFC /* poly.icns */; };
 		7AC8A16E18A463BD00B53BFC /* trop.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8A16D18A463BD00B53BFC /* trop.icns */; };
 		7AC8A17018A51A6500B53BFC /* graph.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8A16F18A51A6500B53BFC /* graph.icns */; };
@@ -91,8 +91,8 @@
 		72EBDFB3187BF97200F86EDE /* PolymakeObjectWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PolymakeObjectWrapper.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		72EBDFB4187BF97200F86EDE /* PolymakeObjectWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = PolymakeObjectWrapper.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		72EBDFB8187CC3B700F86EDE /* list_props.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; name = list_props.pl; path = scripts/list_props.pl; sourceTree = "<group>"; };
-		72EBDFB9187E07B400F86EDE /* PropertyNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PropertyNode.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		72EBDFBA187E07B400F86EDE /* PropertyNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PropertyNode.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		72EBDFB9187E07B400F86EDE /* PolymakeObjectPropertyTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PolymakeObjectPropertyTreeNode.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		72EBDFBA187E07B400F86EDE /* PolymakeObjectPropertyTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PolymakeObjectPropertyTreeNode.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7AC8A16B18A45B1A00B53BFC /* poly.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = poly.icns; path = icons/poly.icns; sourceTree = "<group>"; };
 		7AC8A16D18A463BD00B53BFC /* trop.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = trop.icns; path = icons/trop.icns; sourceTree = "<group>"; };
 		7AC8A16F18A51A6500B53BFC /* graph.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = graph.icns; path = icons/graph.icns; sourceTree = "<group>"; };
@@ -296,8 +296,8 @@
 			children = (
 				724211BD1564583E0077214A /* MainPolymakeObject.h */,
 				724211BE1564583E0077214A /* MainPolymakeObject.m */,
-				72EBDFB9187E07B400F86EDE /* PropertyNode.h */,
-				72EBDFBA187E07B400F86EDE /* PropertyNode.m */,
+				72EBDFB9187E07B400F86EDE /* PolymakeObjectPropertyTreeNode.h */,
+				72EBDFBA187E07B400F86EDE /* PolymakeObjectPropertyTreeNode.m */,
 				E13DCBCF188AA84E00DF3519 /* PropertyNodeValue.h */,
 				E13DCBD0188AA84E00DF3519 /* PropertyNodeValue.m */,
 				E1AA8B6F18A6E6F50054DECF /* DatabaseAccess.h */,
@@ -414,7 +414,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72EBDFBB187E07B400F86EDE /* PropertyNode.m in Sources */,
+				72EBDFBB187E07B400F86EDE /* PolymakeObjectPropertyTreeNode.m in Sources */,
 				8D15AC310486D014006FF6A4 /* PolymakeObjectController.m in Sources */,
 				7251383918786971004C9858 /* PolymakeInstanceWrapper.mm in Sources */,
 				E12E289E1897202F00051EBD /* RetrieveFromDBController.m in Sources */,

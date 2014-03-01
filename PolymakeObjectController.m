@@ -232,7 +232,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 		return [[[_polyObj rootPerl] children] count];
 	}
 	
-	PropertyNode * propNode = (PropertyNode *)item;
+	PolymakeObjectPropertyTreeNode * propNode = (PolymakeObjectPropertyTreeNode *)item;
     
     NSLog(@"[PolymakeObjectController outlineView:NumberOfChildrenOfItem:] returning number of children of node %@", [propNode propertyName]);
     NSLog(@"[PolymakeObjectController outlineView:NumberOfChildrenOfItem:] returning %lu children",(unsigned long)[[propNode children] count]);
@@ -249,7 +249,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 		return YES;
 	}
 	
-	PropertyNode * propNode = (PropertyNode *)item;
+	PolymakeObjectPropertyTreeNode * propNode = (PolymakeObjectPropertyTreeNode *)item;
 
     //NSLog(@"[PolymakeObjectController outlineView is Expandable] leaving, item is %@", [propNode propertyName]);
 	return ![propNode isLeaf];
@@ -266,7 +266,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 		return [[[_polyObj rootPerl] children] objectAtIndex:index];
 	}
     
-	PropertyNode *node = (PropertyNode *)item;
+	PolymakeObjectPropertyTreeNode *node = (PolymakeObjectPropertyTreeNode *)item;
     
     //NSLog(@"[PolymakeObjectController outlineView child ofItem] leaving]");
 	return [[node children] objectAtIndex:index];
@@ -277,7 +277,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 - (id)outlineView:(NSOutlineView *)ov objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
     //NSLog(@"[PolymakeObjectController outlineView child objectValueForTableColumn] entering");
 
-	PropertyNode *node = (PropertyNode *)item;
+	PolymakeObjectPropertyTreeNode *node = (PolymakeObjectPropertyTreeNode *)item;
     NSString *name = [NSString stringWithString:[node propertyName]];
     
     if ( [node isMultiple] ) {
@@ -327,7 +327,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 	
 		// get the property
 	if ( selectedItem != nil ) {
-		PropertyNode * propNode = (PropertyNode *)selectedItem;
+		PolymakeObjectPropertyTreeNode * propNode = (PolymakeObjectPropertyTreeNode *)selectedItem;
         [_propertyTypeField setStringValue:[propNode propertyType]];
         [_currentPropertyName setStringValue:[propNode propertyName]];
 		if ( [[propNode value] isEmpty] ) {

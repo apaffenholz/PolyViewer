@@ -64,7 +64,7 @@
         PolymakeObjectWrapper * temp = [[PolymakeObjectWrapper alloc ] initWithPolymakeObject:[input path]];
         
         if ( temp != nil ) {
-            _rootPerlNode = [[PropertyNode alloc] initWithObject:[temp retain]];
+            _rootPerlNode = [[PolymakeObjectPropertyTreeNode alloc] initWithObject:[temp retain]];
 
             // determine the object type of the given object
             // this is stored as an attribute of the root node
@@ -107,7 +107,7 @@
     if ( self = [super init] ) {
         
         // libpolymake initialize polymake object
-        _rootPerlNode = [[[PropertyNode alloc]
+        _rootPerlNode = [[[PolymakeObjectPropertyTreeNode alloc]
                           initWithObject:[[PolymakeObjectWrapper alloc]
                                           initWithPolymakeObjectFromDatabase:database andCollection:collection withID:ID]] retain];
                 

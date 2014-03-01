@@ -12,15 +12,15 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * PropertyNode.m
+ * PolymakeObjectPropertyTreeNode.m
  * PolyViewer
  **************************************************************************/
 
 
-#import "PropertyNode.h"
+#import "PolymakeObjectPropertyTreeNode.h"
 #import "PropertyNodeValue.h"
 
-@implementation PropertyNode
+@implementation PolymakeObjectPropertyTreeNode
 
 @synthesize polyObj = _polyObj;
 @synthesize propertyName    = _propertyName;
@@ -33,7 +33,7 @@
 
 
 - (id)init {
-    NSLog(@"[PropertyNode init] called");
+    NSLog(@"[PolymakeObjectPropertyTreeNode init] called");
     
     self = [super init];
     if (self) {
@@ -55,8 +55,12 @@
     return self;
 }
 
-- (id)initWithName:(NSString *)propertyName andObj:(id) polyObj asObject:(BOOL) isObj asMultiple:(BOOL) isMult asLeaf:(BOOL) isL {
-    NSLog(@"[PropertyNode initWithName...] called for name: %@ and with polyObj %@", propertyName, polyObj);
+- (id)initWithName:(NSString *)propertyName
+            andObj:(id)polyObj
+          asObject:(BOOL) isObj
+        asMultiple:(BOOL) isMult
+            asLeaf:(BOOL) isL {
+    NSLog(@"[PolymakeObjectPropertyTreeNode initWithName...] called for name: %@ and with polyObj %@", propertyName, polyObj);
 
     self = [super init];
     if (self) {
@@ -73,12 +77,18 @@
         [self propertyType];
     }
     
-    NSLog(@"[PropertyNode initWithName...] returning with %@", self);
+    NSLog(@"[PolymakeObjectPropertyTreeNode initWithName...] returning with %@", self);
     return self;
 }
 
-- (id)initWithName:(NSString *)propertyName andObj:(id) polyObj withIndex:(int)index withName:(NSString *)name asObject:(BOOL) isObj asMultiple:(BOOL) isMult asLeaf:(BOOL) isL {
-    NSLog(@"[PropertyNode initWithName... (multiple)] called for name: %@ and with polyObj %@", propertyName, polyObj);
+- (id)initWithName:(NSString *)propertyName
+            andObj:(id) polyObj
+         withIndex:(int)index
+          withName:(NSString *)name
+          asObject:(BOOL) isObj
+        asMultiple:(BOOL) isMult
+            asLeaf:(BOOL) isL {
+    NSLog(@"[PolymakeObjectPropertyTreeNode initWithName... (multiple)] called for name: %@ and with polyObj %@", propertyName, polyObj);
     
     self = [self initWithName:propertyName andObj:polyObj asObject:isObj asMultiple:isMult asLeaf:isL];
     if (self) {
@@ -86,13 +96,13 @@
         _index = index;
     }
     
-    NSLog(@"[PropertyNode initWithName...(multiple)] returning with %@", self);
+    NSLog(@"[PolymakeObjectPropertyTreeNode initWithName...(multiple)] returning with %@", self);
     return self;
 }
 
     
 - (id)initWithObject:(PolymakeObjectWrapper *)polyObj {
-    NSLog(@"[PropertyNode initWithObject] entering");
+    NSLog(@"[PolymakeObjectPropertyTreeNode initWithObject] entering");
 
     self = [super init];
     if (self) {
@@ -108,7 +118,7 @@
         _value        = nil;
     }
     
-    NSLog(@"[PropertyNode initWithObject] returning with %@",self);
+    NSLog(@"[PolymakeObjectPropertyTreeNode initWithObject] returning with %@",self);
     return self;
 }
 
@@ -116,33 +126,33 @@
 // as with the value this is only done if really needed
 // i.e. if the user opens the triangle in the display
 - (NSArray *)children {
-    NSLog(@"[PropertyNode children] called");
+    NSLog(@"[PolymakeObjectPropertyTreeNode children] called");
     
     if ( _children == nil ) {
-        NSLog(@"[PropertyNode children] children not yet defined");
+        NSLog(@"[PolymakeObjectPropertyTreeNode children] children not yet defined");
 
 		NSMutableArray *newChildren = [NSMutableArray array];
 
 		if ( isObject ) {            // okay, here we really have to do something
-            NSLog(@"[PropertyNode children] called for object");
+            NSLog(@"[PolymakeObjectPropertyTreeNode children] called for object");
 
             newChildren = [[_polyObj getPropertyListAtRootLevel] copy];
 		}
 
         _children = [newChildren sortedArrayUsingComparator:^NSComparisonResult(id first, id second) {
-                NSString *firstPropName  = [(PropertyNode *)first  propertyName];
-                NSString *secondPropName = [(PropertyNode *)second propertyName];
+                NSString *firstPropName  = [(PolymakeObjectPropertyTreeNode *)first  propertyName];
+                NSString *secondPropName = [(PolymakeObjectPropertyTreeNode *)second propertyName];
                 return [firstPropName compare:secondPropName];
         }];
         
     }
     
-    NSLog(@"[PropertyNode children] returning");
+    NSLog(@"[PolymakeObjectPropertyTreeNode children] returning");
 	return [_children retain];
 }
 
 - (void)resetChildren {
-    
+    NSLog(@"[PolymakeObjectPropertyTreeNode resetChildren] called");    
     [_children release];
     _children = nil;
     
@@ -153,29 +163,29 @@
 // remember that this is not done during initialization
 // but only if the user requests that property for display
 - (PropertyNodeValue *)value {
-    NSLog(@"[PropertyNode value] entering");
+    NSLog(@"[PolymakeObjectPropertyTreeNode value] entering");
     
 	if ( _value == nil ) {
-        NSLog(@"[PropertyNode value] value not yet set");
+        NSLog(@"[PolymakeObjectPropertyTreeNode value] value not yet set");
         
 		_value = [[PropertyNodeValue alloc] init];
 		if ( isLeaf ) {
-            NSLog(@"[PropertyNode value] at a leaf");
+            NSLog(@"[PolymakeObjectPropertyTreeNode value] at a leaf");
             
             [_value setData:[_polyObj getProperty:_propertyName]];
             if ( [[_value data] length] == 0 )
                 [_value setIsEmpty:YES];
                 
-            NSLog(@"[PropertyNode value] value set: %@", _value);
+            NSLog(@"[PolymakeObjectPropertyTreeNode value] value set: %@", _value);
             [_value retain];
 		}	else {
-            NSLog(@"[PropertyNode value] not at a leaf");
+            NSLog(@"[PolymakeObjectPropertyTreeNode value] not at a leaf");
             
 			[_value setData:[[NSString alloc] initWithString:@"<no value>"]];
 		}
 	}
     
-    NSLog(@"[PropertyNode value] leaving");
+    NSLog(@"[PolymakeObjectPropertyTreeNode value] leaving");
 	return _value;
 }
 

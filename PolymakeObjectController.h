@@ -21,7 +21,7 @@
 #import "ValueLineNumberView.h"
 #import "PropertyView.h"
 #import "PolymakeObjectWrapper.h"
-#import "PropertyNode.h"
+#import "PolymakeObjectPropertyTreeNode.h"
 #import "MainPolymakeObject.h"
 
 extern NSString * const PVValueFormattingDidChangeNotification;

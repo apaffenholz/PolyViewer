@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * PropertyNode.h
+ * PolymakeObjectPropertyTreeNode.h
  * PolyViewer
  **************************************************************************/
 
@@ -21,7 +21,7 @@
 #import "PolymakeObjectWrapper.h"
 
 /*
- A node in the poroperty tree of a polymake object
+ A node in the property tree of a polymake object
  The data at this node is kept in _value, the children (if any) in _children
  Both _value and _children are set to nil by the initializers and only computed if actually needed in the view
  
@@ -36,7 +36,7 @@
  name and type of the property, wheter it is a polymake big object, multiple, or a leaf in the tree
 
 */
-@interface PropertyNode : NSObject {
+@interface PolymakeObjectPropertyTreeNode : NSObject {
 
     NSString              * _propertyName;  // the property name
     NSString              * _propertType;   // the type of the property

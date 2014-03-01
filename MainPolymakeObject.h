@@ -19,12 +19,12 @@
 #import <Cocoa/Cocoa.h>
 #import "PolymakeInstanceWrapper.h"
 #import "PolymakeObjectWrapper.h"
-#import "PropertyNode.h"
+#import "PolymakeObjectPropertyTreeNode.h"
 
 
 @interface MainPolymakeObject : NSObject {
 
-    PropertyNode    * _rootPerlNode;
+    PolymakeObjectPropertyTreeNode    * _rootPerlNode;
 
 	NSURL           * _filename;   	  // currently this is not so useful
                                       // but we might want to extend to a viewer that keeps multiple files
@@ -48,7 +48,7 @@
 
 
 // properties
-@property (readonly, retain)  PropertyNode * rootPerl;
+@property (readonly, retain)  PolymakeObjectPropertyTreeNode * rootPerl;
 
 @property (readonly, retain)  NSURL        * filename;
 

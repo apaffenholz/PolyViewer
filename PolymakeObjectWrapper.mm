@@ -25,7 +25,7 @@
 #import "polymake/SparseMatrix.h"
 #import "polymake/Rational.h"
 
-#import "PropertyNode.h"
+#import "PolymakeObjectPropertyTreeNode.h"
 
 
 
@@ -265,11 +265,11 @@
                 } else {
                     _prop = self;
                 }
-                PropertyNode *propNode = [[PropertyNode alloc] initWithName:propName
-                                                                     andObj:_prop
-                                                                   asObject:(BOOL)prop.second[0]
-                                                                 asMultiple:prop.second[1]
-                                                                     asLeaf:!(BOOL)prop.second[0]];
+                PolymakeObjectPropertyTreeNode *propNode = [[PolymakeObjectPropertyTreeNode alloc] initWithName:propName
+                                                                                                         andObj:_prop
+                                                                                                       asObject:(BOOL)prop.second[0]
+                                                                                                     asMultiple:prop.second[1]
+                                                                                                         asLeaf:!(BOOL)prop.second[0]];
                 
                 [props addObject:propNode];
                 [propNode release];
@@ -298,14 +298,14 @@
                         propname = [NSString stringWithCString:namesOfMultiples[j] encoding:NSUTF8StringEncoding];
                     else
                         propname = @"";
-                    PropertyNode *propNode = [[PropertyNode alloc] initWithName:[NSString stringWithCString:prop.first.c_str()
-                                                                                                   encoding:NSUTF8StringEncoding]
-                                                                         andObj:_prop
-                                                                      withIndex:j
-                                                                       withName:propname
-                                                                       asObject:(BOOL)prop.second[0]
-                                                                     asMultiple:prop.second[1]
-                                                                         asLeaf:!(BOOL)prop.second[0]];
+                    PolymakeObjectPropertyTreeNode *propNode = [[PolymakeObjectPropertyTreeNode alloc] initWithName:[NSString stringWithCString:prop.first.c_str()
+                                                                                                                                       encoding:NSUTF8StringEncoding]
+                                                                                                             andObj:_prop
+                                                                                                          withIndex:j
+                                                                                                           withName:propname
+                                                                                                           asObject:(BOOL)prop.second[0]
+                                                                                                         asMultiple:prop.second[1]
+                                                                                                             asLeaf:!(BOOL)prop.second[0]];
                     
                     [props addObject:propNode];
                     [propNode release];

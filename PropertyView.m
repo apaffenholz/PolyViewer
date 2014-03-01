@@ -17,7 +17,7 @@
  **************************************************************************/
 
 #import "PropertyView.h"
-#import "PropertyNode.h"
+#import "PolymakeObjectPropertyTreeNode.h"
 
 
 @implementation PropertyView
@@ -55,7 +55,7 @@
     // FIXME a property at the same level (as for leaf nodes)
     // we can't stick with just adding subporperties as we have no visual "root node"
     //
-    PropertyNode * propNode = (PropertyNode *)[self itemAtRow:row];
+    PolymakeObjectPropertyTreeNode * propNode = (PolymakeObjectPropertyTreeNode *)[self itemAtRow:row];
     BOOL isObj = [propNode isObject];
     
     NSMenuItem * addPropItem = [[NSMenuItem alloc] initWithTitle:@"Compute property"
@@ -115,8 +115,8 @@
     } else {
     }
     
-    PropertyNode * propNode = (PropertyNode *)[self itemAtRow:row];
-    PropertyNode * parent = (PropertyNode *)[self parentForItem:[self itemAtRow:row]];
+    PolymakeObjectPropertyTreeNode * propNode = (PolymakeObjectPropertyTreeNode *)[self itemAtRow:row];
+    PolymakeObjectPropertyTreeNode * parent = (PolymakeObjectPropertyTreeNode *)[self parentForItem:[self itemAtRow:row]];
     if ( ![propNode isObject] ) {
         NSLog(@"[PropertyView addProperty] switching to parent");
         [[propNode polyObj] getProperty:_property];   //FIXME change this: we are computing the prop and throw away the result
@@ -170,7 +170,7 @@
     } else {
     }
     
-    PropertyNode * propNode = (PropertyNode *)[self itemAtRow:row];
+    PolymakeObjectPropertyTreeNode * propNode = (PolymakeObjectPropertyTreeNode *)[self itemAtRow:row];
     [[propNode polyObj] getProperty:_property];   //FIXME change this: we are computing the prop and throw away the result
     [propNode resetChildren];
     [self reloadItem:nil reloadChildren:YES];
