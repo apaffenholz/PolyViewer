@@ -23,6 +23,44 @@
 
 
 @synthesize data          = _data;
+@synthesize dataType      = _dataType;
 @synthesize isEmpty       = _isEmpty;
+
+
+- (void) dealloc {
+    [_data dealloc];
+    [_dataType dealloc];
+    [super dealloc];
+}
+
+
+- (id) init {
+    self = [super init];
+    if ( self ) {
+        _data     = nil;
+        _dataType = nil;
+        _isEmpty  = YES;
+    }
+    
+    return self;
+}
+
+- (id) initWithValue:(NSString *)value
+              ofType:(NSString *)type {
+    
+    self = [super init];
+    if ( self ) {
+        
+        _data = [value retain];
+        _dataType = [type retain];
+        if ( [_data length] == 0 )
+            _isEmpty = YES;
+        else
+            _isEmpty = NO;
+        
+    }
+    
+    return self;
+}
 
 @end

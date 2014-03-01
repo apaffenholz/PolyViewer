@@ -19,16 +19,32 @@
 
 #import <Foundation/Foundation.h>
 
+/*
+ 
+ The actual value of a property
+ only properties at the leaves of the porperty tree contain information
+ all others are just set to "no value"
+
+ FIXME: column alignment does not work currently
+ 
+ */
+
 @interface PropertyNodeValue : NSObject {
     
     NSString        * _data;
+    NSString        * _dataType;
     BOOL              _isEmpty;          // true if _data is empty
 	NSMutableArray  * _columnWidths;     // the widths of the columns for alignment. though always computed this is currently only useful for matrices
 }
 
 
-@property (readwrite,retain) NSString * data;
-@property (readwrite,assign) BOOL isEmpty;
+- (id) initWithValue:(NSString *)value
+              ofType:(NSString *)type;
+
+
+@property (readwrite,retain) NSString       * data;
+@property (readwrite,retain) NSString       * dataType;
+@property (readwrite,assign) BOOL             isEmpty;
 @property (readonly,retain)  NSMutableArray * columnWidths;
 
 @end
