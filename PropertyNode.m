@@ -27,7 +27,7 @@
 @dynamic    propertyType;
 @synthesize name    = _name;
 @synthesize index    = _index;
-@synthesize hasValue, isObject, isLeaf, isMultiple;
+@synthesize isObject, isLeaf, isMultiple;
 @dynamic    children;
 @dynamic    value;
 

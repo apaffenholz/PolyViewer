@@ -33,23 +33,31 @@
 	NSString        * _description;   // description 
 	NSDictionary    * _creditsDict;   // dictionary of credits for external software
     
+
     // database information, unused if source is a local file
     NSDictionary    * _databaseInfoDict;
-    BOOL            databaseObject;
+    BOOL              databaseObject;
 }
 
-@property (readonly, retain) NSString * objectType;
-@property (readonly, retain) NSURL* filename;
-@property (readonly, copy)   NSString * name;
-@property (readonly, copy)   NSString * description;
-@property (readonly, retain) NSDictionary* credits;
-@property (readonly, retain) NSDictionary* databaseInfo;
-@property (readonly, retain) PropertyNode* rootPerl;
-@property (readonly) BOOL databaseObject;
 
-- (id)init;
+// read from file
 - (id)initObjectWithURL:(NSURL *)input;
 
+// read from database
 - (id)retrieveFromDatabase:(NSString *)database andCollection:(NSString *)collection withID:(NSString *)ID;
+
+
+// properties
+@property (readonly, retain)  PropertyNode * rootPerl;
+
+@property (readonly, retain)  NSURL        * filename;
+
+@property (readonly, retain)  NSString     * objectType;
+@property (readonly, copy  )  NSString     * name;
+@property (readonly, copy  )  NSString     * description;
+@property (readonly, retain)  NSDictionary * credits;
+
+@property (readonly, retain)  NSDictionary * databaseInfo;
+@property (readonly)          BOOL           databaseObject;
 
 @end

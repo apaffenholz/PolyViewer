@@ -40,9 +40,8 @@
     BOOL                  isObject;         // the property corresponds to a perl::Object
     BOOL                  isMultiple;       // the property is multiple
 
-    // FIXME 
-    BOOL                  hasValue;         // FIXME do we need this?
-    BOOL                  isLeaf;           // FIXME the property has a value and is not a perl::Object. Do we still need this?
+    BOOL                  isLeaf;           // indicates that the property is a leaf of the property tree
+                                            // FIXME should be equivalent to !isObject
 }
 
 
@@ -55,15 +54,14 @@
 
 
 @property (readonly)      PolymakeObjectWrapper * polyObj;
-@property (readonly,copy) PropertyNodeValue * value;
-@property (readonly,copy) NSString * propertyName;
-@property (readonly,copy) NSString * propertyType;
-@property (readonly,copy) NSString * name;
-@property (readonly)      int index;
-@property (readonly)      NSArray * children;
-@property (readonly)      BOOL hasValue;        
-@property (readonly)      BOOL isObject;
-@property (readonly)      BOOL isLeaf;
-@property (readonly)      BOOL isMultiple;
+@property (readonly,copy) PropertyNodeValue     * value;
+@property (readonly,copy) NSString              * propertyName;
+@property (readonly,copy) NSString              * propertyType;
+@property (readonly,copy) NSString              * name;
+@property (readonly)      int                     index;
+@property (readonly)      NSArray               * children;
+@property (readonly)      BOOL                    isObject;
+@property (readonly)      BOOL                    isLeaf;
+@property (readonly)      BOOL                    isMultiple;
 
 @end
