@@ -41,6 +41,15 @@ PolymakeObjectPropertyTreeNode
 
 PropertyNodeValue
 
+ The actual value of a property
+ only properties at the leaves of the porperty tree contain information
+ all others are just set to "no value"
+
+ FIXME: column alignment does not work currently
+ 
+ 
+ 
+
 -------------------------------------
 
 DatabaseAccess
