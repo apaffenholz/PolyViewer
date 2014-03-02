@@ -20,6 +20,11 @@
 #import "PolymakeObjectPropertyTreeNode.h"
 #import "PropertyNodeValue.h"
 
+
+
+
+
+
 @implementation PolymakeObjectPropertyTreeNode
 
 @synthesize polyObj      = _polyObj;
@@ -123,7 +128,7 @@
     if (self) {
         _polyObj      = [polyObj retain];
         _propertyName = [NSString stringWithString:[polyObj getObjectName]];
-        _propertType  = [NSString stringWithString:[polyObj getObjectType]];
+        _propertType  = [NSString stringWithString:[polyObj getObjectType:NO]];
         
         isObject      = TRUE;
         isMultiple    = FALSE;  //FIXME
@@ -187,9 +192,9 @@
     
 	if ( _value == nil ) {
 		if ( isLeaf )
-            _value = [[[PropertyNodeValue alloc] initWithValue:[_polyObj getProperty:_propertyName] ofType:_propertType] retain];
+            _value = [[[PropertyNodeValue alloc] initWithValue:[_polyObj getProperty:_propertyName] ofType:[_polyObj getObjectType:YES]] retain];
         else
-            _value = [[[PropertyNodeValue alloc] initWithValue:@"<no value>" ofType:_propertType] retain];
+            _value = [[[PropertyNodeValue alloc] initWithValue:@"<no value>" ofType:[_polyObj getObjectType:YES]] retain];
 	}
 
 	return _value;
@@ -204,7 +209,7 @@
     if ( _propertType == nil )  {
         
         if ( isObject ) {
-            _propertType = [_polyObj getObjectType];
+            _propertType = [_polyObj getObjectType:NO];
         } else {
             _propertType = [_polyObj getPropertyType:_propertyName];
         }

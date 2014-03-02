@@ -18,12 +18,17 @@
 
 
 use application "common";
-use Try::Tiny;
 
 
 my $p = shift;
+my $full=shift;
+my $type;
 
-my $type = eval { $p->type->generic_name; };
+if ( $full ) {
+    $type = eval { $p->type->full_name; };
+} else {
+    $type = eval { $p->type->generic_name; };
+}
 
 if ( $@ ) {
     $type = "ERROR: $@";

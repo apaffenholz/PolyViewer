@@ -68,7 +68,7 @@
 
             // determine the object type of the given object
             // this is stored as an attribute of the root node
-            _objectType = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectType]];
+            _objectType = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectType:NO]];
             
             // check whether the polymake object has a name
             // as the type this would be an attribute of the root
@@ -113,7 +113,7 @@
                 
         // determine the object type of the given object
         // this is stored as an attribute of the root node
-        _objectType = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectType]];
+        _objectType = [NSString stringWithString:[[_rootPerlNode polyObj] getObjectType:NO]];
         
         // check whether the polymake object has a name
         // as the type this would be an attribute of the root

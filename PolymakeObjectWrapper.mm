@@ -137,12 +137,12 @@
 
 
 /**********************************************************************************/
-- (NSString *)getObjectType {
+- (NSString *)getObjectType:(BOOL)full {
     NSLog(@"[PolymakeObjectWrapper getObjectType] entering");
     
     NSString *objectType = @"";
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_object_type" ofType:@"pl"];
-    objectType = [[NSString alloc] initWithUTF8String:CallPolymakeFunction("script",[filePath UTF8String],p)];
+    objectType = [[NSString alloc] initWithUTF8String:CallPolymakeFunction("script",[filePath UTF8String],p,full ? 1 : 0)];
     if ( [objectType rangeOfString:@"ERROR"].location != NSNotFound ) {
         NSLog(@"[PolymakeObjectWrapper getObjectType] perl script failed");
         objectType = @"<unable to retrieve object type>";
@@ -336,7 +336,6 @@
 /**********************************************************************************/
 - (NSString *)getProperty:(NSString *)propertyName {
     NSLog(@"[PolymakeObjectWrapper getProperty] called for propertyName %@",propertyName);
-    NSLog(@"[PolymakeObjectWrapper getProperty] curretn ObjectType %@", [self getObjectType]);
     
     NSString * property = [[NSString alloc] init];
     

@@ -12,7 +12,7 @@ The class keeps the true polymake object in the variable _rootPerlNode. This poi
 The class stores some meta information on the object:
   - the name of the object (polymake shell equivalent: $p->name)
   - its description (polymake shell equivalent: $p->description)
-  - its big object type (polymake shell equivalent: $p->type->name)
+  - its big object type (polymake shell equivalent: $p->type->generic_name)
   - credits for external software used to compute the properties
   - extensions used (currently not implemented, the polymake data files don't store this information)
   - if the object has been loaded from the database, then we store the database infor tags id, contributor, date, collection, databsase

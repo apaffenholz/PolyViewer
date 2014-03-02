@@ -19,6 +19,14 @@
 
 #import <Foundation/Foundation.h>
 
+
+struct DataTypeStruct {
+    NSString * name;
+    NSArray  * templateParameters;
+};
+
+
+
 /*
  
  The actual value of a property
@@ -29,12 +37,14 @@
  
  */
 
+
 @interface PropertyNodeValue : NSObject {
     
-    NSString        * _data;
-    NSString        * _dataType;
-    BOOL              _isEmpty;          // true if _data is empty
-	NSMutableArray  * _columnWidths;     // the widths of the columns for alignment. though always computed this is currently only useful for matrices
+    NSString              * _data;
+    NSString              * _dataType;
+    struct DataTypeStruct   _dataTypeStructure;
+    BOOL                    _isEmpty;          // true if _data is empty
+	NSMutableArray        * _columnWidths;     // the widths of the columns for alignment. though always computed this is currently only useful for matrices
 }
 
 
