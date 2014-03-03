@@ -34,48 +34,60 @@ void splitDataType ( struct DataTypeStruct * dts, NSString * datatype ) {
         if (start.location != NSNotFound) {
             templateParamRange.location = start.location + start.length;
             templateParamRange.length = [datatype length] - templateParamRange.location;
-            NSRange end = [datatype rangeOfString:@">" options:0 range:templateParamRange];
+            NSRange end = [datatype rangeOfString:@">" options:NSBackwardsSearch range:templateParamRange];
             if (templateParamRange.location != NSNotFound)
                 templateParamRange.length = end.location - templateParamRange.location;
         }
-        NSString * templateParam = [datatype substringWithRange:templateParamRange];
+        NSMutableString * templateParam = (NSMutableString *)[datatype substringWithRange:templateParamRange];
         NSMutableArray * tp = [[NSMutableArray alloc] init];
 
         NSRange splitFurther = [templateParam rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"<,"]];
         if ( splitFurther.location != NSNotFound ) {
             NSMutableArray * tmsplit = [[NSMutableArray alloc] init];
-            int splitStart=0;
-            int splitEnd=0;
             int paren=0;
-            while ( splitEnd < [templateParam length] ) {
-                NSRange splitFurther = [templateParam rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"<>,"]];
-                if ( strcmp([templateParam characterAtIndex:splitFurther.location],"<") )
-                    ++paren;
-                if ( strcmp([templateParam characterAtIndex:splitFurther.location],">") )
-                    --paren;
-                if ( strcmp([templateParam characterAtIndex:splitFurther.location],",") )
-                    if ( paren == 0 ) {
-                        splitEnd = splitFurther.location;
-                        NSRange sub;
-                        sub.location = splitStart;
-                        sub.length = splitFurther.location-splitStart;
-                        [tmsplit addObject:[templateParam substringWithRange:sub]];
-                        splitStart = splitFurther.location+1;
-                        splitEnd = splitStart;
+            NSRange searchRange;
+            searchRange.location=0;
+            searchRange.length=[templateParam length];
+            BOOL end = NO;
+            while ( !end ) {
+                NSRange splitFurther = [templateParam rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"<>,"] options:0 range:searchRange];
+                if ( splitFurther.location != NSNotFound) {
+                    // FIXME
+                    // the following is a weird way to determine whether the character we found is a comma,
+                    // but all previous attempts ended with a bad access error
+                    // the same construction appears for < and > below
+                    if ( [[NSCharacterSet characterSetWithCharactersInString:@","] characterIsMember:[templateParam characterAtIndex:splitFurther.location]] ) {
+                        if ( paren == 0 ) {
+                            NSRange sub;
+                            sub.location = 0;
+                            sub.length = splitFurther.location;
+                            [tmsplit addObject:[templateParam substringWithRange:sub]];
+                            templateParam = (NSMutableString *)[templateParam substringFromIndex:sub.length+1];
+                            searchRange.location=0;
+                            searchRange.length=[templateParam length];
+                        } else {
+                            searchRange.location=splitFurther.location+1;
+                            searchRange.length=searchRange.length-splitFurther.location-1;
+                        }
                     }
-                if ( splitFurther.location == NSNotFound ) {
-                    NSRange sub;
-                    sub.location = splitStart;
-                    sub.length = splitFurther.location-splitStart;
-                    [tmsplit addObject:[templateParam substringWithRange:sub]];
+                    if ( [[NSCharacterSet characterSetWithCharactersInString:@"<"] characterIsMember:[templateParam characterAtIndex:splitFurther.location]] ) {                               searchRange.location=splitFurther.location+1;
+                        searchRange.length=searchRange.length-splitFurther.location-1;
+                        ++paren;
+                    }
+                    if ( [[NSCharacterSet characterSetWithCharactersInString:@">"] characterIsMember:[templateParam characterAtIndex:splitFurther.location]] ) {
+                        searchRange.location=splitFurther.location+1;
+                        searchRange.length=searchRange.length-splitFurther.location-1;
+                        --paren;
+                    }
+                } else {
+                    end = YES;
+                    [tmsplit addObject:templateParam];
                 }
             }
             for ( id st in tmsplit ) {
-                /*
                 struct DataTypeStruct dst_tmp;
                 splitDataType(&(dst_tmp), st);
-                 */
-                [tp addObject:st];
+                [tp addObject:[NSValue value:&dst_tmp withObjCType:@encode(struct DataTypeStruct)]];
             }
         } else {
             // no comma and no < means we have a single template param without any template params left.

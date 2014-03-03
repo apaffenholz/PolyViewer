@@ -23,8 +23,14 @@ use Try::Tiny;
 
 my $p = shift;
 my $prop = shift;
+my $full=shift;
+my $type;
 
-my $type = eval { $p->give($prop)->type->generic_name; };
+if ( $full ) {
+    $type = eval { $p->give($prop)->type->full_name; };
+} else {
+    $type = eval { $p->give($prop)->type->generic_name; };
+}
 
 if ( $@ ) {
     $type = "ERROR: $@";

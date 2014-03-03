@@ -191,10 +191,12 @@
     NSLog(@"[PolymakeObjectPropertyTreeNode value] entering");
     
 	if ( _value == nil ) {
-		if ( isLeaf )
-            _value = [[[PropertyNodeValue alloc] initWithValue:[_polyObj getProperty:_propertyName] ofType:[_polyObj getObjectType:YES]] retain];
-        else
-            _value = [[[PropertyNodeValue alloc] initWithValue:@"<no value>" ofType:[_polyObj getObjectType:YES]] retain];
+            NSString * prop = [_polyObj getProperty:_propertyName];
+		if ( isLeaf ) {
+            _value = [[[PropertyNodeValue alloc] initWithValue:prop ofType:[_polyObj getPropertyType:_propertyName withTemplates:YES]] retain];
+        } else {
+            _value = [[[PropertyNodeValue alloc] initWithValue:@"<no value>" ofType:[_polyObj getPropertyType:_propertyName withTemplates:YES]] retain];
+        }
 	}
 
 	return _value;
@@ -211,7 +213,7 @@
         if ( isObject ) {
             _propertType = [_polyObj getObjectType:NO];
         } else {
-            _propertType = [_polyObj getPropertyType:_propertyName];
+            _propertType = [_polyObj getPropertyType:_propertyName withTemplates:NO];
         }
     }
     
