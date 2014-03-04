@@ -22,33 +22,47 @@
 
 
 
-
+// we assume that the variable datatype is of the form NAME or NAME<TEMP1,TEMP2,...>
+// where TEMP1 etc may have template parameters themselves
 void splitDataType ( struct DataTypeStruct * dts, NSString * datatype ) {
-    
+   
+    // first check whether any template parameters are left
     NSArray * comp = [datatype componentsSeparatedByString:@"<"];
     dts->name = [comp objectAtIndex:0];
-    if ( [comp count] > 1 ) {
+    if ( [comp count] > 1 ) {     // we do have template params
         
         NSRange start = [datatype rangeOfString:@"<"];
         NSRange templateParamRange;
-        if (start.location != NSNotFound) {
+        if (start.location != NSNotFound) {  // we found an opening <,  now find the corresponding >
             templateParamRange.location = start.location + start.length;
             templateParamRange.length = [datatype length] - templateParamRange.location;
             NSRange end = [datatype rangeOfString:@">" options:NSBackwardsSearch range:templateParamRange];
             if (templateParamRange.location != NSNotFound)
                 templateParamRange.length = end.location - templateParamRange.location;
         }
+        
+        // templateParam will contain anzthing inbetween the outermost <...> pair of the input
+        // we still have to split this into its pieces, i.e. we have to check for , and split at the appropriate ones
+        // note that a comma may also appear within a template argument to one of the template arguments listed in templateParam
         NSMutableString * templateParam = (NSMutableString *)[datatype substringWithRange:templateParamRange];
         NSMutableArray * tp = [[NSMutableArray alloc] init];
 
-        NSRange splitFurther = [templateParam rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"<,"]];
+        // check for commas, if there are none, then we have a single template argument
+        NSRange splitFurther = [templateParam rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@","]];
+
         if ( splitFurther.location != NSNotFound ) {
+
+            // we found one, now we have to split on commas not contained in <...>
             NSMutableArray * tmsplit = [[NSMutableArray alloc] init];
+
+            // paren tells the level of parenthesis we are in
             int paren=0;
+            // set up a search range, we go through the string from beginning to end finding ",","<",">"
             NSRange searchRange;
             searchRange.location=0;
             searchRange.length=[templateParam length];
             BOOL end = NO;
+            
             while ( !end ) {
                 NSRange splitFurther = [templateParam rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"<>,"] options:0 range:searchRange];
                 if ( splitFurther.location != NSNotFound) {
@@ -57,6 +71,9 @@ void splitDataType ( struct DataTypeStruct * dts, NSString * datatype ) {
                     // but all previous attempts ended with a bad access error
                     // the same construction appears for < and > below
                     if ( [[NSCharacterSet characterSetWithCharactersInString:@","] characterIsMember:[templateParam characterAtIndex:splitFurther.location]] ) {
+                        
+                        // we found a comma.
+                        // we split at this comma iff we are not inside <...>
                         if ( paren == 0 ) {
                             NSRange sub;
                             sub.location = 0;
@@ -90,8 +107,10 @@ void splitDataType ( struct DataTypeStruct * dts, NSString * datatype ) {
                 [tp addObject:[NSValue value:&dst_tmp withObjCType:@encode(struct DataTypeStruct)]];
             }
         } else {
-            // no comma and no < means we have a single template param without any template params left.
-            [tp addObject:templateParam];
+            // no comma  means we have a single template param
+            struct DataTypeStruct dst_tmp;
+            splitDataType(&(dst_tmp), templateParam);
+            [tp addObject:[NSValue value:&dst_tmp withObjCType:@encode(struct DataTypeStruct)]];
         }
         [tp retain];
         dts->templateParameters = tp;
