@@ -20,6 +20,8 @@
 #import <Foundation/Foundation.h>
 
 
+// templateParameters holds an array of DataTypeStructs, one for each template parameter, or is nil
+// the template params may themselves be templated, if not, their property templateParameters points to nil
 struct DataTypeStruct {
     NSString * name;
     NSArray  * templateParameters;
@@ -51,6 +53,8 @@ struct DataTypeStruct {
 - (id) initWithValue:(NSString *)value
               ofType:(NSString *)type;
 
+
+- (NSString *) dataWithAlignedColumns:(BOOL)alignedCols;
 
 @property (readwrite,retain) NSString       * data;
 @property (readwrite,retain) NSString       * dataType;

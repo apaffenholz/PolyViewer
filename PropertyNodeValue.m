@@ -28,7 +28,7 @@ void splitDataType ( struct DataTypeStruct * dts, NSString * datatype ) {
    
     // first check whether any template parameters are left
     NSArray * comp = [datatype componentsSeparatedByString:@"<"];
-    dts->name = [comp objectAtIndex:0];
+    dts->name = [[comp objectAtIndex:0] retain];
     if ( [comp count] > 1 ) {     // we do have template params
         
         NSRange start = [datatype rangeOfString:@"<"];
@@ -87,7 +87,8 @@ void splitDataType ( struct DataTypeStruct * dts, NSString * datatype ) {
                             searchRange.length=searchRange.length-splitFurther.location-1;
                         }
                     }
-                    if ( [[NSCharacterSet characterSetWithCharactersInString:@"<"] characterIsMember:[templateParam characterAtIndex:splitFurther.location]] ) {                               searchRange.location=splitFurther.location+1;
+                    if ( [[NSCharacterSet characterSetWithCharactersInString:@"<"] characterIsMember:[templateParam characterAtIndex:splitFurther.location]] ) {
+                        searchRange.location=splitFurther.location+1;
                         searchRange.length=searchRange.length-splitFurther.location-1;
                         ++paren;
                     }
@@ -166,18 +167,25 @@ void splitDataType ( struct DataTypeStruct * dts, NSString * datatype ) {
 }
 
 
-- (NSString *) data {
-    
-    if ( [_dataType isEqualToString:@"Matrix"] ) {
-        
-        return [_data stringByReplacingOccurrencesOfString:@"\n" withString:@"\n"];
+- (NSString *) dataWithAlignedColumns:(BOOL)alignedCols {
+    NSLog(@"[PropertyNodeValue dataWithAlignedColumns:] called for dts %@",_dataTypeStructure.name);
+    if ( alignedCols ) {
+        if ( [_dataTypeStructure.name isEqualToString:@"Matrix"] ) {
+            NSValue *tp = _dataTypeStructure.templateParameters[0];
+            struct DataTypeStruct dts;
+            [tp getValue:&dts];
+            NSLog(@"[name is] %@",dts.name);
+            if ( [dts.name isEqualToString:@"Rational"] ) {
+                return [_data stringByReplacingOccurrencesOfString:@"\n" withString:@"\nr: "];
+            } else {
+                return _data;
+            }
+        } else
+            return _data;
     } else
         return _data;
     
 }
 
-- (void) setData:(NSString *)inputData {
-    _data = [inputData retain];
-}
 
 @end

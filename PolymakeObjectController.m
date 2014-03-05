@@ -334,7 +334,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 		  _currentPropertyValue = [[NSString alloc] initWithString:@"<empty property>"];
 		} else {
 			if ( [propNode isLeaf] ) {
-                NSString * proptemp = [[NSString alloc] initWithString:[[propNode value] data]];
+                NSString * proptemp = [[NSString alloc] initWithString:[[propNode value] dataWithAlignedColumns:_alignedColumns]];
                 NSLog(@"[PolymakeObjectController redrawValueTextView] setting prop:%@", proptemp);
                 _currentPropertyValue = [[NSString alloc] initWithString:proptemp];
                 [proptemp release];
