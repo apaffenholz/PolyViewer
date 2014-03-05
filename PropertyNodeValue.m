@@ -166,6 +166,9 @@ void splitDataType ( struct DataTypeStruct * dts, NSString * datatype ) {
     return self;
 }
 
+// format a matrix with scalar entries
+// FIXME this somehow needs a more generic approach
+// delegate to separate class?
 - (NSString *)formatMatrix:(NSString *)mat {
     
     NSArray * rows = [mat componentsSeparatedByString:@"\n"];

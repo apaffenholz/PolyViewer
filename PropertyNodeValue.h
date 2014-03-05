@@ -22,6 +22,7 @@
 
 // templateParameters holds an array of DataTypeStructs, one for each template parameter, or is nil
 // the template params may themselves be templated, if not, their property templateParameters points to nil
+// FIXME this is not really a clever way to store the type... retrieval of information is too complicated
 struct DataTypeStruct {
     NSString * name;
     NSArray  * templateParameters;
