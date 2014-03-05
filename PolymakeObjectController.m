@@ -97,7 +97,7 @@ NSString * const ComputePropertyOfRootNotification = @"ComputePropertyOfRoot";
 - (void)windowControllerDidLoadNib:(NSWindowController *) aController {
 	[super windowControllerDidLoadNib:aController];
 	   
-	NSFont * font = [NSFont systemFontOfSize:14];
+    NSFont * font = [NSFont fontWithName:@"Menlo" size:14];
     
     [_type setStringValue:[_polyObj objectType]];	           	// set object type
 //    [_type setStringValue:[[self polymakeObject] objectType]];
