@@ -166,6 +166,45 @@ void splitDataType ( struct DataTypeStruct * dts, NSString * datatype ) {
     return self;
 }
 
+- (NSString *)formatMatrix:(NSString *)mat {
+    
+    NSArray * rows = [mat componentsSeparatedByString:@"\n"];
+    NSLog(@"rows are: %@",rows);
+    NSMutableString * formatted_matrix = [[NSMutableString alloc] init];
+    
+    if ( [rows count] > 0 ) {
+        NSArray * elems = [[rows objectAtIndex:0] componentsSeparatedByString:@" "];
+        int *widths = malloc(sizeof(int) * [elems count]);
+        for ( int i = 0; i < [elems count]; ++i )
+            widths[i] = [elems[i] length];
+    
+        for ( int j = 1; j < [rows count]; ++j ) {
+            NSArray * elems = [rows[j] componentsSeparatedByString:@" "];
+            for ( int i = 0; i < [elems count]; ++i )
+                if ( [elems[i] length] > widths[i] )
+                    widths[i] = [elems[i] length];
+        
+        }
+        
+        for ( int j =0; j < [rows count]-1; ++j ) {
+            NSArray * elems = [rows[j] componentsSeparatedByString:@" "];
+            for ( int i=0; i < [elems count]; ++i ) {
+                NSString *format = [NSString stringWithFormat:@"%%%ds", widths[i]+1];
+                NSLog(@"format at col %d is: %@",i,format);
+                [formatted_matrix appendFormat:format,[elems[i] UTF8String]];
+            }
+            if ( j < [rows count]-1 ) {
+                NSLog(@"appending newline");
+                [formatted_matrix appendString:@"\n"];
+            }
+        }
+
+        free(widths);
+    }
+    
+    return formatted_matrix;
+}
+
 
 - (NSString *) dataWithAlignedColumns:(BOOL)alignedCols {
     NSLog(@"[PropertyNodeValue dataWithAlignedColumns:] called for dts %@",_dataTypeStructure.name);
@@ -176,7 +215,7 @@ void splitDataType ( struct DataTypeStruct * dts, NSString * datatype ) {
             [tp getValue:&dts];
             NSLog(@"[name is] %@",dts.name);
             if ( [dts.name isEqualToString:@"Rational"] ) {
-                return [_data stringByReplacingOccurrencesOfString:@"\n" withString:@"\nr: "];
+                return [self formatMatrix:_data];
             } else {
                 return _data;
             }
