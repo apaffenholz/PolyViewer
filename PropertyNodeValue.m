@@ -120,6 +120,12 @@ void splitDataType ( struct DataTypeStruct * dts, NSString * datatype ) {
     }
 }
 
+
+
+
+
+
+
 @implementation PropertyNodeValue
 
 @synthesize data          = _data;
@@ -212,19 +218,29 @@ void splitDataType ( struct DataTypeStruct * dts, NSString * datatype ) {
 - (NSString *) dataWithAlignedColumns:(BOOL)alignedCols {
     NSLog(@"[PropertyNodeValue dataWithAlignedColumns:] called for dts %@",_dataTypeStructure.name);
     if ( alignedCols ) {
+        
+
+        // Matrix
         if ( [_dataTypeStructure.name isEqualToString:@"Matrix"] ) {
             NSValue *tp = _dataTypeStructure.templateParameters[0];
             struct DataTypeStruct dts;
             [tp getValue:&dts];
             NSLog(@"[name is] %@",dts.name);
-            if ( [dts.name isEqualToString:@"Rational"] ) {
+            if ( dts.templateParameters == nil ) {  // no template parameters in the template parameters of the Matrix, hence scalar type
                 return [self formatMatrix:_data];
             } else {
                 return _data;
             }
-        } else
-            return _data;
-    } else
+            
+        }
+        
+        // handle Vectors, Arrays, ...
+        
+        return _data;
+        
+        
+        
+    } else  // we should not align data
         return _data;
     
 }

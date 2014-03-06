@@ -43,20 +43,32 @@ struct DataTypeStruct {
 
 @interface PropertyNodeValue : NSObject {
     
+    // the actual data as string
     NSString              * _data;
+    
+    // currently we keep the type of data both as a string and a DataTypeStruct
+    // FIXME one should go
     NSString              * _dataType;
     struct DataTypeStruct   _dataTypeStructure;
+    
     BOOL                    _isEmpty;          // true if _data is empty
-	NSMutableArray        * _columnWidths;     // the widths of the columns for alignment. though always computed this is currently only useful for matrices
-}
+
+} //interface end
 
 
+// init
 - (id) initWithValue:(NSString *)value
               ofType:(NSString *)type;
 
 
+// each time the data is requested we recompute an aligned version
+// FIXME for efficiency we could either store the aligned version
+//       or store a more structured version of the data that supports both aligned and non/aligned display
 - (NSString *) dataWithAlignedColumns:(BOOL)alignedCols;
 
+
+
+// synthesized class variables
 @property (readwrite,retain) NSString       * data;
 @property (readwrite,retain) NSString       * dataType;
 @property (readwrite,assign) BOOL             isEmpty;
