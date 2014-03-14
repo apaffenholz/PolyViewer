@@ -10,9 +10,6 @@
 
 @interface DatabaseAccess : NSObject {
     
-    NSString * _database;
-    NSString * _collection;
-    NSString * _ID;
     
     NSString * _reportNumberOfResults;
     
@@ -31,14 +28,31 @@
     
     // the list of available databases
     NSArray  * _databases;
+    // the currently chosen database
+    NSString * _database;
+    
+    // the list of collections in the currently chosen database
     NSArray  * _collections;
+    // the currently chosen collection
+    NSString * _collection;
 
+    // the list of IDs retrieved with given amount and skip
     NSArray  * _IDs;
+    // the selected ID
+    NSString * _ID;
     
 }
 
-@property (readwrite,copy)   NSArray * databases;
-@property (readwrite,copy)   NSArray * collections;
+- (IBAction)updateAdditionalPropertiesDict:(id)sender;
+- (NSString *) additionalPropertiesAsString;
+- (NSInteger)queryDBwithDatabase:db andCollection:coll;
+- (NSArray *)getIDsForDatabase:db andCollection:coll;
+
+
+// synthesized class variables
+@property (readwrite,copy)   NSArray  * databases;
+@property (readwrite,copy)   NSArray  * collections;
+@property (readwrite,copy)   NSArray  * IDs;
 @property (readwrite,copy)   NSString * database;
 @property (readwrite,copy)   NSString * collection;
 @property (readwrite,copy)   NSString * ID;
@@ -46,9 +60,5 @@
 @property (readwrite,retain) NSString * skip;
 @property (readwrite,copy)   NSString * amount;
     
-- (IBAction)updateAdditionalPropertiesDict:(id)sender;
-- (NSString *) additionalPropertiesAsString;
-- (NSInteger)queryDBwithDatabase:db andCollection:coll;
-- (NSArray *)getIDsForDatabase:db andCollection:coll;
-    
+
 @end

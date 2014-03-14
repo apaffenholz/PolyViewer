@@ -11,14 +11,15 @@
 
 @implementation DatabaseAccess
     
-@synthesize database = _database;
-@synthesize collection = _collection;
-@synthesize ID = _ID;
-@synthesize databases = _databases;
-@synthesize collections = _collections;
+@synthesize database              = _database;
+@synthesize collection            = _collection;
+@synthesize ID                    = _ID;
+@synthesize databases             = _databases;
+@synthesize collections           = _collections;
+@synthesize IDs                   = _IDs;
 @synthesize reportNumberOfResults = _reportNumberOfResults;
-@synthesize amount = _amount;
-@synthesize skip = _skip;
+@synthesize amount                = _amount;
+@synthesize skip                  = _skip;
     
     
     /***************************************************************/
