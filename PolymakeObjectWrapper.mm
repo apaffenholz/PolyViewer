@@ -50,8 +50,8 @@
 /**********************************************************************************/
 - (void)initWithPolymakeInstance:(PolymakeInstanceWrapper *)pinst
                      andPolytope:(NSString *)filename {
-   
-    polymake::perl::Object p = CallPolymakeFunction("load",filename);
+  
+  polymake::perl::Object p = CallPolymakeFunction("load",[filename UTF8String]);
 }
 
 

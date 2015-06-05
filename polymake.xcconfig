@@ -8,6 +8,6 @@
 // for your Mac with the provided run script
 // by uncommenting lines 7 to 19
 POLYMAKE_CFLAGS = -fPIC -Wall -Wno-logical-op-parentheses -Wno-shift-op-parentheses -Wno-duplicate-decl-specifier -O3 -DPOLYMAKE_DEBUG=0
-POLYMAKE_LDFLAGS = -L/Users/andreas/polymake/clang_devel_install/lib -stdlib=libstdc++ -flat_namespace
+POLYMAKE_LDFLAGS = -L/Users/andreas/polymake/polymake_git_install/lib -stdlib=libstdc++ -flat_namespace
 POLYMAKE_LIBS = -lpolymake -lpolymake-apps -lxml2
-POLYMAKE_INCLUDES = -I/Users/andreas/polymake/clang_devel_install/include -I/usr/include/c++/4.2.1 -I/Users/andreas/polymake/src/gmp-5.1.3-install/include -I/Users/andreas/polymake/src/mpfr-3.1.2-install/include
+POLYMAKE_INCLUDES = -I/Users/andreas/polymake/polymake_git_install/include -I/usr/include/c++/4.2.1 -I/Users/andreas/polymake/src/gmp-5.1.3-install/include -I/Users/andreas/polymake/src/mpfr-3.1.2-install/include

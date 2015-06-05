@@ -51,7 +51,6 @@
 		E1BE9A8118B0C27E00C91402 /* get_object_type.pl in Resources */ = {isa = PBXBuildFile; fileRef = 72BD024A18849CF600837D78 /* get_object_type.pl */; };
 		E1C9455218A1B17900E30E4E /* get_db_list.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1C9455018A1B07D00E30E4E /* get_db_list.pl */; };
 		E1C9455518A2C4EB00E30E4E /* get_db_collection_list.pl in Resources */ = {isa = PBXBuildFile; fileRef = E1C9455318A29FA000E30E4E /* get_db_collection_list.pl */; };
-		E1D968641893D55B0060FEEA /* polymake.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = E1D968631893D55B0060FEEA /* polymake.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -342,7 +341,7 @@
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0620;
 			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "PolyViewer" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -393,7 +392,6 @@
 				7AC8A16C18A45B1A00B53BFC /* poly.icns in Resources */,
 				7AC8A17018A51A6500B53BFC /* graph.icns in Resources */,
 				72965D041568E2BA0076B037 /* polyviewer.icns in Resources */,
-				E1D968641893D55B0060FEEA /* polymake.xcconfig in Resources */,
 				72965DFF156919040076B037 /* Preferences.xib in Resources */,
 				72965EE8156999CC0076B037 /* README in Resources */,
 			);
@@ -507,7 +505,7 @@
 				INFOPLIST_FILE = "PolyViewer-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -538,7 +536,7 @@
 				INFOPLIST_FILE = "PolyViewer-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
