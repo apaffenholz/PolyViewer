@@ -27,14 +27,11 @@ my $full=shift;
 my $type;
 
 
-# generic_type doesn't seem to exist anymore
-# further, asking for the type fails for perl types with
-#    Can't call method "type" without a package or object reference at input line 1.
-#if ( $full ) {
-    $type = eval { $p->give($prop)->type->full_name; };
-#} else {
-    $type = eval { $p->give($prop)->type->generic_name; };
-#}
+if ( $full ) {
+    $type = eval { $p->type->lookup_property($prop)->type->full_name; };
+} else {
+    $type = eval { $p->type->lookup_property($prop)->type->name; };
+}
 
 if ( $@ ) {
     $type = "ERROR: $@";
