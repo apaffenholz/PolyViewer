@@ -125,6 +125,7 @@
              NSLog(@"[PropertyView addProperty] parent is nil");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ComputePropertyOfRoot" object:_property];
         } else {
+            NSLog(@"[PropertyView addProperty] get prop of parent");
             [[parent polyObj] getProperty:_property];
         }
     }

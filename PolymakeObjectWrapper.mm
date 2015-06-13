@@ -349,6 +349,7 @@
     property = [[NSString alloc] initWithUTF8String:CallPolymakeFunction("script",[filePath UTF8String],p,[propertyName UTF8String])];
     
     if ( [property rangeOfString:@"ERROR"].location != NSNotFound ) {
+      NSLog(@"[PolymakeObjectWrapper getProperty] property is %@", property);
         if ([property rangeOfString:@"unknown"].location != NSNotFound) {
             [self showCommandFailedAlert:@"property unknown"];
         } else {

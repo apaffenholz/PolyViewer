@@ -26,7 +26,6 @@ my $prop = shift;
 my $full=shift;
 my $type;
 
-
 if ( $full ) {
     $type = eval { $p->type->lookup_property($prop)->type->full_name; };
 } else {
