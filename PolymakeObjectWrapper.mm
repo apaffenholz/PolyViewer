@@ -154,13 +154,15 @@
 
 /**********************************************************************************/
 - (NSString *)getPropertyType:(NSString *)property withTemplates:(BOOL)full {
-    NSLog(@"[PolymakeObjectWrapper getObjectType] entering");
+    NSLog(@"[PolymakeObjectWrapper getPropertyType] entering");
     
     NSString *propertyType = @"";
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"get_property_type" ofType:@"pl"];
     int i = full ? 1 : 0;
     propertyType = [[NSString alloc] initWithUTF8String:CallPolymakeFunction("script",[filePath UTF8String],p,[property UTF8String],i)];
-    if ( [propertyType rangeOfString:@"ERROR"].location != NSNotFound ) {
+
+  NSLog(@"propertyType is %@", propertyType);
+  if ( propertyType != nil && [propertyType rangeOfString:@"ERROR"].location != NSNotFound) {
         if ( [propertyType rangeOfString:@"without a package or object"].location != NSNotFound ) {
             propertyType = @"basic type";
         } else {

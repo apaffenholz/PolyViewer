@@ -27,7 +27,7 @@ my $type;
 if ( $full ) {
     $type = eval { $p->type->full_name; };
 } else {
-    $type = eval { $p->type->generic_name; };
+    $type = eval { $p->type->name; };
 }
 
 if ( $@ ) {

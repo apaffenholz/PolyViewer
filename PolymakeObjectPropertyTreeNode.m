@@ -193,7 +193,8 @@
 	if ( _value == nil ) {
             NSString * prop = [_polyObj getProperty:_propertyName];
 		if ( isLeaf ) {
-            _value = [[[PropertyNodeValue alloc] initWithValue:prop ofType:[_polyObj getPropertyType:_propertyName withTemplates:YES]] retain];
+//            _value = [[[PropertyNodeValue alloc] initWithValue:prop ofType:[_polyObj getPropertyType:_propertyName withTemplates:YES]] retain];
+            _value = [[[PropertyNodeValue alloc] initWithValue:prop ofType:[_polyObj getObjectType:_propertyName]] retain];
         } else {
             _value = [[[PropertyNodeValue alloc] initWithValue:@"<no value>" ofType:[_polyObj getPropertyType:_propertyName withTemplates:YES]] retain];
         }
